@@ -1,0 +1,135 @@
+.select-commit-card {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto 0;
+}
+
+.select-commit-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.select-commit-description {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.select-commit-section {
+  margin-bottom: 24px;
+}
+
+.form-select {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.96rem;
+  border: 1px solid #cfd8e6;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.form-select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+  transform: translateY(-1px);
+}
+
+.commit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.commit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid #dbe3f0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+
+.commit-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.08);
+}
+
+.commit-item.selected {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.commit-item input[type="radio"] {
+  margin-top: 4px;
+}
+
+.commit-content {
+  flex: 1;
+}
+
+.commit-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+
+.commit-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.88rem;
+  color: #6b7280;
+}
+
+.loading-text {
+  margin-top: 10px;
+  color: #2563eb;
+  font-weight: 500;
+  animation: pulseFade 1.2s infinite alternate;
+}
+
+.empty-box,
+.error-box {
+  padding: 14px 16px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+}
+
+.empty-box {
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  color: #64748b;
+}
+
+.error-box {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@keyframes pulseFade {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
