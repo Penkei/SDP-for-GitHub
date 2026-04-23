@@ -1,4 +1,3 @@
-#python -m uvicorn main:app --reload
 from urllib.parse import urlparse
 
 import requests
@@ -29,6 +28,14 @@ class CommitRequest(BaseModel):
     repoUrl: str
     pat: str
     branch: str
+    page: int = 1
+    per_page: int = 20
+
+
+class CommitShaRequest(BaseModel):
+    repoUrl: str
+    pat: str
+    sha: str
 
 
 def parse_repo_url(repo_url: str):
@@ -109,18 +116,20 @@ def get_repository_commits(request: CommitRequest):
             headers=get_headers(request.pat),
             params={
                 "sha": request.branch,
-                "per_page": 20
+                "per_page": request.per_page,
+                "page": request.page
             }
         )
         response.raise_for_status()
 
         commits_data = response.json()
+
         commits = [
             {
                 "sha": commit["sha"],
                 "message": commit["commit"]["message"],
-                "author": commit["commit"]["author"]["name"],
-                "date": commit["commit"]["author"]["date"]
+                "author": commit["commit"]["author"]["name"] if commit["commit"]["author"] else "Unknown",
+                "date": commit["commit"]["author"]["date"] if commit["commit"]["author"] else "Unknown"
             }
             for commit in commits_data
         ]
@@ -131,6 +140,8 @@ def get_repository_commits(request: CommitRequest):
                 "owner": owner,
                 "repo": repo,
                 "branch": request.branch,
+                "page": request.page,
+                "per_page": request.per_page,
                 "commits": commits
             }
         }
@@ -142,6 +153,52 @@ def get_repository_commits(request: CommitRequest):
                 message = e.response.json().get("message", message)
             except Exception:
                 pass
+        raise HTTPException(status_code=500, detail=message)
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/api/repository/commit-by-sha")
+def get_commit_by_sha(request: CommitShaRequest):
+    try:
+        owner, repo = parse_repo_url(request.repoUrl)
+        sha = request.sha.strip()
+
+        response = requests.get(
+            f"{GITHUB_API_URL}/repos/{owner}/{repo}/commits/{sha}",
+            headers=get_headers(request.pat)
+        )
+        response.raise_for_status()
+
+        commit = response.json()
+
+        commit_data = {
+            "sha": commit["sha"],
+            "message": commit["commit"]["message"],
+            "author": commit["commit"]["author"]["name"] if commit["commit"]["author"] else "Unknown",
+            "date": commit["commit"]["author"]["date"] if commit["commit"]["author"] else "Unknown"
+        }
+
+        return {
+            "success": True,
+            "data": commit_data
+        }
+
+    except requests.HTTPError as e:
+        message = "Failed to find commit SHA."
+        status_code = 500
+
+        if e.response is not None:
+            status_code = e.response.status_code
+            try:
+                message = e.response.json().get("message", message)
+            except Exception:
+                pass
+
+        if status_code == 404:
+            raise HTTPException(status_code=404, detail="Commit SHA not found in this repository.")
+
         raise HTTPException(status_code=500, detail=message)
 
     except Exception as e:

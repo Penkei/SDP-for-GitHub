@@ -133,3 +133,127 @@
     opacity: 1;
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 500;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-range {
+  min-width: 140px;
+  text-align: center;
+  font-weight: 600;
+  color: #374151;
+}
+
+.manual-sha-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.selected-commit-box {
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fbff 100%);
+  border: 1px solid #bfdbfe;
+}
+
+.selected-commit-title-text {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.selected-commit-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+
+.selected-commit-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.88rem;
+  color: #4b5563;
+  word-break: break-word;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 500;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-range {
+  min-width: 190px;
+  text-align: center;
+  font-weight: 600;
+  color: #374151;
+}
+
+@media (max-width: 768px) {
+  .manual-sha-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .selected-commit-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
+
+.selected-commit-box.error {
+  background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%);
+  border: 1px solid #fecaca;
+}
+
+.selected-commit-error {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #b91c1c;
+  word-break: break-word;
+}
