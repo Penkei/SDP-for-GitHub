@@ -1,0 +1,119 @@
+.table-card {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 0;
+  overflow-x: auto;
+}
+
+.prediction-table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.prediction-table th,
+.prediction-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.prediction-table th {
+  background: #f9fafb;
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.prediction-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.col-no {
+  width: 54px;
+}
+
+.col-file {
+  width: 360px;
+}
+
+.col-prediction {
+  width: 140px;
+}
+
+.col-probability {
+  width: 190px;
+}
+
+.col-risk {
+  width: 110px;
+}
+
+.col-recommendation {
+  width: 170px;
+}
+
+.col-explanation {
+  width: 460px;
+}
+
+.file-path-cell {
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  color: #1f2937;
+  word-break: break-word;
+}
+
+.probability-cell {
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.explanation-cell {
+  color: #4b5563;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.probability-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sort-icon-button {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 5px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.sort-icon-button:hover {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+
+.sort-table-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.sort-table-icon.rotate-up {
+  transform: rotate(180deg);
+}

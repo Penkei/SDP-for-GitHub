@@ -1,0 +1,15 @@
+.result-header {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.result-header h1 {
+  margin-top: 0;
+}
+
+.result-header p {
+  color: #4b5563;
+}
