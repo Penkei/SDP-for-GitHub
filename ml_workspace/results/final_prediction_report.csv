@@ -1,0 +1,4 @@
+file_path,prediction_label,defect_risk_probability,risk_level,recommendation,top_contributing_metrics
+src/UserService.java,Defective,0.8721084024598933,High,Review immediately,returnQty=5 (increase_defect_risk); comparisonsQty=10 (increase_defect_risk); rfc=20 (increase_defect_risk); nosi=12 (increase_defect_risk); lcom=4 (increase_defect_risk)
+src/AuthController.java,Defective,0.8631380844380517,High,Review immediately,rfc=45 (increase_defect_risk); lcom=10 (increase_defect_risk); loc=420 (increase_defect_risk); comparisonsQty=25 (increase_defect_risk); totalMethods=15 (increase_defect_risk)
+src/Helper.java,Non-defective,0.4277796394903638,Medium,Review if time permits,rfc=4 (decrease_defect_risk); comparisonsQty=1 (decrease_defect_risk); totalMethods=2 (increase_defect_risk); cbo=1 (decrease_defect_risk); nosi=2 (increase_defect_risk)

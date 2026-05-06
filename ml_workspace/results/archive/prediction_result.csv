@@ -1,0 +1,903 @@
+file_path,nosi,dit,cbo,rfc,loc,comparisonsQty,returnQty,wmc,lcom,totalMethods,loopQty,assignmentsQty,maxNestedBlocks,defect_prediction,defect_risk_probability,prediction_label,risk_level,recommendation
+temp_repo\app\common\src\main\java\org\apache\pdfbox\examples\util\DeletingRandomAccessFile.java,1,2,6,6,32,0,0,2,0,0,0,2,6,0,0.38705577918343875,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\AutoJobPostMapping.java,0,1,6,0,23,30,0,0,0,0,0,11,2,1,0.5942797202797203,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\AccountSecurityApi.java,0,1,7,0,35,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\AdminApi.java,0,1,7,0,35,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\AdminServerCertificateApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\AnalysisApi.java,0,1,7,0,25,0,0,0,0,0,0,2,1,1,0.5576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\ConfigApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\ConvertApi.java,0,1,7,0,25,0,0,0,0,0,0,2,1,1,0.5576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\DatabaseApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\DatabaseManagementApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\FilterApi.java,0,1,7,0,25,0,0,0,0,0,0,2,1,1,0.5576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\GeneralApi.java,0,1,7,0,25,0,0,0,0,0,0,2,1,1,0.5576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\InfoApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\InviteApi.java,0,1,7,0,26,0,0,0,0,0,0,2,1,1,0.5542797202797203,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\MiscApi.java,0,1,7,0,27,0,0,0,0,0,0,2,1,1,0.5542797202797203,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\PipelineApi.java,0,1,7,0,24,0,0,0,0,0,0,2,1,1,0.5576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\ProprietaryUiDataApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\SecurityApi.java,0,1,7,0,25,0,0,0,0,0,0,2,1,1,0.5576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\SettingsApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\TeamApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\UiDataApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\annotations\api\UserApi.java,0,1,7,0,33,0,0,0,0,0,0,2,1,1,0.550946386946387,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\aop\AutoJobAspect.java,13,1,24,62,238,35,12,33,9,9,2,28,9,1,0.8926016979745512,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\config\TempFileConfiguration.java,3,1,10,12,38,0,2,4,2,2,0,3,5,1,0.6566666666666666,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\config\TempFileShutdownHook.java,5,1,10,14,57,4,0,10,3,3,2,4,6,1,0.8035226419534682,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\AppConfig.java,14,1,25,69,239,13,49,44,28,31,0,40,5,1,0.8197984782707533,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\ConfigInitializer.java,28,1,16,64,116,10,0,14,1,1,0,15,5,1,0.7976244887089025,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\InstallationPathConfig.java,0,1,2,0,85,0,15,15,15,15,0,16,2,1,0.77421501203106,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\PostHogConfig.java,1,1,7,5,31,1,1,3,0,2,0,1,3,0,0.43814088598402323,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\PostHogLoggerImpl.java,0,1,3,7,33,0,0,6,5,5,0,0,3,0,0.4946437639258744,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\RuntimePathConfig.java,25,1,21,108,283,82,13,40,9,9,7,57,6,1,0.8936102603413747,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\SchedulingConfig.java,0,1,5,2,15,0,1,1,1,1,0,1,2,0,0.3800042178181519,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\YamlPropertySourceFactory.java,0,1,8,5,17,2,1,0,0,0,0,2,2,1,0.5405514805759304,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\configuration\interfaces\ShowAdminInterface.java,0,1,0,0,6,0,1,1,1,1,0,0,2,0,0.16666666666666666,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\constants\JwtConstants.java,0,1,1,0,14,8,0,1,1,1,0,8,2,1,0.87,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\model\ApplicationProperties.java,21,1,123,95,891,153,64,70,0,50,0,226,8,1,0.787006977443388,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\model\FileInfo.java,6,1,8,8,41,3,7,9,1,6,0,1,3,1,0.6753754669122396,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\FormFieldWithCoordinates.java,0,1,7,0,68,6,0,0,0,0,0,24,2,1,0.6933333333333334,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\PdfMetadata.java,0,1,5,0,20,0,0,0,0,0,0,0,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\GeneralFile.java,0,1,4,0,14,0,0,0,0,0,0,3,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\PDFFile.java,0,1,7,4,29,4,1,1,0,1,0,7,2,1,0.730980046823184,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\converters\EmlToPdfRequest.java,0,2,4,0,31,0,0,0,0,0,0,19,1,1,0.5933333333333334,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\converters\HTMLToPdfRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\misc\HighContrastColorCombination.java,0,1,0,0,7,0,0,0,0,0,0,0,1,1,0.6966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\misc\ReplaceAndInvert.java,0,1,0,0,7,0,0,0,0,0,0,0,1,1,0.6966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\security\RedactionArea.java,0,1,3,0,20,0,0,0,0,0,0,6,1,1,0.6133333333333333,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\api\security\UserSummaryDTO.java,0,1,3,0,14,0,0,0,0,0,0,0,1,1,0.6133333333333333,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\enumeration\Role.java,2,1,5,4,43,6,3,6,3,3,2,2,4,1,0.7776130536130537,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\model\enumeration\UsernameAttribute.java,0,1,1,0,22,0,0,0,0,0,0,1,2,0,0.31,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\model\exception\UnsupportedClaimException.java,0,2,0,0,6,0,0,1,1,1,0,0,2,0,0.14666666666666667,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\model\exception\UnsupportedProviderException.java,0,2,0,0,6,0,0,1,1,1,0,0,2,0,0.14666666666666667,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\model\job\JobProgress.java,0,1,3,0,13,0,0,0,0,0,0,0,1,1,0.6133333333333333,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\job\JobResponse.java,0,1,3,0,12,2,0,0,0,0,0,0,1,1,0.5533333333333333,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\job\JobResult.java,10,1,10,23,76,18,11,11,3,10,0,11,3,1,0.8173606895630671,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\model\job\JobStats.java,0,1,5,0,21,0,0,0,0,0,0,0,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\job\ResultFile.java,0,1,4,0,15,0,0,0,0,0,0,0,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\oauth2\GitHubProvider.java,0,2,4,4,71,11,7,9,8,8,0,11,3,1,0.6312431108389467,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\oauth2\GoogleProvider.java,0,2,4,5,70,10,7,9,8,8,0,12,3,1,0.6112431108389467,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\model\oauth2\KeycloakProvider.java,0,2,4,5,60,10,4,6,5,5,0,9,3,0,0.3199621098164591,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\model\oauth2\Provider.java,4,1,11,9,115,20,8,12,0,7,0,18,4,1,0.6865507968134379,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\CustomPDFDocumentFactory.java,57,1,44,144,516,123,58,59,11,11,2,60,6,1,0.8136178187263099,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\FileOrUploadService.java,2,1,9,4,60,2,9,7,6,7,0,2,3,1,0.8014577419446196,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\FileStorage.java,19,1,22,41,119,0,27,12,4,5,0,21,4,1,0.7625732190382872,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\JobExecutorService.java,30,1,24,178,414,79,35,60,12,13,0,65,10,1,0.8703058010983945,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\JobOwnershipService.java,0,1,1,0,8,2,4,0,0,0,0,0,1,0,0.43,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\JobQueue.java,13,1,22,96,323,60,26,52,21,21,3,46,8,1,0.8914028192167536,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\LicenseServiceInterface.java,0,1,0,0,6,0,3,0,0,0,0,0,1,0,0.4266666666666667,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\LineArtConversionService.java,0,1,3,0,9,0,0,0,0,0,0,0,1,1,0.62,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\MobileScannerService.java,23,1,29,105,294,39,26,54,26,27,2,50,8,1,0.8491225247766523,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\PdfMetadataService.java,11,1,11,89,142,9,8,16,8,8,0,22,5,1,0.7931929859371765,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\PdfSigningService.java,0,1,1,0,15,0,1,0,0,0,0,0,1,0,0.48,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\PersonalSignatureServiceInterface.java,0,1,1,0,5,0,1,0,0,0,0,0,1,1,0.52,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\PostHogService.java,31,1,21,180,280,28,6,24,6,7,1,24,5,1,0.777660298080059,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\ResourceMonitor.java,15,1,18,51,186,25,15,26,14,14,0,38,5,1,0.8561261876631314,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\ServerCertificateServiceInterface.java,0,1,6,0,28,0,0,0,0,0,0,0,2,1,0.5742797202797203,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\service\SsrfProtectionService.java,8,1,14,83,227,23,39,47,12,12,2,22,6,1,0.84287703853411,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\TaskManager.java,9,1,25,147,330,35,29,62,19,19,8,39,6,1,0.8438936743025857,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\TempFileCleanupService.java,32,1,24,136,340,37,10,46,10,11,3,44,9,1,0.8907067060382408,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\service\UserServiceInterface.java,0,1,0,0,9,0,0,0,0,0,0,0,1,1,0.7466666666666667,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\AppArgsCapture.java,3,1,6,6,19,6,0,1,1,1,0,1,3,1,0.7579028287613266,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\ApplicationContextProvider.java,0,1,4,3,44,17,12,9,3,3,0,1,3,1,0.5766666666666667,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\AttachmentUtils.java,2,1,7,14,33,38,0,4,1,1,0,4,5,1,0.8247345765145542,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\CbrUtils.java,20,1,31,90,219,18,10,33,8,8,5,30,9,1,0.773792156158351,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\CbzUtils.java,19,2,35,90,207,21,11,31,7,7,5,40,8,1,0.8290286903535703,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\CheckProgramInstall.java,6,1,4,11,52,3,9,8,4,4,0,12,4,1,0.7614496366463942,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\ChecksumUtils.java,13,1,25,52,143,78,24,16,1,1,10,23,5,1,0.8239091577639269,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\CustomHtmlSanitizer.java,1,1,10,22,55,1,4,6,4,4,0,7,4,1,0.8684612580815437,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\EmlParser.java,13,1,34,114,377,78,34,66,0,18,4,62,7,1,0.870228596484189,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\EmlProcessingUtils.java,41,1,29,220,530,217,33,69,18,18,5,105,8,1,0.7149681949209785,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\EmlToPdf.java,11,1,6,17,91,2,6,5,1,1,0,7,4,1,0.7857293569261143,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\ErrorUtils.java,0,1,9,10,24,0,2,2,2,2,0,5,2,1,0.5001851961552216,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\ExceptionUtils.java,70,2,71,174,844,157,134,139,88,88,3,122,8,0,0.3507652797651904,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\util\ExecutorFactory.java,3,1,3,5,14,0,2,3,3,3,0,0,2,0,0.4820256998932871,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\FileMonitor.java,12,1,16,65,191,45,6,39,9,10,5,34,7,1,0.9447638400338327,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\FileReadinessChecker.java,8,1,15,50,145,29,23,24,6,6,0,13,5,1,0.8385004174034284,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\FileToPdf.java,16,1,26,82,149,10,4,11,2,2,2,21,7,1,0.7743478426799693,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\FormFieldTypeSupport.java,17,2,34,95,323,40,21,48,18,18,1,35,6,1,0.8700573080817579,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\FormUtils.java,66,2,67,831,1983,525,155,405,67,67,43,302,10,1,0.6854329531677968,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\GeneralFormCopyUtils.java,7,2,26,82,299,54,9,36,7,7,5,48,7,1,0.8396262854131415,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\GeneralFormFieldTypeSupport.java,0,2,19,29,143,12,12,21,10,10,1,15,4,1,0.8573867706734779,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\GeneralUtils.java,101,1,52,360,848,209,122,188,38,38,24,148,8,1,0.7975145359628718,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\ImageProcessingUtils.java,8,1,21,43,136,16,10,17,5,5,1,27,6,1,0.8986777955608276,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\JarPathUtil.java,7,1,6,28,61,3,9,12,5,5,1,10,5,1,0.8250278728630668,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\JobContext.java,3,1,0,3,13,4,1,3,3,3,0,1,2,1,0.5942797202797203,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\PdfAttachmentHandler.java,26,2,64,236,574,112,40,82,14,23,12,124,6,1,0.7890150657485294,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\PdfErrorUtils.java,0,1,1,18,29,1,7,4,3,3,0,0,2,1,0.700946386946387,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\PDFService.java,0,1,8,2,21,2,2,1,0,0,1,2,3,0,0.4820256998932871,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\PdfToCbrUtils.java,22,1,25,65,155,21,5,21,3,3,3,21,7,1,0.8882139469142654,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\PdfToCbzUtils.java,11,1,18,27,91,6,4,11,2,2,1,13,6,1,0.7563760514113744,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\PDFToFile.java,34,1,43,164,324,58,12,41,9,9,5,76,8,1,0.8981981940657814,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\PdfUtils.java,46,1,64,225,543,65,18,56,5,5,13,129,10,1,0.7825908365697631,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\ProcessExecutor.java,15,1,40,187,489,93,13,64,10,11,4,65,7,1,0.8959116956519089,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\PropertyConfigs.java,10,1,1,10,30,12,6,12,4,4,2,8,3,1,0.8511667071587639,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\ProviderUtils.java,0,1,3,3,21,1,5,5,1,1,0,0,3,1,0.5881408859840233,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\RegexPatternUtils.java,2,1,12,15,320,61,95,93,88,88,0,25,4,1,0.5146050050939162,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\RequestUriUtils.java,0,1,0,90,150,3,19,19,7,7,1,4,4,1,0.7568199602783457,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\SpringContextHolder.java,0,1,5,11,49,13,10,7,3,3,0,2,4,1,0.7387023782317901,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\SvgSanitizer.java,13,1,37,85,228,30,22,40,10,10,5,32,6,1,0.9200573080817581,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\TempDirectory.java,1,1,3,6,30,0,4,5,5,5,0,2,3,0,0.46217492678620753,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\TempFile.java,0,1,5,6,32,0,4,5,5,5,0,2,3,0,0.393085257047466,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\util\TempFileManager.java,22,1,13,76,148,10,25,25,8,8,1,25,6,1,0.7569122713202879,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\TempFileRegistry.java,7,1,13,46,88,24,17,17,10,10,0,5,4,1,0.8752451961037783,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\TempFileUtil.java,1,1,8,15,79,33,12,13,5,5,4,6,5,1,0.5771261800035115,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\UIScaling.java,7,1,3,16,48,2,9,10,8,8,0,12,3,1,0.8172181472425971,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\UnoServerPool.java,2,1,10,12,68,17,6,11,5,5,1,10,4,1,0.7434020685293952,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\UrlUtils.java,1,1,4,5,27,0,4,5,3,3,1,6,3,1,0.5033333333333333,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\ValidationUtils.java,0,1,1,2,10,4,2,2,2,2,0,0,2,1,0.8,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\WebResponseUtils.java,10,1,18,39,110,25,13,3,0,0,0,12,5,1,0.7897454539576961,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\YamlHelper.java,26,1,56,116,352,79,57,90,32,35,9,60,8,1,0.6800802711924832,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\misc\ColorSpaceConversionStrategy.java,3,2,20,31,68,5,2,3,1,1,0,15,5,1,0.8083590194924902,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\misc\CustomColorReplaceStrategy.java,9,2,32,51,144,10,3,17,1,4,4,30,8,1,0.8541492918082686,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\misc\HighContrastColorReplaceDecider.java,0,1,2,0,22,4,5,8,4,4,0,0,4,1,0.6884775498067203,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\misc\InvertFullColorStrategy.java,10,2,28,43,143,17,3,11,4,4,2,33,9,1,0.8325612353680699,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\misc\PdfTextStripperCustom.java,1,2,6,9,22,8,1,0,0,0,0,1,2,1,0.5932726939772425,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\common\util\misc\ReplaceAndInvertColorStrategy.java,0,2,7,0,18,0,0,1,0,1,0,2,2,0,0.37333333333333335,Non-defective,Low,Low priority
+temp_repo\app\common\src\main\java\stirling\software\common\util\propertyeditor\StringToArrayListPropertyEditor.java,1,2,10,8,34,11,1,2,0,0,0,3,4,1,0.7552261072261072,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\common\util\propertyeditor\StringToMapPropertyEditor.java,1,2,7,3,21,8,0,1,0,0,0,3,4,1,0.593445160678371,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\SPDF\config\EndpointConfiguration.java,10,1,11,138,528,106,25,66,25,25,7,38,6,1,0.7535956003542374,Defective,High,Review immediately
+temp_repo\app\common\src\main\java\stirling\software\SPDF\config\swagger\ErrorResponse.java,0,1,4,0,23,0,0,0,0,0,0,9,2,1,0.5833333333333334,Defective,Medium,Review if time permits
+temp_repo\app\common\src\main\java\stirling\software\SPDF\config\swagger\StandardPdfResponse.java,0,1,8,0,40,0,1,0,0,0,0,21,1,1,0.6876130536130537,Defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\annotations\AutoJobPostMappingIntegrationTest.java,5,1,29,77,121,15,2,1,0,1,0,9,3,1,0.8336347774114885,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\configuration\interfaces\ShowAdminInterfaceTest.java,0,1,3,1,11,0,1,1,1,1,0,1,2,0,0.31,Non-defective,Low,Low priority
+temp_repo\app\common\src\test\java\stirling\software\common\model\ApplicationPropertiesDynamicYamlPropertySourceTest.java,4,1,14,13,46,5,0,1,1,1,0,9,3,1,0.8189281882234022,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\model\ApplicationPropertiesLogicTest.java,20,1,13,132,180,12,0,14,14,14,0,27,2,1,0.7203521764196783,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\model\ApplicationPropertiesSaml2HttpTest.java,6,1,16,25,60,7,0,2,2,2,0,12,4,1,0.7496352443565423,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\model\ApplicationPropertiesSaml2ResourceTest.java,4,1,8,27,45,0,0,0,0,0,0,9,3,1,0.8138890317274157,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\model\FileInfoTest.java,10,1,16,16,146,4,0,8,8,8,0,16,3,1,0.8094790040603104,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\model\exception\UnsupportedClaimExceptionTest.java,0,1,5,2,25,0,0,2,2,2,0,3,2,0,0.375196665167462,Non-defective,Low,Low priority
+temp_repo\app\common\src\test\java\stirling\software\common\service\CustomPDFDocumentFactoryTest.java,15,1,28,54,165,2,2,1,0,1,0,45,4,1,0.8055964309256013,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\service\FileStorageTest.java,11,1,14,49,118,3,1,5,2,5,0,30,3,1,0.8099884284604191,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\service\JobExecutorServiceTest.java,4,1,28,44,134,47,2,4,0,2,1,22,4,1,0.8089719385420189,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\service\JobQueueTest.java,0,1,14,27,73,17,0,6,4,6,0,13,2,1,0.836651614713825,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\service\ResourceMonitorTest.java,10,1,21,22,98,8,0,4,1,4,0,12,2,1,0.7440523504195287,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\service\SpyPDFDocumentFactory.java,0,2,1,1,27,2,1,5,2,3,0,4,3,0,0.40055148057593043,Non-defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\service\TaskManagerTest.java,9,1,15,109,203,5,0,11,8,11,0,43,2,1,0.7698978452866884,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\service\TempFileCleanupServiceTest.java,89,1,25,279,352,81,27,9,0,3,0,58,5,1,0.7599242599353218,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\AppArgsCaptureTest.java,11,1,7,24,44,0,0,5,4,5,0,7,3,1,0.7796151053013799,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ApplicationContextProviderTest.java,11,1,11,40,88,0,0,12,11,12,0,9,2,1,0.8764440965173994,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\AttachmentUtilsTest.java,5,1,12,19,59,1,0,7,4,4,0,9,3,1,0.8018595558734469,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\CbrUtilsTest.java,12,1,4,38,79,4,0,12,12,12,0,11,2,1,0.831343363886048,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\CbzUtilsTest.java,18,1,4,56,115,4,0,18,18,18,0,17,2,1,0.621984261938838,Defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\util\CheckProgramInstallTest.java,47,1,22,120,171,5,3,3,0,2,0,21,3,1,0.7192764111331523,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ChecksumUtilsAdditionalTest.java,21,1,20,32,165,8,1,2,2,2,0,38,4,1,0.8072387420165208,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ChecksumUtilsTest.java,7,1,14,12,45,7,0,0,0,0,0,12,3,1,0.7709202282398919,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\CustomHtmlSanitizerTest.java,4,1,18,121,307,401,4,25,21,24,1,98,3,1,0.6797631294100094,Defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\util\EmlParserTest.java,11,1,4,12,75,3,4,11,11,11,0,16,3,1,0.8299407323758926,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\EmlProcessingUtilsTest.java,33,1,4,41,247,19,12,33,33,33,0,37,4,1,0.7312831588806779,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\EmlToPdfTest.java,43,1,39,147,909,231,15,26,18,22,2,174,6,1,0.65927356808921,Defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\util\ErrorUtilsTest.java,7,1,15,23,88,1,1,7,7,7,0,21,3,1,0.8292864544024777,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ExceptionUtilsTest.java,50,1,36,125,294,24,0,35,35,35,0,49,4,1,0.7027709907446572,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ExecutorFactoryTest.java,6,1,14,27,75,7,2,2,2,2,0,11,3,1,0.7742074707106705,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\FileMonitorTest.java,6,1,14,26,78,15,1,0,0,0,0,21,2,1,0.7907311993244667,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\FileReadinessCheckerTest.java,14,1,33,78,259,587,1,4,2,2,0,32,5,1,0.7420406523331483,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\FileToPdfTest.java,11,1,2,19,61,0,3,11,11,11,0,11,2,1,0.810946386946387,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\FormFieldTypeSupportTest.java,23,1,37,32,143,0,0,26,17,17,0,27,3,1,0.7135247492649625,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\FormUtilsAdditionalTest.java,49,1,48,97,241,27,1,15,15,15,0,49,3,1,0.7530007976923065,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\FormUtilsTest.java,6,1,30,34,94,9,1,2,1,1,0,15,3,1,0.7978384167260851,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\GeneralFormCopyUtilsTest.java,8,1,25,26,84,2,1,0,0,0,0,15,3,1,0.7337793070532829,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\GeneralFormFieldTypeSupportTest.java,25,1,39,25,131,0,0,3,3,3,0,30,3,1,0.7310743438638403,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\GeneralUtilsAdditionalTest.java,38,1,2,38,55,0,0,4,4,4,0,0,2,1,0.7457057087211536,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\GeneralUtilsTest.java,87,1,12,112,304,90,9,39,32,32,4,45,6,1,0.6449801585831245,Defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\util\ImageProcessingUtilsTest.java,11,1,18,25,89,2,0,11,11,11,0,23,2,1,0.8358741740520841,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\JarPathUtilTest.java,7,1,3,14,38,0,2,6,5,5,0,6,3,1,0.7181163033130608,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\JobContextTest.java,15,1,5,17,51,1,1,5,5,5,0,1,3,1,0.7523960235927812,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PdfAttachmentHandlerTest.java,13,1,7,36,81,18,0,9,9,9,0,14,2,1,0.8505683034599214,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PdfErrorUtilsTest.java,8,1,13,8,73,0,0,8,8,8,0,10,2,1,0.8123152092665051,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PDFServiceTest.java,4,1,18,27,75,5,1,5,0,2,2,16,4,1,0.7780000548092765,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PdfToCbrUtilsTest.java,10,1,4,32,67,4,0,10,10,10,0,9,2,1,0.8437855477855479,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PdfToCbzUtilsTest.java,9,1,4,29,61,4,0,9,9,9,0,8,2,1,0.8161724941724943,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PDFToFileTest.java,52,1,51,303,617,190,13,21,0,0,9,105,6,1,0.7257720820269943,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PdfUtilsTest.java,33,1,63,77,202,8,0,5,5,5,0,42,3,1,0.7990486083752384,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ProcessExecutorTest.java,12,1,6,24,99,14,1,13,12,12,0,8,3,1,0.84340333887743,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\PropertyConfigsTest.java,24,1,4,24,65,0,0,11,11,11,0,2,2,1,0.8055482000496782,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ProviderUtilsAdditionalTest.java,10,1,12,37,82,0,0,10,10,10,0,9,2,1,0.8666412668020678,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ProviderUtilsTest.java,9,1,17,15,39,2,1,3,3,3,0,4,2,1,0.794255137608758,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\RegexPatternUtilsTest.java,3,1,4,42,80,4,0,8,7,8,0,20,2,1,0.8536642614896333,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\RequestUriUtilsTest.java,32,1,2,32,124,0,0,29,29,29,0,0,2,1,0.7250877560432519,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\SpringContextHolderTest.java,4,2,8,12,47,0,0,6,4,6,0,6,3,1,0.7766520956675407,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\SvgSanitizerTest.java,0,1,15,25,84,58,0,4,1,4,0,35,2,1,0.7683203625321013,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\TempDirectoryTest.java,6,1,14,31,76,3,6,0,0,0,0,15,3,1,0.8096910236610491,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\TempFileManagerTest.java,5,1,14,53,113,1,0,7,4,7,0,19,2,1,0.8560949792027907,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\TempFileRegistryTest.java,11,1,10,58,103,4,0,4,3,4,0,17,2,1,0.8452358215959059,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\TempFileTest.java,0,1,16,29,65,0,0,1,0,1,0,13,3,1,0.7327876625449997,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\TempFileUtilTest.java,21,1,14,44,109,4,2,5,2,3,2,20,4,1,0.7997601079672728,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\UIScalingTest.java,24,1,40,90,209,3,4,22,19,21,0,47,3,1,0.7234959880434522,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\UnoServerPoolTest.java,9,1,23,85,163,28,2,4,0,0,2,43,5,1,0.7743431556040812,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\UrlUtilsTest.java,13,1,4,69,93,2,0,11,11,11,0,12,2,1,0.8255853850101861,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\ValidationUtilsTest.java,14,1,5,14,40,2,0,7,7,7,0,0,2,1,0.725944173679348,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\WebResponseUtilsTest.java,7,1,12,39,72,14,0,0,0,0,0,16,2,1,0.7600132950239867,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\YamlHelperTest.java,24,1,20,56,134,6,1,13,13,13,0,28,2,1,0.8021315026209305,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\misc\CustomColorReplaceStrategyTest.java,0,1,13,14,78,0,0,5,1,3,0,9,4,1,0.730311981374157,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\misc\HighContrastColorReplaceDeciderTest.java,8,1,4,8,69,0,6,6,6,6,0,18,3,1,0.7266174015471643,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\misc\InvertFullColorStrategyTest.java,2,1,35,35,109,2,1,1,0,0,0,17,4,1,0.788916748486964,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\misc\PdfTextStripperCustomTest.java,1,1,10,14,39,0,0,2,0,1,0,4,3,1,0.6737224458501054,Defective,Medium,Review if time permits
+temp_repo\app\common\src\test\java\stirling\software\common\util\misc\ReplaceAndInvertColorStrategyTest.java,0,2,16,14,74,0,1,3,3,3,0,11,3,1,0.736377030215359,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\propertyeditor\StringToArrayListPropertyEditorTest.java,0,1,6,37,107,25,0,8,7,8,0,23,3,1,0.8108162153473253,Defective,High,Review immediately
+temp_repo\app\common\src\test\java\stirling\software\common\util\propertyeditor\StringToMapPropertyEditorTest.java,0,1,5,20,78,18,0,7,6,7,0,19,4,1,0.7589625126365707,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\org\apache\pdfbox\examples\signature\CMSProcessableInputStream.java,0,1,8,3,32,0,2,2,2,2,0,2,2,0,0.37666666666666665,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\org\apache\pdfbox\examples\signature\CreateSignatureBase.java,2,1,35,17,90,22,1,8,0,2,1,18,5,1,0.8144309902779678,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\org\apache\pdfbox\examples\signature\TSAClient.java,13,1,30,39,109,5,3,8,1,1,1,22,4,1,0.7501092412863034,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\org\apache\pdfbox\examples\signature\ValidationTimeStamp.java,4,1,32,16,63,6,6,3,0,0,1,13,3,1,0.8729906971175854,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\org\apache\pdfbox\examples\util\ConnectedInputStream.java,0,2,3,10,49,0,6,3,3,3,0,2,2,1,0.650946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\common\controller\JobController.java,49,1,24,145,277,36,48,38,4,5,0,37,5,1,0.7396255581659501,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\LibreOfficeListener.java,12,1,10,23,76,5,5,13,1,4,2,11,5,1,0.8521010495414714,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\SPDFApplication.java,31,1,27,108,262,18,18,43,15,15,1,52,6,1,0.7745150361736967,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\AppUpdateService.java,0,1,6,3,25,1,1,1,1,1,0,6,2,0,0.4572518071193942,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\CleanUrlInterceptor.java,2,1,9,20,80,11,3,10,2,2,2,10,6,1,0.8530029578521832,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\EndpointInspector.java,1,1,15,48,174,50,11,41,10,10,7,36,10,1,0.7605628763345003,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\EndpointInterceptor.java,0,1,6,10,39,3,2,3,0,0,0,6,4,1,0.6820443101711984,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\ExternalAppDepConfig.java,49,1,29,146,309,91,27,51,20,20,8,58,6,1,0.6775069486089678,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\GlobalErrorResponseCustomizer.java,1,1,21,69,168,27,9,23,10,10,0,0,4,1,0.8797695027581774,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\InitialSetup.java,12,1,16,41,82,1,1,6,1,1,0,15,3,1,0.8054970750020379,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\LocaleConfiguration.java,2,1,13,15,52,1,2,6,3,3,0,10,5,1,0.8166265410889688,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\LogbackPropertyLoader.java,1,2,2,1,9,0,1,1,1,1,0,0,2,0,0.25666666666666665,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\MetricsConfig.java,0,1,6,2,21,0,3,4,3,3,0,0,5,0,0.44480755265069,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\MetricsFilter.java,2,2,12,13,36,1,0,1,0,0,0,4,3,1,0.7162354355148717,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\MultipartConfiguration.java,4,1,10,17,50,4,1,7,1,2,0,7,5,1,0.8333375511514851,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\OpenApiConfig.java,2,1,32,70,126,21,3,5,2,2,0,17,3,1,0.833423134081988,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\SpringDocConfig.java,3,1,5,32,104,3,3,2,2,2,0,0,3,1,0.8146828012586695,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\StartupApplicationListener.java,1,1,4,1,13,2,0,1,1,1,0,1,2,0,0.44165444172779134,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\TauriProcessMonitor.java,12,1,12,40,120,4,7,20,6,8,0,12,5,1,0.8331405637092096,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\TelegramBotConfig.java,0,1,7,0,15,0,1,0,0,0,0,3,2,1,0.6466666666666666,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\WAUTrackingFilter.java,0,1,12,5,31,1,0,2,0,0,0,3,4,1,0.58,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\WebMvcConfig.java,6,1,11,63,152,6,0,9,4,4,0,5,4,1,0.8581541810080099,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\fingerprint\FingerprintBasedSessionFilter.java,1,2,11,20,0,0,2,4,1,1,0,6,4,1,0.6786923665599538,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\fingerprint\FingerprintBasedSessionManager.java,6,1,15,40,0,16,2,13,5,7,1,17,6,1,0.887436712880075,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\fingerprint\FingerprintGenerator.java,2,1,7,25,0,7,3,11,2,2,1,10,4,1,0.8347770661976257,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\CsvConversionResponse.java,0,1,8,0,51,0,0,0,0,0,0,28,2,1,0.6576130536130537,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\FilterResponse.java,0,1,8,0,59,0,1,0,0,0,0,36,1,1,0.7166666666666667,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\HtmlConversionResponse.java,0,1,8,0,26,0,0,0,0,0,0,9,1,1,0.6276130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\JavaScriptResponse.java,0,1,8,0,27,0,0,0,0,0,0,9,1,1,0.6276130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\JsonDataResponse.java,0,1,8,0,40,0,1,0,0,0,0,20,1,1,0.6876130536130537,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\MarkdownConversionResponse.java,0,1,8,0,27,0,0,0,0,0,0,9,1,1,0.6276130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\MultiFileResponse.java,0,1,8,0,64,0,1,0,0,0,0,36,2,1,0.73,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\PowerPointConversionResponse.java,0,1,8,0,59,0,0,0,0,0,0,33,1,1,0.6666666666666666,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\TextPlainConversionResponse.java,0,1,8,0,62,0,0,0,0,0,0,37,2,1,0.6666666666666666,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\WordConversionResponse.java,0,1,8,0,65,0,0,0,0,0,0,38,2,1,0.68,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\config\swagger\XmlConversionResponse.java,0,1,8,0,26,0,0,0,0,0,0,9,1,1,0.6276130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\AdditionalLanguageJsController.java,0,1,13,18,55,9,3,6,2,2,2,10,5,1,0.9466666666666667,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\AnalysisController.java,9,1,21,107,196,67,8,8,0,0,5,58,6,1,0.6604167637803067,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\BookletImpositionController.java,17,1,37,90,253,28,5,22,8,8,2,69,5,1,0.8073420274853309,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\CropController.java,11,1,42,88,275,39,11,29,6,6,11,88,6,1,0.8385052772973038,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\EditTableOfContentsController.java,4,1,29,59,174,80,6,17,1,3,5,42,5,1,0.8052882409884222,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\MergeController.java,18,1,48,130,341,64,23,55,10,10,8,71,8,1,0.9035056603872912,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\MultiPageLayoutController.java,31,1,31,96,297,29,1,29,3,3,2,63,9,1,0.7666688770202864,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\PdfOverlayController.java,12,1,29,44,186,40,3,19,1,1,8,43,6,1,0.8398039508530014,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\PosterPdfController.java,11,1,38,72,186,13,3,12,4,4,3,53,8,1,0.8206474163222552,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\RearrangePagesPDFController.java,17,1,26,64,237,106,16,41,16,16,14,57,6,1,0.7003693742500212,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\RotationController.java,3,1,20,10,53,3,1,3,1,1,1,8,4,1,0.7964779613616467,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\ScalePagesController.java,26,1,38,74,140,13,4,7,2,2,1,27,5,1,0.7919016195016841,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\SettingsController.java,7,1,14,13,43,9,3,2,1,1,0,0,3,1,0.8333029568086865,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\SplitPdfByChaptersController.java,11,1,40,95,239,37,4,24,1,4,5,41,8,1,0.8005896693590824,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\SplitPdfBySectionsController.java,13,1,49,89,292,19,4,20,1,1,6,59,12,1,0.8075087470267249,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\SplitPdfBySizeController.java,19,1,40,169,420,32,1,49,7,8,7,71,12,1,0.8864092045557894,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\SplitPDFController.java,6,1,29,33,94,8,1,5,0,0,2,20,9,1,0.7856384210692595,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\ToSinglePageController.java,4,1,24,21,80,3,1,4,0,0,2,19,6,1,0.727984096115537,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\UIDataController.java,18,1,37,100,277,88,18,25,0,11,2,51,7,1,0.8501196788111878,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertEbookToPDFController.java,20,1,38,64,187,27,4,24,4,4,1,35,5,1,0.880806880231967,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertEmlToPDF.java,11,1,27,48,170,11,13,17,3,3,0,23,6,1,0.8183577663755794,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertHtmlToPDF.java,7,1,16,17,63,4,1,3,0,0,0,10,4,1,0.7301775791156889,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertImgPDFController.java,48,1,57,142,350,40,15,30,5,5,4,105,7,1,0.7881372161158136,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertMarkdownToPdf.java,27,1,29,103,200,19,4,16,1,1,2,40,8,1,0.7608439401312903,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertOfficeController.java,22,1,41,87,200,26,4,23,4,4,0,35,6,1,0.8022792475101188,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPdfJsonController.java,44,1,34,152,426,68,18,48,8,9,2,104,8,1,0.8524633433463754,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPdfJsonExceptionHandler.java,6,1,11,18,51,2,3,3,1,1,0,3,5,1,0.7737503118732181,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToEpubController.java,14,1,36,65,178,27,3,21,2,2,1,33,5,1,0.8773410237068041,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToExcelController.java,8,1,34,38,111,19,3,9,1,1,5,33,7,1,0.7478738311777816,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToHtml.java,0,1,14,2,31,2,1,0,0,0,0,6,2,1,0.6333333333333333,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToOffice.java,3,1,30,22,101,8,5,2,0,0,0,32,4,1,0.7873114100396741,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToPDFA.java,181,1,134,1000,2157,332,80,322,45,45,44,419,10,1,0.814671009252838,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertPdfToVideoController.java,34,1,33,112,235,36,7,23,6,6,1,57,5,1,0.7440705053373907,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertSvgToPDF.java,14,1,32,77,216,41,14,26,5,5,3,34,6,1,0.886811265168655,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ConvertWebsiteToPDF.java,33,1,39,133,249,22,10,27,5,5,2,56,5,1,0.7966708394778971,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\ExtractCSVController.java,9,1,41,42,109,18,7,9,4,4,3,21,6,1,0.7992408111670901,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\converters\PdfVectorExportController.java,27,1,30,103,211,28,2,14,0,0,0,43,5,1,0.7380000922162414,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\filters\FilterController.java,18,2,28,61,224,25,10,5,2,2,0,101,4,1,0.7869995004964242,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\form\FormFillController.java,29,1,39,73,325,53,13,13,3,3,2,128,6,1,0.8487756793814656,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\form\FormPayloadParser.java,11,1,12,92,244,72,41,63,13,13,4,35,5,1,0.6788402484140924,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\AttachmentController.java,26,1,30,73,218,29,6,13,1,1,1,50,5,1,0.8109321758014528,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\AutoRenameController.java,6,1,30,48,133,22,3,11,4,4,2,32,7,1,0.8207014937288999,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\AutoSplitPdfController.java,17,1,53,103,286,41,19,38,8,8,6,64,6,1,0.8656733562675512,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\BlankPageController.java,8,1,40,51,171,20,4,15,1,1,3,38,7,1,0.8520456705599228,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\CompressController.java,97,2,71,439,1122,210,68,147,37,38,12,247,7,1,0.7677244767481225,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\ConfigController.java,10,1,20,214,304,49,15,33,8,8,2,52,5,1,0.7420523325987328,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\DecompressPdfController.java,4,1,25,33,108,14,2,19,8,8,3,14,5,1,0.8679677517141591,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\ExtractImageScansController.java,27,1,41,84,199,42,2,13,1,1,4,49,7,1,0.766826091301103,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\ExtractImagesController.java,6,1,40,38,138,11,3,9,1,1,2,27,5,1,0.801141462954098,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\FlattenController.java,12,1,32,40,130,10,2,8,0,0,1,32,8,1,0.7544443044318158,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\MetadataController.java,10,1,29,69,153,9,3,11,3,3,2,43,8,1,0.8087036598587255,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\MobileScannerController.java,24,1,30,85,259,76,27,16,0,2,0,100,4,1,0.7789675106407294,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\OCRController.java,34,1,65,162,367,51,6,28,4,4,1,67,8,1,0.8185869895106579,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\OverlayImageController.java,6,1,24,25,93,6,2,6,1,1,1,19,8,1,0.7554481237785905,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\PageNumbersController.java,12,1,31,66,157,24,1,11,0,0,1,62,5,1,0.7892518570825056,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\PrintFileController.java,12,1,33,47,114,10,4,6,1,1,0,20,8,1,0.7821942179709291,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\RemoveImagesController.java,3,1,28,26,114,12,8,14,2,2,2,21,6,1,0.8197719943541847,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\RepairController.java,5,1,27,40,109,11,3,11,3,3,0,18,6,1,0.8304591633906977,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\ReplaceAndInvertColorController.java,3,1,19,16,55,2,1,1,0,0,0,8,3,1,0.8257421733503414,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\ScannerEffectController.java,99,1,72,248,711,139,28,71,25,25,18,250,7,1,0.6423792971638133,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\ShowJavascript.java,5,1,24,38,86,12,1,6,0,0,1,16,7,1,0.8126943239236314,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\StampController.java,41,1,56,167,430,99,11,36,8,8,4,109,5,1,0.8003985319658652,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\misc\UnlockPDFFormsController.java,6,1,31,44,115,6,2,14,3,3,2,30,9,1,0.8516211620431823,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\pipeline\PipelineController.java,5,1,35,41,125,21,7,10,1,1,1,23,7,1,0.7914053396960177,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\pipeline\PipelineDirectoryProcessor.java,33,1,40,173,408,57,26,48,11,11,9,59,7,1,0.915368110432455,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\pipeline\PipelineProcessor.java,21,2,50,182,474,111,30,66,12,12,13,91,10,1,0.8708030598427172,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\CertSignController.java,25,2,109,144,381,7,5,18,5,5,0,81,6,1,0.8346690019242524,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\GetInfoOnPDF.java,21,1,71,562,951,128,52,183,38,38,28,188,9,1,0.7307331520414234,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\PasswordController.java,18,1,23,53,110,12,3,4,0,0,0,26,4,1,0.8029791255780044,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\RedactController.java,85,1,96,594,1392,274,72,196,22,34,31,250,11,1,0.7892899986535499,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\RemoveCertSignController.java,2,1,21,13,56,6,1,2,0,0,0,9,5,1,0.8570776728135006,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\SanitizeController.java,11,1,40,83,211,19,1,44,3,3,7,27,6,1,0.8558261827316933,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\TimestampController.java,21,1,56,108,224,33,9,17,3,3,1,44,5,1,0.8068314852988787,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\ValidateSignatureController.java,4,1,48,116,234,24,1,19,3,3,4,41,9,1,0.8100087568591426,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\VerifyPDFController.java,6,1,18,27,72,7,1,6,1,1,0,6,4,1,0.72483017067181,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\api\security\WatermarkController.java,34,1,50,94,273,17,2,19,3,3,7,63,6,1,0.7973339094712328,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\web\MetricsController.java,35,1,26,163,373,95,53,47,8,11,0,71,5,1,0.8040090205057046,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\web\ReactRoutingController.java,19,1,28,74,383,111,22,28,5,8,0,113,8,1,0.8936524130691087,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\web\SignatureImageController.java,2,1,14,14,59,5,2,7,2,2,0,15,6,1,0.8477499135391134,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\controller\web\UploadLimitService.java,5,1,5,24,56,13,10,13,3,4,1,10,3,1,0.8501792237621705,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\exception\CacheUnavailableException.java,0,2,0,0,6,0,0,1,1,1,0,0,2,0,0.14666666666666667,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\stirling\software\SPDF\exception\GlobalExceptionHandler.java,71,2,32,334,810,372,69,82,45,46,2,150,5,1,0.6845265101134137,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\Factories\ReplaceAndInvertColorFactory.java,0,1,15,1,45,5,2,5,2,2,0,0,3,1,0.7766666666666666,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\ApiEndpoint.java,0,1,4,13,34,9,3,5,3,3,1,7,4,1,0.9001851961552216,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\Dependency.java,0,1,1,0,10,0,0,0,0,0,0,0,1,0,0.21333333333333335,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\PDFText.java,0,1,1,0,11,0,0,0,0,0,0,0,1,0,0.25333333333333335,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\PipelineConfig.java,0,1,3,0,13,2,0,0,0,0,0,0,1,1,0.54,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\PipelineOperation.java,0,1,2,0,8,2,0,0,0,0,0,0,1,1,0.5066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\PipelineResult.java,0,1,6,5,29,6,0,4,0,3,1,1,4,1,0.7609800468231841,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\SignatureFile.java,0,1,3,0,11,0,0,0,0,0,0,0,1,1,0.6,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\SortTypes.java,0,1,0,0,13,0,0,0,0,0,0,0,1,1,0.73,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\SplitTypes.java,0,1,0,0,8,0,0,0,0,0,0,0,1,1,0.88,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\EditTableOfContentsRequest.java,0,2,4,0,19,0,0,0,0,0,0,6,3,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\HandleDataRequest.java,0,1,4,0,19,0,0,0,0,0,0,6,4,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\ImageFile.java,0,1,4,0,14,0,0,0,0,0,0,3,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\MultiplePDFFiles.java,0,1,4,0,11,0,0,0,0,0,0,2,1,1,0.58,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PDFComparison.java,0,2,4,0,14,0,0,0,0,0,0,4,2,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PDFComparisonAndCount.java,0,2,3,0,10,0,0,0,0,0,0,4,1,1,0.62,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PDFExtractImagesRequest.java,0,2,2,0,7,0,0,0,0,0,0,3,1,1,0.6833333333333333,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PdfJsonConversionProgress.java,3,1,4,20,44,0,3,3,0,3,0,0,2,1,0.6770557791834387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PDFWithImageFormatRequest.java,0,2,4,0,15,0,0,0,0,0,0,5,2,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PDFWithPageNums.java,1,2,9,2,27,2,1,1,0,1,0,5,2,1,0.5102002457541074,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\PDFWithPageSize.java,0,2,4,0,16,0,0,0,0,0,0,4,2,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\SplitPdfByChaptersRequest.java,0,2,4,0,25,0,0,0,0,0,0,11,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\SplitPdfBySectionsRequest.java,0,2,7,0,48,0,0,0,0,0,0,25,1,1,0.580946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertCbrToPdfRequest.java,0,1,4,0,17,0,0,0,0,0,0,4,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertCbzToPdfRequest.java,0,1,4,0,17,0,0,0,0,0,0,4,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertEbookToPdfRequest.java,0,1,4,0,44,0,0,0,0,0,0,18,2,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertPdfToCbrRequest.java,0,1,4,0,18,0,0,0,0,0,0,6,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertPdfToCbzRequest.java,0,1,4,0,18,0,0,0,0,0,0,6,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertPdfToEpubRequest.java,0,2,5,0,45,0,0,0,0,0,0,16,3,1,0.5933333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertPDFToMarkdown.java,0,1,14,2,31,2,1,0,0,0,0,6,2,1,0.6333333333333333,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertToImageRequest.java,0,2,4,0,38,0,0,0,0,0,0,18,2,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\ConvertToPdfRequest.java,0,1,4,0,30,0,0,0,0,0,0,13,2,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfToBookRequest.java,0,2,4,0,16,0,0,0,0,0,0,4,2,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfToPdfARequest.java,0,2,4,0,18,0,0,0,0,0,0,6,2,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfToPresentationRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,2,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfToTextOrRTFRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,2,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfToVideoRequest.java,0,2,4,0,43,0,0,0,0,0,0,27,2,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfToWordRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,2,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\PdfVectorExportRequest.java,0,2,5,0,22,0,0,0,0,0,0,10,2,1,0.5933333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\SvgToPdfRequest.java,0,1,4,0,23,0,0,0,0,0,0,5,1,1,0.5833333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\converters\UrlToPdfRequest.java,0,1,3,0,12,0,0,0,0,0,0,2,1,1,0.6266666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\filter\ContainsTextRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\filter\FileSizeRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\filter\PageRotationRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\filter\PageSizeRequest.java,0,2,4,0,15,0,0,0,0,0,0,5,2,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\BookletImpositionRequest.java,0,2,4,0,42,0,0,0,0,0,0,29,2,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\CropPdfForm.java,0,2,4,0,27,0,0,0,0,0,0,15,1,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\MergeMultiplePagesRequest.java,0,2,4,0,102,0,0,0,0,0,0,65,2,1,0.656833252543977,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\MergePdfsRequest.java,0,2,4,0,40,0,0,0,0,0,0,15,2,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\OverlayPdfsRequest.java,0,2,5,0,37,0,0,0,0,0,0,12,2,1,0.5833333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\PosterPdfRequest.java,0,2,4,0,33,0,0,0,0,0,0,21,2,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\RearrangePagesRequest.java,0,2,5,0,24,0,0,0,0,0,0,3,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\RotatePDFRequest.java,0,2,4,0,16,0,0,0,0,0,0,6,2,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\ScalePagesRequest.java,0,2,4,0,17,0,0,0,0,0,0,5,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\general\SplitPdfBySizeOrCountRequest.java,0,2,4,0,21,0,0,0,0,0,0,7,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\AddAttachmentRequest.java,0,2,6,0,21,2,0,0,0,0,0,8,1,1,0.54,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\AddPageNumbersRequest.java,0,2,5,0,68,0,0,0,0,0,0,49,2,1,0.6412431108389467,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\AddStampRequest.java,0,2,5,0,70,0,0,0,0,0,0,36,2,1,0.6479097775056133,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\AttachmentInfo.java,0,1,3,0,15,0,0,0,0,0,0,0,1,1,0.6166666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\AutoSplitPdfRequest.java,0,2,4,0,15,0,0,0,0,0,0,4,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\DeleteAttachmentRequest.java,0,2,4,0,13,0,0,0,0,0,0,3,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ExtractAttachmentsRequest.java,0,2,3,0,7,0,0,0,0,0,0,1,1,1,0.7466666666666667,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ExtractHeaderRequest.java,0,2,4,0,15,0,0,0,0,0,0,4,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ExtractImageScansRequest.java,0,1,4,0,39,0,0,0,0,0,0,18,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\FlattenRequest.java,0,2,4,0,21,0,0,0,0,0,0,7,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ListAttachmentsRequest.java,0,2,3,0,7,0,0,0,0,0,0,1,1,1,0.7466666666666667,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\MetadataRequest.java,0,2,5,0,68,2,0,0,0,0,0,35,2,1,0.5945764441722801,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\OptimizePdfRequest.java,0,2,4,0,58,0,0,0,0,0,0,34,2,1,0.6333333333333333,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\OverlayImageRequest.java,0,2,5,0,33,0,0,0,0,0,0,13,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\PrintFileRequest.java,0,2,4,0,13,0,0,0,0,0,0,3,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ProcessPdfWithOcrRequest.java,0,2,5,0,36,2,0,0,0,0,0,17,2,1,0.53,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\RemoveBlankPagesRequest.java,0,2,4,0,23,0,0,0,0,0,0,11,1,1,0.58,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\RenameAttachmentRequest.java,0,2,4,0,17,0,0,0,0,0,0,5,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ReplaceAndInvertColorRequest.java,0,2,6,0,44,0,0,0,0,0,0,11,2,1,0.580946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\misc\ScannerEffectRequest.java,0,1,5,0,89,4,1,6,4,5,0,67,3,1,0.6363667961131824,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\AddPasswordRequest.java,0,2,4,0,47,0,0,0,0,0,0,26,2,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\AddWatermarkRequest.java,0,2,7,0,46,0,0,0,0,0,0,31,2,1,0.570946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\ManualRedactPdfRequest.java,0,2,6,0,25,2,0,0,0,0,0,9,1,1,0.530946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\PDFPasswordRequest.java,0,2,4,0,14,0,0,0,0,0,0,4,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\PDFVerificationRequest.java,0,2,3,0,7,0,0,0,0,0,0,1,1,1,0.7466666666666667,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\PDFVerificationResult.java,0,1,5,4,41,8,0,2,0,2,0,4,2,1,0.7566666666666667,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\RedactPdfRequest.java,0,2,4,0,39,0,0,0,0,0,0,19,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\SanitizePdfRequest.java,0,2,4,0,39,0,0,0,0,0,0,19,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\SignatureValidationRequest.java,0,2,5,0,14,0,0,0,0,0,0,3,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\SignatureValidationResult.java,0,1,2,0,30,2,0,0,0,0,0,0,1,0,0.49,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\SignPDFWithCertRequest.java,0,2,5,0,55,0,0,0,0,0,0,24,2,1,0.63,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\security\TimestampPdfRequest.java,0,2,4,1,19,0,0,0,0,0,0,4,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\signature\SavedSignatureRequest.java,0,1,2,0,16,0,0,0,0,0,0,0,1,1,0.52,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\api\signature\SavedSignatureResponse.java,0,1,3,0,20,0,0,0,0,0,0,0,1,1,0.6133333333333333,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonAnnotation.java,0,1,5,0,26,0,0,0,0,0,0,0,1,1,0.5866666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonCosValue.java,0,1,7,0,31,5,0,0,0,0,0,0,2,1,0.6176130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonDocument.java,0,1,7,0,21,12,0,0,0,0,0,3,1,1,0.65,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonDocumentMetadata.java,0,1,7,0,21,12,0,0,0,0,0,3,1,1,0.65,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonFont.java,0,1,6,0,40,4,0,0,0,0,0,0,1,1,0.670946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonFontCidSystemInfo.java,0,1,5,0,16,0,0,0,0,0,0,0,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonFontConversionCandidate.java,0,1,5,0,30,0,0,0,0,0,0,0,2,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonFontConversionStatus.java,0,1,0,0,8,0,0,0,0,0,0,0,1,1,0.88,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonFontType3Glyph.java,0,1,5,0,17,0,0,0,0,0,0,0,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonFormField.java,0,1,6,0,30,2,0,0,0,0,0,4,1,1,0.530946386946387,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonImageElement.java,0,1,5,0,30,0,0,0,0,0,0,0,1,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonMetadata.java,0,1,5,0,23,0,0,0,0,0,0,0,1,1,0.5833333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonPage.java,0,1,7,0,24,16,0,0,0,0,0,4,1,1,0.6376130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonPageDimension.java,0,1,5,0,17,0,0,0,0,0,0,0,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonStream.java,0,1,6,0,16,2,0,0,0,0,0,0,2,1,0.5333333333333333,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonTextColor.java,0,1,5,0,15,0,0,0,0,0,0,0,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\model\json\PdfJsonTextElement.java,0,1,5,0,35,0,0,0,0,0,0,0,1,1,0.58,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\pdf\FlexibleCSVWriter.java,0,2,2,0,11,0,0,2,2,2,0,0,2,0,0.3466666666666667,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\stirling\software\SPDF\pdf\TextFinder.java,15,2,16,96,193,26,3,18,4,4,4,44,6,1,0.8286963140262299,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\ApiDocService.java,17,1,25,71,150,24,11,20,6,6,1,30,5,1,0.8689676520885197,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\AttachmentService.java,26,1,43,150,401,98,30,58,9,9,7,89,6,1,0.9231411305414815,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\AttachmentServiceInterface.java,0,1,6,0,16,6,0,0,0,0,0,0,1,1,0.6466666666666666,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\CertificateValidationService.java,30,2,65,291,647,108,54,117,20,21,15,143,8,1,0.7826595572832858,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\LanguageService.java,2,1,11,17,48,12,4,3,2,2,0,4,4,1,0.9033333333333333,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\MetricsAggregatorService.java,2,1,12,28,73,13,6,10,2,2,0,10,5,1,0.9018798634740418,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\PdfJsonConversionService.java,245,2,229,2426,6028,1569,425,943,151,161,91,1050,11,1,0.7747621189272613,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\PdfJsonCosMapper.java,20,1,34,123,306,55,45,48,1,1,6,30,6,1,0.7916243297016702,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\PdfJsonFallbackFontService.java,88,1,64,149,530,61,40,47,17,19,0,52,5,1,0.7395825042801966,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\PdfSigningServiceImpl.java,4,1,10,6,88,3,8,7,7,7,0,7,3,1,0.8151254752628425,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\SharedSignatureService.java,39,1,29,141,241,35,8,28,6,6,2,49,6,1,0.7437332380426732,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\VeraPDFService.java,16,1,26,147,298,41,15,49,11,11,4,44,8,1,0.9266993920774623,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\WeeklyActiveUsersService.java,5,1,6,19,50,8,9,10,7,7,0,7,4,1,0.8214978675223175,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\misc\ReplaceAndInvertColorService.java,0,1,9,2,31,0,1,0,0,0,0,1,2,1,0.5976130536130536,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\JobOwnershipServiceImpl.java,3,1,7,24,66,9,13,11,3,4,0,10,5,1,0.7901177183867308,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\NoOpJobOwnershipService.java,1,1,4,2,28,2,4,4,4,4,0,3,3,0,0.45666666666666667,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\PdfJsonFontService.java,16,1,19,97,323,50,40,49,5,10,0,36,6,1,0.8607930960930633,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\PdfJsonImageService.java,39,2,37,149,371,78,45,49,13,14,1,50,6,1,0.769510460235668,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\PdfJsonMetadataService.java,7,1,20,72,111,13,15,19,7,7,0,10,4,1,0.8580217132515728,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\PdfLazyLoadingService.java,14,1,39,109,222,52,4,15,5,5,1,29,5,1,0.8079506123135861,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3ConversionRequest.java,0,1,4,0,14,0,0,0,0,0,0,0,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3ConversionStrategy.java,0,1,2,1,14,2,2,0,0,0,0,0,2,0,0.47333333333333333,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3FontConversionService.java,7,1,10,74,123,17,9,14,2,2,1,5,5,1,0.8844020092066539,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3FontSignatureCalculator.java,8,1,23,54,193,25,17,39,12,12,7,22,5,1,0.937663642378991,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3GlyphContext.java,0,1,5,8,31,11,2,2,1,1,0,5,3,1,0.8835421776935157,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3GlyphExtractor.java,3,2,22,45,115,20,8,13,2,2,2,19,4,1,0.8932651499461368,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3GraphicsEngine.java,1,2,16,31,139,5,2,4,0,2,0,21,3,1,0.8808797682450463,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\Type3LibraryStrategy.java,6,1,11,73,112,12,10,11,5,6,0,6,3,1,0.7942915509648782,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibrary.java,14,1,24,119,297,69,29,49,0,8,5,35,7,1,0.8752530387832186,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibraryEntry.java,0,1,4,3,24,9,1,1,1,1,0,0,2,1,0.911892773892774,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibraryMatch.java,0,1,2,0,10,0,0,0,0,0,0,0,1,0,0.49333333333333335,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibraryPayload.java,0,1,1,1,10,1,1,1,1,1,0,0,2,0,0.24333333333333335,Non-defective,Low,Low priority
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\model\Type3GlyphOutline.java,0,1,4,0,21,0,0,0,0,0,0,0,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\pdfjson\type3\tool\Type3SignatureTool.java,14,1,37,94,260,97,15,44,7,7,7,45,5,1,0.8849746276429168,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\telegram\FeedbackEnum.java,0,1,0,0,7,0,0,0,0,0,0,0,1,1,0.6966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\core\src\main\java\stirling\software\SPDF\service\telegram\TelegramPipelineBot.java,28,2,48,172,413,57,38,69,17,17,2,54,5,1,0.829727032423995,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\utils\SvgOverlayUtil.java,2,1,30,23,76,6,2,3,1,1,0,15,4,1,0.7733520903445955,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\utils\SvgToPdf.java,4,1,58,58,179,19,4,14,0,0,1,48,6,1,0.8877936478985845,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\utils\text\TextEncodingHelper.java,7,1,9,111,290,46,38,49,10,10,3,24,8,1,0.7860071294121461,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\utils\text\TextFinderUtils.java,5,1,8,37,113,21,12,23,4,4,3,11,7,1,0.8800219885596385,Defective,High,Review immediately
+temp_repo\app\core\src\main\java\stirling\software\SPDF\utils\text\WidthCalculator.java,3,1,3,44,110,10,14,19,4,4,1,20,8,1,0.8277257309651685,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\org\apache\pdfbox\examples\util\ConnectedInputStreamTest.java,0,1,12,24,57,0,0,0,0,0,0,17,2,1,0.7776130536130537,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\common\controller\JobControllerTest.java,7,1,32,198,256,89,0,16,9,16,0,69,2,1,0.7429820774859778,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\SPDFApplicationTest.java,9,1,11,16,47,0,0,5,1,5,0,0,2,1,0.7223097524326588,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\AppUpdateServiceTest.java,1,1,12,17,59,0,1,7,7,7,0,18,2,1,0.84,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\CleanUrlInterceptorTest.java,0,1,17,50,80,4,0,3,0,3,0,16,2,1,0.8413494119762284,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\EndpointInspectorTest.java,0,1,10,25,91,14,0,3,0,2,1,8,3,1,0.8379395427779388,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\EndpointInterceptorTest.java,0,1,18,41,70,1,0,1,0,1,0,1,2,1,0.7763705067519429,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\ExternalAppDepConfigTest.java,11,1,19,47,152,42,14,25,7,10,2,22,5,1,0.8617804684624442,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\GlobalErrorResponseCustomizerTest.java,0,1,28,79,123,6,1,11,9,10,0,26,3,1,0.8105555198547159,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\LocaleConfigurationTest.java,1,1,8,12,64,0,1,9,9,9,0,17,2,1,0.8121710953901338,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\config\LogbackPropertyLoaderTest.java,1,1,6,5,24,0,0,3,3,3,0,6,2,0,0.3785636583775924,Non-defective,Low,Low priority
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\AdditionalLanguageJsControllerTest.java,4,1,16,29,46,2,1,0,0,0,0,6,2,1,0.8424088400170081,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\AnalysisControllerTest.java,11,1,32,216,284,97,1,2,0,2,0,81,2,1,0.7556881987866055,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\BookletImpositionControllerTest.java,13,1,41,131,218,29,5,3,0,2,1,57,4,1,0.769634909464466,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\CropControllerTest.java,10,1,62,263,590,42,17,24,5,13,8,100,6,1,0.8765809400568529,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\EditTableOfContentsControllerTest.java,5,1,48,241,346,118,4,1,0,1,0,51,4,1,0.7486055728401619,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\MergeControllerTest.java,5,1,28,133,221,8,0,1,0,1,0,41,3,1,0.745802821177693,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\MultiPageLayoutControllerTest.java,19,1,38,80,132,17,3,2,0,2,0,18,3,1,0.7789267282901408,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\PdfOverlayControllerTest.java,10,1,64,111,280,32,4,2,0,1,1,60,4,1,0.7545419452888144,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\RearrangePagesPDFControllerTest.java,1,1,35,180,277,25,2,1,0,1,0,79,3,1,0.8053994149886702,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\RotationControllerTest.java,2,1,30,32,83,6,1,1,0,1,0,11,3,1,0.7982980176432009,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\ScalePagesControllerTest.java,4,1,52,91,229,31,6,2,0,1,1,45,4,1,0.7822018163315088,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\SplitPdfByChaptersControllerTest.java,13,1,56,115,214,12,2,2,0,0,2,43,4,1,0.767169725157108,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\SplitPdfBySectionsControllerTest.java,4,1,57,111,250,9,3,1,0,0,1,47,4,1,0.7870477159348839,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\SplitPdfBySizeControllerTest.java,5,1,37,44,103,11,1,2,0,0,2,15,4,1,0.8219389132436349,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\SplitPDFControllerTest.java,3,1,45,60,173,4,2,1,0,0,1,36,4,1,0.8564065713956792,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\CbrUtilsTest.java,8,1,13,16,71,0,0,8,8,8,0,8,2,1,0.8397380287972878,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\CbzUtilsTest.java,8,1,13,16,64,0,0,8,8,8,0,8,2,1,0.8329720868396739,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertEbookToPDFControllerTest.java,53,1,48,157,250,67,7,10,0,2,0,41,7,1,0.7253113670677661,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertEmlToPDFTest.java,20,1,62,112,270,69,3,2,0,2,0,48,3,1,0.7847451877441115,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertHtmlToPDFTest.java,14,1,40,70,162,45,3,4,0,4,0,28,3,1,0.8596198122588466,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertImgPDFControllerTest.java,22,1,27,66,141,44,2,2,0,2,0,28,3,1,0.7935872197899079,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertMarkdownToPdfTest.java,8,1,41,48,135,24,3,6,1,6,0,19,3,1,0.8020091271689462,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertPdfJsonControllerTest.java,1,1,42,71,156,22,2,4,1,4,0,30,4,1,0.8952506266886716,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToEpubControllerTest.java,44,1,51,203,314,77,10,9,0,1,0,47,7,1,0.7341692860946658,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToExcelControllerTest.java,8,1,33,37,95,11,1,5,1,4,0,9,3,1,0.799371698700099,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToHtmlTest.java,0,1,12,5,31,0,0,2,0,2,0,2,2,0,0.4633333333333333,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToOfficeTest.java,9,1,42,51,136,22,4,6,2,6,0,20,3,1,0.7939019010617201,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertPDFToPDFATest.java,15,1,76,210,446,14,6,16,8,8,2,93,5,1,0.8470818372856015,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertSvgToPDFTest.java,14,1,49,99,191,74,3,2,0,2,0,45,3,1,0.7539234450196826,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ConvertWebsiteToPdfTest.java,53,1,56,203,282,106,4,3,0,1,0,63,4,1,0.7554999199425703,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\ExtractCSVControllerTest.java,8,1,24,23,62,8,0,2,0,2,0,6,3,1,0.712627696049027,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\PdfToCbzUtilsTest.java,22,1,18,30,81,4,0,5,3,5,0,10,2,1,0.7648263420340916,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\converters\PdfVectorExportControllerTest.java,4,1,38,65,145,27,3,4,0,2,1,22,3,1,0.8412419639847298,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\filters\FilterControllerTest.java,30,1,49,262,386,125,2,3,0,3,0,97,4,1,0.7721693281694338,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\form\FormFillControllerTest.java,3,1,40,119,308,34,6,12,8,12,0,48,4,1,0.8010320880696488,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\form\FormPayloadParserTest.java,29,1,10,73,229,55,0,29,28,29,0,45,5,1,0.7762440023846915,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\AttachmentControllerTest.java,8,1,33,69,166,32,3,1,0,1,0,21,3,1,0.8064602793221652,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\AutoRenameControllerTest.java,13,1,49,122,208,23,5,2,0,2,0,51,4,1,0.7710121020441332,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\BlankPageControllerTest.java,16,1,23,56,117,5,0,12,10,12,0,27,2,1,0.8301482924269191,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\ConfigControllerTest.java,4,1,24,73,137,38,0,11,4,11,0,18,2,1,0.816843104821408,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\DecompressPdfControllerTest.java,12,1,49,104,185,23,4,3,0,1,1,41,5,1,0.7446421592700261,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\ExtractImagesControllerTest.java,8,1,40,71,127,6,3,0,0,0,0,26,4,1,0.7911109710984825,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\FlattenControllerTest.java,8,1,50,115,188,23,4,1,0,1,0,44,4,1,0.7337294322004364,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\MetadataControllerTest.java,1,1,33,146,235,23,0,9,0,0,0,23,3,1,0.7755473905880692,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\MobileScannerControllerTest.java,4,1,29,65,150,58,0,14,11,14,0,19,3,1,0.8708827192162851,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\OverlayImageControllerTest.java,7,1,49,92,204,38,4,1,0,1,0,30,3,1,0.7466890060519091,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\PrintFileControllerTest.java,2,1,21,32,76,5,0,5,3,3,0,13,3,1,0.8290445193906216,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\ReplaceAndInvertColorControllerTest.java,7,1,39,64,185,36,3,1,0,1,0,24,3,1,0.812651023435245,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\ShowJavascriptTest.java,12,1,29,89,198,45,3,1,0,1,0,32,3,1,0.7568566261727986,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\StampControllerTest.java,22,1,32,65,545,2,4,3,0,0,0,86,6,1,0.7972447935518822,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\misc\UnlockPDFFormsControllerTest.java,1,1,38,50,111,13,1,0,0,0,0,21,3,1,0.8436087872504259,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\pipeline\PipelineProcessorTest.java,15,2,41,80,190,26,5,4,4,4,0,27,5,1,0.8110394396847249,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\CertSignControllerTest.java,3,1,78,154,341,31,4,2,0,2,0,78,3,1,0.7870852873418681,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\GetInfoOnPDFTest.java,160,1,129,476,732,45,15,22,9,13,2,179,5,1,0.8043604471829514,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\PasswordControllerTest.java,14,1,74,147,374,49,4,1,0,1,0,51,3,1,0.7866327158271245,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\RedactControllerTest.java,38,1,119,518,1217,167,17,58,15,24,19,157,8,1,0.7974949410386044,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\RemoveCertSignControllerTest.java,9,1,69,85,241,31,3,1,0,1,0,43,4,1,0.7391951645085851,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\SanitizeControllerTest.java,13,1,85,176,395,43,6,1,0,1,0,59,4,1,0.7954666069936663,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\TimestampControllerTest.java,6,1,25,56,226,19,2,18,4,8,0,27,5,1,0.900756925714732,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\ValidateSignatureControllerTest.java,4,1,50,50,186,23,1,1,0,1,0,26,4,1,0.8593507922122406,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\VerifyPDFControllerTest.java,3,1,57,57,201,18,3,2,0,2,0,27,3,1,0.8797050320692699,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\api\security\WatermarkControllerTest.java,11,1,70,211,432,41,3,2,0,1,1,49,5,1,0.7860067009782581,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\web\MetricsControllerTest.java,36,1,17,186,243,48,2,21,17,21,0,65,2,1,0.6861410129764955,Defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\web\ReactRoutingControllerTest.java,0,1,10,56,114,25,1,7,5,7,0,22,2,1,0.8255359761829187,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\web\SignatureImageControllerTest.java,0,1,22,58,123,18,0,1,0,1,0,29,3,1,0.865814576760936,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\controller\web\UploadLimitServiceTest.java,15,1,11,26,61,4,2,6,4,5,0,12,3,1,0.8235249972484928,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\exception\CacheUnavailableExceptionTest.java,0,1,12,10,65,2,0,11,10,10,0,12,3,1,0.7612946250670203,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\exception\GlobalExceptionHandlerTest.java,2,1,75,143,309,73,0,37,32,37,0,86,3,1,0.7152337204603982,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\Factories\ReplaceAndInvertColorFactoryTest.java,0,1,14,7,74,0,0,6,3,6,0,14,2,1,0.6338848139092638,Defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\model\ApiEndpointTest.java,6,1,19,65,139,21,2,13,11,11,1,36,4,1,0.8732692261235957,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\model\SortTypesTest.java,8,1,7,15,44,5,0,4,3,3,1,3,3,1,0.7517230359443985,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\model\api\PDFWithPageNumsTest.java,4,1,7,29,61,11,0,7,5,7,0,7,3,1,0.8205468845063513,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\model\api\converters\ConvertPDFToMarkdownTest.java,6,1,26,42,95,16,2,2,2,2,0,15,4,1,0.8162991108297931,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\model\api\misc\ScannerEffectRequestTest.java,3,1,18,53,101,22,0,7,7,7,0,12,3,1,0.8405330899429512,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\pdf\FlexibleCSVWriterTest.java,0,1,5,0,20,0,0,2,2,2,0,3,2,0,0.44,Non-defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\pdf\TextFinderTest.java,3,1,48,123,563,69,1,10,0,1,3,69,5,1,0.7613968602472845,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\ApiDocServiceTest.java,45,1,41,133,325,42,0,2,2,2,0,96,4,1,0.7356438918584987,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\AttachmentServiceTest.java,19,1,74,206,360,34,0,4,2,3,1,88,5,1,0.7810249972545474,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\CertificateValidationServiceTest.java,5,1,38,132,266,7,1,14,10,14,0,59,3,1,0.8558706819840074,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\LanguageServiceBasicTest.java,3,2,12,30,86,6,2,8,5,8,0,13,3,1,0.8763734782559084,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\LanguageServiceTest.java,11,2,15,75,160,33,6,16,12,15,0,26,4,1,0.9184629083798215,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\MetricsAggregatorServiceExtendedTest.java,7,1,15,94,148,28,0,13,9,13,0,16,2,1,0.8282125480539694,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\MetricsAggregatorServiceTest.java,3,1,15,28,58,16,0,3,0,3,0,9,2,1,0.835779941116873,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\PdfMetadataServiceBasicTest.java,6,1,21,46,90,0,0,3,2,3,0,22,2,1,0.8029484707364134,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\PdfMetadataServiceTest.java,17,1,25,122,180,0,0,7,4,7,0,36,2,1,0.7297331688094308,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\SharedSignatureServiceExtendedTest.java,18,1,24,114,194,17,0,8,7,8,0,30,3,1,0.7675307153281078,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\SignatureServiceTest.java,5,1,19,83,214,37,4,5,2,5,0,26,3,1,0.7618316766951473,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\VeraPDFServiceTest.java,1,1,25,89,226,10,3,5,3,4,1,38,4,1,0.8258926530168412,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\WeeklyActiveUsersServiceTest.java,4,1,8,47,106,9,0,12,11,12,0,7,2,1,0.8593111832760845,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\misc\ReplaceAndInvertColorServiceExtendedTest.java,0,1,15,40,120,2,0,1,0,1,0,33,2,1,0.7546146295275181,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\misc\ReplaceAndInvertColorServiceTest.java,1,1,14,8,59,0,0,1,0,1,0,6,2,1,0.5981408859840233,Defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\JobOwnershipServiceImplTest.java,5,1,9,47,91,3,0,13,11,13,0,5,2,1,0.8790144593835246,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\NoOpJobOwnershipServiceTest.java,1,1,5,9,44,0,0,9,8,9,0,1,2,1,0.7377982497682751,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\PdfJsonFontServiceTest.java,0,1,8,30,149,2,0,21,18,21,0,29,3,1,0.8316919521391635,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\PdfJsonImageServiceTest.java,0,1,20,28,99,17,1,2,0,1,0,25,4,1,0.8315327871216293,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\PdfJsonMetadataServiceTest.java,3,1,24,115,176,4,0,12,11,12,0,32,3,1,0.7930954257269439,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\PdfLazyLoadingServiceTest.java,0,1,16,28,96,29,1,4,0,4,0,15,4,1,0.8169840697006996,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\Type3FontConversionServiceTest.java,21,1,22,173,200,26,0,5,5,5,0,62,2,1,0.7624131732414609,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\Type3FontSignatureCalculatorTest.java,12,1,16,53,110,0,1,1,1,1,0,32,4,1,0.8042869375574173,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\Type3GlyphContextTest.java,10,1,15,58,107,12,0,2,2,2,0,33,2,1,0.8166593129452375,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\Type3GlyphExtractorTest.java,1,1,17,21,58,7,0,1,1,1,0,19,2,1,0.848505415829833,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\Type3GraphicsEngineTest.java,4,1,12,75,137,1,0,2,1,2,0,14,2,1,0.8130835807281633,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\Type3LibraryStrategyTest.java,9,1,22,91,156,0,1,4,4,4,0,52,2,1,0.7768331135052553,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibraryEntryTest.java,12,1,8,83,114,0,0,10,10,10,0,16,2,1,0.8384828047837123,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibraryMatchTest.java,10,1,3,59,78,0,0,5,5,5,0,12,2,1,0.7940156384069845,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\library\Type3FontLibraryPayloadTest.java,0,1,12,10,50,0,0,8,8,8,0,10,2,1,0.8267239747484245,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\model\Type3GlyphOutlineTest.java,8,1,6,82,104,0,0,7,7,7,0,10,2,1,0.777231058596401,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\pdfjson\type3\tool\Type3SignatureToolTest.java,16,1,14,27,81,1,0,1,1,1,0,15,4,1,0.7818802531071687,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\telegram\FeedbackEnumTest.java,6,1,2,6,18,1,0,2,2,2,0,1,2,1,0.5498332054067636,Defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\service\telegram\TelegramPipelineBotTest.java,4,1,25,286,395,11,18,12,0,3,0,50,4,1,0.7468737670992386,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\utils\SvgOverlayUtilTest.java,11,1,3,18,66,34,0,11,11,11,0,19,3,1,0.7814978675223174,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\utils\SvgToPdfTest.java,27,1,9,39,103,37,0,7,7,7,0,34,2,1,0.8300386363799394,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\utils\text\TextEncodingHelperTest.java,30,1,17,82,185,0,0,20,20,20,0,22,3,1,0.6945430152922334,Defective,Medium,Review if time permits
+temp_repo\app\core\src\test\java\stirling\software\SPDF\utils\text\TextFinderUtilsTest.java,25,1,17,80,128,37,0,12,12,12,0,23,3,1,0.8173222045625727,Defective,High,Review immediately
+temp_repo\app\core\src\test\java\stirling\software\SPDF\utils\text\WidthCalculatorTest.java,11,1,14,45,89,1,1,7,7,7,0,14,3,1,0.8645026887766523,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\audit\AuditAspect.java,6,1,17,63,133,12,2,13,1,1,0,26,5,1,0.8292145823221505,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\audit\Audited.java,0,1,4,0,14,14,1,2,2,2,0,4,2,1,0.92,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\audit\AuditEventType.java,1,1,1,4,34,1,5,5,1,1,1,1,5,1,0.55,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\audit\AuditLevel.java,2,1,1,2,25,2,6,4,2,2,1,2,4,1,0.6246688327964924,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\audit\ControllerAuditAspect.java,14,1,24,85,218,35,14,30,3,3,0,38,6,1,0.8145698682132273,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\config\AsyncConfig.java,5,1,13,8,44,4,3,5,4,4,0,5,6,1,0.7125356252359435,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\config\AuditConfigurationProperties.java,3,1,7,14,48,1,6,4,4,4,0,15,3,1,0.8366666666666667,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\config\AuditJpaConfig.java,0,1,2,0,7,0,0,0,0,0,0,0,1,1,0.6733333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\config\CustomAuditEventRepository.java,6,1,16,25,62,8,2,5,2,2,0,6,4,1,0.7323646484198701,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\configuration\ServerCertificateInitializer.java,0,1,6,2,21,0,0,2,1,1,0,0,3,0,0.35761727143120553,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\AdminJobController.java,4,1,14,17,62,8,6,1,1,1,0,10,3,1,0.8533333333333334,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\AiEngineController.java,5,1,29,28,122,10,4,7,4,4,0,24,3,1,0.8210257630096776,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\AuditDashboardController.java,47,1,47,212,243,109,18,45,22,22,4,107,3,1,0.6466939233853143,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\AuditRestController.java,81,1,34,416,708,242,28,112,0,28,8,169,9,1,0.7462803976046009,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\MathAuditorAgentController.java,5,1,17,19,74,11,5,4,0,0,0,17,3,1,0.8128145781681986,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\ProprietaryUIDataController.java,30,1,61,306,534,142,18,46,0,11,4,123,6,1,0.8621557603725698,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\SignatureController.java,22,1,25,84,161,21,17,21,5,5,1,19,7,1,0.8056200503468807,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\controller\api\UsageRestController.java,12,1,17,56,134,30,18,17,0,3,1,29,4,1,0.883760875314738,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\Team.java,0,1,7,4,35,4,0,2,0,2,0,13,2,1,0.6567003265434638,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\UserLicenseSettings.java,0,1,3,0,28,0,0,0,0,0,0,22,2,1,0.6,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiPdfContentType.java,0,1,3,1,41,2,2,4,2,2,1,1,4,0,0.38333333333333336,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowFileInput.java,0,1,5,0,16,0,0,0,0,0,0,4,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowFileRequest.java,0,1,4,0,15,8,0,0,0,0,0,7,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowOutcome.java,0,1,3,1,32,2,2,4,2,2,1,1,4,0,0.39666666666666667,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowPhase.java,0,1,3,1,26,0,2,4,2,2,1,1,4,0,0.39666666666666667,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowProgressEvent.java,1,1,3,1,12,0,1,1,0,1,0,0,2,0,0.4166666666666667,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowRequest.java,0,1,5,0,16,2,0,0,0,0,0,4,1,1,0.55,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowResponse.java,0,1,5,0,40,14,0,0,0,0,0,18,1,1,0.64,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AiWorkflowTextSelection.java,0,1,2,0,11,0,0,0,0,0,0,4,1,0,0.49666666666666665,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AuditDiscrepancy.java,0,1,0,0,9,0,0,1,1,1,0,0,1,0,0.13,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\AuditSeverity.java,0,1,1,1,10,0,1,1,1,1,0,0,2,0,0.14,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\DiscrepancyKind.java,0,1,1,1,12,0,1,1,1,1,0,0,2,0,0.25,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\Evidence.java,0,1,1,0,8,6,1,1,1,1,0,0,1,1,0.8,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\Folio.java,0,1,1,0,4,4,0,1,1,1,0,0,1,1,0.6966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\FolioManifest.java,0,1,1,1,4,5,0,1,1,1,0,0,1,1,0.7033333333333334,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\FolioType.java,0,1,1,1,11,0,1,1,1,1,0,0,2,0,0.16666666666666666,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\Requisition.java,0,1,1,3,14,11,1,2,2,2,0,0,2,1,0.8933333333333333,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\ai\Verdict.java,0,1,1,8,22,14,2,3,3,3,0,0,2,1,0.8368518628218883,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\audit\AuditDataRequest.java,0,2,4,0,14,0,0,0,0,0,0,9,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\audit\AuditDataResponse.java,0,1,8,0,24,2,0,0,0,0,0,7,1,1,0.5842797202797203,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\audit\AuditDateExportRequest.java,0,1,8,0,22,0,0,0,0,0,0,6,1,1,0.6309463869463869,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\audit\AuditExportRequest.java,0,2,6,0,30,0,0,0,0,0,0,6,2,1,0.5742797202797203,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\audit\AuditStatsResponse.java,0,1,7,0,23,6,0,0,0,0,0,5,1,1,0.6076130536130536,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\signature\SavedSignatureRequest.java,0,1,2,0,16,0,0,0,0,0,0,0,1,1,0.52,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\api\signature\SavedSignatureResponse.java,0,1,3,0,20,0,0,0,0,0,0,0,1,1,0.6133333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\dto\TeamWithUserCountDTO.java,0,1,2,0,15,0,0,1,0,1,0,3,2,0,0.26666666666666666,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\model\security\PersistentAuditEvent.java,0,1,3,5,32,0,0,0,0,0,0,14,1,0,0.45,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\pdf\FlexibleCSVWriter.java,0,2,2,0,11,0,0,2,2,2,0,0,2,0,0.3466666666666667,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\repository\PersistentAuditEventRepository.java,0,2,12,0,203,127,0,0,0,0,0,8,1,1,0.6691209328072073,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\CustomAuthenticationFailureHandler.java,0,2,19,25,79,6,6,8,0,2,0,12,4,1,0.8596416556993093,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\CustomAuthenticationSuccessHandler.java,2,2,18,16,66,2,1,4,1,1,0,10,4,1,0.7473372054935823,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\CustomLogoutSuccessHandler.java,5,2,32,65,203,42,9,27,5,5,0,59,6,1,0.9398987651667033,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\InitialSecuritySetup.java,15,1,19,91,155,7,0,16,4,4,1,19,6,1,0.8085534705442239,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\JwtAuthenticationEntryPoint.java,0,1,6,11,29,1,1,1,0,0,0,3,4,1,0.558710976837865,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\RateLimitResetScheduler.java,0,1,4,1,14,0,0,1,1,1,0,1,2,0,0.41333333333333333,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\config\EnterpriseEndpoint.java,0,1,4,0,8,0,0,0,0,0,0,0,1,1,0.6833333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\config\EnterpriseEndpointAspect.java,0,1,8,1,25,0,1,1,0,0,0,1,3,1,0.5876130536130536,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\config\PremiumEndpoint.java,0,1,4,0,8,0,0,0,0,0,0,0,1,1,0.6833333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\config\PremiumEndpointAspect.java,0,1,8,1,25,0,1,1,0,0,0,1,3,1,0.5876130536130536,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\CacheConfig.java,2,1,10,9,30,0,1,2,2,2,0,3,2,0,0.4848354186738027,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\DatabaseConfig.java,9,1,18,42,125,38,9,8,3,3,0,14,6,1,0.7824529099133061,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\MailConfig.java,1,1,10,49,74,10,1,10,2,2,0,13,3,1,0.9155146087838301,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\ProprietaryWebMvcConfig.java,0,1,5,2,16,0,0,1,1,1,0,0,2,0,0.3700042178181519,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\SecurityConfiguration.java,9,1,82,120,416,32,13,21,8,8,0,40,7,1,0.8302573542871702,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\ee\DynamicLicenseService.java,0,1,4,2,26,5,5,4,4,4,0,1,2,1,0.6581645341889841,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\ee\EEAppConfig.java,0,1,10,59,95,15,5,17,7,7,0,11,4,1,0.8135572436790074,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\ee\KeygenLicenseVerifier.java,40,1,26,388,693,42,43,102,25,25,4,173,10,1,0.7756564273898815,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\configuration\ee\LicenseKeyChecker.java,5,1,15,28,111,4,6,19,10,10,0,13,6,1,0.922269633963155,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\AdminLicenseController.java,52,1,29,192,304,51,30,30,4,7,0,52,5,1,0.7505713978965154,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\AdminSettingsController.java,97,1,47,316,743,172,66,94,19,19,11,172,7,1,0.6926355121158552,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\AuthController.java,126,1,45,345,587,92,79,67,7,7,1,77,6,1,0.7410264321151097,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\DatabaseController.java,35,1,27,86,226,15,16,12,0,0,0,27,5,1,0.7232675430962235,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\EmailController.java,3,1,15,12,44,2,4,3,1,1,0,9,4,1,0.810946386946387,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\InviteLinkController.java,58,1,24,240,354,67,41,43,2,2,0,58,7,1,0.804721031282713,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\ServerCertificateController.java,16,1,12,51,127,12,15,13,4,4,0,21,4,1,0.8214166724192993,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\TeamController.java,30,1,17,73,114,18,15,11,0,0,0,10,3,1,0.7687398826148075,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\UIDataTessdataController.java,28,1,29,122,270,69,20,30,2,6,1,43,6,1,0.7709708156720794,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\UserController.java,174,1,57,491,833,142,100,112,17,17,4,138,6,1,0.7029609124383315,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\controller\api\enterprise\DatabaseControllerEnterprise.java,7,1,19,32,86,34,5,3,1,1,0,17,4,1,0.7643391551689548,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\DatabaseNotificationServiceInterface.java,0,1,0,0,7,0,0,0,0,0,0,0,1,1,0.6966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\H2SQLCondition.java,0,1,3,4,17,0,2,3,2,2,0,3,3,0,0.38814088598402324,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\ScheduledTasks.java,0,1,7,1,18,0,0,0,0,0,0,1,2,1,0.55,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\repository\AuthorityRepository.java,0,2,4,0,10,6,0,0,0,0,0,0,1,1,0.6633333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\repository\JPATokenRepositoryImpl.java,1,1,7,24,52,2,2,8,5,5,0,4,3,1,0.8069970504360237,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\repository\PersistentLoginRepository.java,0,2,3,0,8,2,0,0,0,0,0,0,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\repository\SessionRepository.java,0,2,9,0,38,10,0,0,0,0,0,6,1,1,0.5976130536130536,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\repository\UserRepository.java,0,2,9,0,60,32,0,0,0,0,0,11,1,1,0.6133333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\database\service\DatabaseNotificationService.java,0,1,9,17,62,5,0,10,4,5,0,5,5,1,0.800080872895747,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\filter\EnterpriseEndpointFilter.java,1,2,9,15,44,1,2,3,1,1,0,5,4,1,0.71,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\filter\IPRateLimitingFilter.java,1,1,12,19,53,11,3,7,2,2,0,7,5,1,0.9533333333333334,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\filter\JwtAuthenticationFilter.java,5,2,40,57,175,17,13,15,0,0,0,16,6,1,0.8884145954770566,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\filter\ParticipantRateLimitInterceptor.java,3,1,8,15,54,10,5,4,2,2,0,8,5,1,0.9166666666666666,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\filter\UserAuthenticationFilter.java,16,2,30,87,229,13,14,32,7,8,2,37,6,1,0.845382626573404,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\filter\UserBasedRateLimitingFilter.java,12,2,23,50,127,16,5,14,4,4,1,16,5,1,0.9476955719889674,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\ApiKeyAuthenticationToken.java,0,2,4,3,42,4,2,6,4,5,0,5,3,1,0.5423490562034056,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\AttemptCounter.java,4,1,1,4,23,1,1,4,2,4,0,6,2,0,0.4766666666666667,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\AuthenticationType.java,0,1,0,0,8,0,0,0,0,0,0,1,1,1,0.88,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\Authority.java,0,1,13,2,36,0,0,2,0,2,0,7,2,0,0.47333333333333333,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\InviteToken.java,1,1,7,2,44,0,2,2,0,2,0,25,2,0,0.40427972027972026,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\JwtVerificationKey.java,1,1,8,1,25,0,0,1,0,1,0,6,2,0,0.4628097187805156,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\PersistentLogin.java,0,1,6,0,21,0,0,0,0,0,0,10,1,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\SessionEntity.java,0,1,6,0,16,0,0,0,0,0,0,1,1,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\User.java,2,1,20,10,123,15,7,14,2,14,0,44,2,1,0.7785264602233414,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\Email.java,0,2,6,0,32,8,0,0,0,0,0,14,1,1,0.5876130536130536,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\admin\SettingValueResponse.java,0,1,4,0,17,0,0,0,0,0,0,5,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\admin\UpdateSettingsRequest.java,0,1,5,0,17,2,0,0,0,0,0,3,2,1,0.55,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\admin\UpdateSettingValueRequest.java,0,1,3,0,11,0,0,0,0,0,0,3,1,1,0.6,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\user\MfaCodeRequest.java,0,1,2,0,8,0,0,0,0,0,0,1,1,1,0.5966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\user\UpdateUserDetails.java,0,2,3,0,13,0,0,0,0,0,0,4,1,1,0.62,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\user\UpdateUserUsername.java,0,2,3,0,10,0,0,0,0,0,0,2,1,1,0.62,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\user\Username.java,0,1,3,0,10,0,0,0,0,0,0,2,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\user\UsernameAndPass.java,0,2,3,0,10,0,0,0,0,0,0,3,1,1,0.62,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\api\user\UsernameAndPassMfa.java,0,2,3,0,10,0,0,0,0,0,0,3,1,1,0.62,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\dto\AdminUserSummary.java,0,1,7,0,49,0,0,0,0,0,0,15,2,1,0.5942797202797203,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\exception\AuthenticationFailureException.java,0,2,1,0,10,0,0,2,2,2,0,0,2,0,0.21333333333333335,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\exception\BackupNotFoundException.java,0,2,0,0,6,0,0,1,1,1,0,0,2,0,0.14666666666666667,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\model\exception\NoProviderFoundException.java,0,2,0,0,9,0,0,2,2,2,0,0,2,0,0.19333333333333333,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\oauth2\CustomOAuth2AuthenticationFailureHandler.java,11,2,19,39,114,7,7,13,3,3,0,28,6,1,0.8850884201102838,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\oauth2\CustomOAuth2AuthenticationSuccessHandler.java,19,2,34,113,283,28,26,42,10,10,0,55,7,1,0.9288879137201216,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\oauth2\OAuth2Configuration.java,20,1,42,169,248,25,15,17,8,8,0,35,5,1,0.8034005524825952,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\oauth2\TauriAuthorizationRequestResolver.java,1,1,6,11,45,3,6,8,4,4,0,7,3,1,0.7826830224824034,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\oauth2\TauriOAuthUtils.java,2,1,2,18,62,10,20,15,8,8,1,9,4,1,0.7764508156698541,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\repository\InviteTokenRepository.java,0,2,9,0,22,12,0,0,0,0,0,1,1,1,0.731798474659886,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\repository\TeamRepository.java,0,2,7,1,17,6,0,0,0,0,0,0,1,1,0.5833333333333334,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\repository\UserLicenseSettingsRepository.java,0,2,4,0,11,4,2,1,1,1,0,0,2,1,0.8866666666666667,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\CertificateUtils.java,1,1,21,12,47,1,3,3,1,1,0,9,4,1,0.8053776435045317,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\CustomSaml2AuthenticatedPrincipal.java,0,1,5,0,22,10,2,2,2,2,0,2,2,1,0.9305514805759304,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\CustomSaml2AuthenticationFailureHandler.java,8,2,14,20,77,4,4,9,2,2,0,19,5,1,0.7489325777980352,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\CustomSaml2AuthenticationSuccessHandler.java,22,2,35,137,337,36,26,42,8,10,1,62,8,1,0.897355170371055,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\CustomSaml2ResponseAuthenticationConverter.java,1,1,23,39,93,38,4,16,4,4,4,22,6,1,0.839569637053287,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\Saml2Configuration.java,8,1,28,110,200,9,4,11,3,3,0,26,5,1,0.7524549168452339,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\saml2\TauriSamlUtils.java,0,1,1,8,32,4,7,8,5,5,0,4,3,0,0.4971799280385102,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\AppUpdateAuthService.java,1,1,9,15,36,3,5,5,1,1,0,4,3,1,0.8676130536130536,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\CustomOAuth2UserService.java,1,1,20,23,70,4,1,6,1,1,0,11,5,1,0.8718224867813348,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\CustomUserDetailsService.java,1,1,14,18,65,8,5,8,2,2,0,8,4,1,0.930946386946387,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\DatabaseService.java,84,1,47,253,459,61,28,63,21,21,6,65,7,1,0.7010420316858492,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\DatabaseServiceInterface.java,0,1,5,0,14,10,0,0,0,0,0,0,1,1,0.5233333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\EmailService.java,0,1,19,51,222,274,0,4,0,0,0,76,3,1,0.6786754824901698,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\JwtService.java,9,1,53,126,337,49,29,52,20,20,1,46,7,1,0.8510547912921037,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\JwtServiceInterface.java,0,1,3,0,17,10,11,0,0,0,0,0,1,1,0.5166666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\KeyPairCleanupService.java,5,1,17,23,71,5,3,8,3,3,0,8,5,1,0.8183189219074861,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\KeyPersistenceService.java,38,1,42,147,306,25,23,32,13,13,1,52,7,1,0.827110732133538,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\KeyPersistenceServiceInterface.java,0,1,8,0,19,4,0,0,0,0,0,0,1,1,0.7233333333333334,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\LoginAttemptService.java,3,1,13,41,99,18,12,19,6,8,0,14,4,1,0.8899810114706613,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\MfaService.java,7,1,11,41,145,36,19,18,7,7,0,30,5,1,0.8016969518914298,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\RefreshRateLimitService.java,5,1,12,33,81,14,8,11,8,8,0,12,4,1,0.8958880107046584,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\SaveUserRequest.java,2,1,5,2,24,32,0,0,0,0,0,14,1,1,0.544822920527821,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\TeamService.java,0,1,6,8,32,2,4,2,2,2,0,4,3,0,0.3444649164349419,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\TotpService.java,12,1,16,28,106,14,16,15,7,7,1,30,4,1,0.8217782054005534,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\service\UserService.java,19,2,69,283,607,106,64,114,50,50,8,62,5,1,0.7007150786293603,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\session\CustomHttpSessionListener.java,0,1,4,3,20,0,0,3,3,3,0,1,2,0,0.42147421931735657,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\session\SessionPersistentRegistry.java,6,1,20,59,144,35,10,37,18,19,3,23,5,1,0.7802927370711584,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\session\SessionRegistryConfig.java,0,1,6,0,17,0,2,2,2,2,0,0,2,0,0.4242797202797203,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\session\SessionScheduled.java,1,1,8,10,31,2,0,4,1,1,2,6,5,1,0.5465616066892662,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\util\Base32Codec.java,1,1,6,12,61,23,6,12,3,3,3,22,5,1,0.8452103257279752,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\security\util\DesktopClientUtils.java,0,1,4,12,37,15,7,5,4,4,0,8,3,1,0.619769438732299,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\AiEngineClient.java,12,1,16,49,89,10,3,7,2,2,0,11,3,1,0.8186553922405128,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\AiWorkflowService.java,12,1,29,70,172,39,8,14,0,2,6,18,6,1,0.8234195895099844,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\AuditCleanupService.java,3,1,13,16,75,8,6,11,4,4,1,17,5,1,0.9048412125274871,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\AuditService.java,26,1,50,251,572,148,80,123,44,44,3,68,6,1,0.7603101918988501,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\ImageMagickLineArtConversionService.java,10,1,16,36,63,5,2,2,0,0,0,5,5,1,0.7759315187127658,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\MathAuditorOrchestrator.java,2,1,23,52,161,57,8,14,2,2,4,43,6,1,0.8798048193351462,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\PdfContentExtractor.java,10,1,40,82,279,95,24,37,14,15,7,48,5,1,0.7919795395865684,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\ServerCertificateService.java,22,1,51,77,214,3,12,20,3,7,1,37,5,1,0.8177615800074364,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\SignatureService.java,41,1,32,149,293,31,12,31,6,6,1,61,6,1,0.7160965362246587,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\service\UserLicenseSettingsService.java,14,1,26,140,375,131,41,62,24,24,0,79,6,1,0.800561722879958,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\config\StorageProviderConfig.java,6,1,21,25,64,1,2,8,1,1,0,6,4,1,0.7338346499190748,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\controller\FileStorageController.java,9,1,36,121,251,32,17,16,12,12,0,63,3,1,0.8116996448120312,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\converter\JsonMapConverter.java,0,1,11,19,60,27,7,8,2,2,0,2,6,1,0.8398287270468018,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\FilePurpose.java,0,1,0,0,7,0,0,0,0,0,0,0,1,1,0.6966666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\FileShare.java,0,1,20,0,62,0,0,0,0,0,0,25,2,1,0.7366666666666667,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\FileShareAccess.java,0,1,19,0,52,0,0,0,0,0,0,21,1,1,0.7333333333333333,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\FileShareAccessType.java,0,1,0,0,5,0,0,0,0,0,0,0,1,0,0.25666666666666665,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\ShareAccessRole.java,0,1,0,0,6,0,0,0,0,0,0,0,1,0,0.22,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\StorageCleanupEntry.java,0,1,13,0,36,0,0,0,0,0,0,11,1,1,0.6766666666666666,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\StoredFile.java,0,1,25,0,88,4,0,0,0,0,0,40,1,1,0.737866792439451,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\StoredFileBlob.java,0,1,9,0,24,0,0,0,0,0,0,8,1,1,0.6276130536130536,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\CreateShareLinkRequest.java,0,1,3,0,10,0,0,0,0,0,0,0,1,1,0.61,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\SharedUserResponse.java,0,1,2,0,9,0,0,0,0,0,0,0,1,0,0.5,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\ShareLinkAccessResponse.java,0,1,3,0,11,0,0,0,0,0,0,0,1,1,0.6,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\ShareLinkMetadataResponse.java,0,1,3,0,17,0,0,0,0,0,0,0,1,1,0.6166666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\ShareLinkResponse.java,0,1,3,0,12,0,0,0,0,0,0,0,1,1,0.6266666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\ShareWithUserRequest.java,0,1,3,0,11,0,0,0,0,0,0,0,1,1,0.6,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\model\api\StoredFileResponse.java,0,1,4,0,22,6,0,0,0,0,0,0,1,1,0.6872181472425971,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\provider\DatabaseStorageProvider.java,2,1,12,20,43,1,3,1,0,0,0,3,3,1,0.8118869800390894,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\provider\LocalStorageProvider.java,8,1,18,33,67,1,4,6,1,1,0,6,3,1,0.7472440801514442,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\provider\StorageProvider.java,0,1,4,0,10,0,0,0,0,0,0,0,1,1,0.59,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\provider\StoredObject.java,0,1,2,0,11,0,0,0,0,0,0,0,1,0,0.49666666666666665,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\repository\FileShareAccessRepository.java,0,2,7,0,27,6,0,0,0,0,0,2,1,1,0.600946386946387,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\repository\FileShareRepository.java,0,2,8,0,29,18,0,0,0,0,0,3,1,1,0.650946386946387,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\repository\StorageCleanupEntryRepository.java,0,2,3,0,7,4,0,0,0,0,0,0,1,1,0.7366666666666667,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\repository\StoredFileBlobRepository.java,0,2,2,0,4,2,0,0,0,0,0,0,1,0,0.41,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\repository\StoredFileRepository.java,0,2,10,0,56,14,0,0,0,0,0,8,1,1,0.69,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\service\FileStorageService.java,38,1,97,445,1020,164,93,171,69,69,4,98,5,1,0.5668213557459799,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\storage\service\StorageCleanupService.java,1,1,12,17,64,5,2,7,2,2,1,8,6,1,0.8940302094061107,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\util\SecretMasker.java,4,1,6,23,43,16,7,9,5,5,0,1,3,1,0.8601942733610565,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\web\AuditWebFilter.java,14,2,15,30,71,11,0,6,0,0,0,12,4,1,0.7618322905704595,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\web\CorrelationIdFilter.java,5,2,12,10,36,0,0,1,0,0,0,4,4,1,0.6434535827574688,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\controller\SigningSessionController.java,54,1,45,193,452,70,50,39,1,1,0,82,5,1,0.7885488113747945,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\controller\WorkflowParticipantController.java,17,1,63,162,353,64,11,29,1,1,0,59,4,1,0.8001721885214291,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\CertificateInfo.java,0,1,1,0,4,0,0,1,1,1,0,0,1,0,0.13333333333333333,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\CertificateSubmission.java,0,1,3,0,18,0,0,0,0,0,0,0,1,1,0.6166666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\CertificateValidationResponse.java,0,1,0,0,9,0,0,1,1,1,0,0,1,0,0.13,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\ParticipantRequest.java,0,1,5,0,19,0,0,0,0,0,0,1,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\ParticipantResponse.java,0,1,7,0,25,2,0,0,0,0,0,0,1,1,0.5109463869463869,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\SignatureSubmissionRequest.java,0,1,4,0,21,0,0,0,0,0,0,0,1,1,0.6033333333333334,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\SignDocumentRequest.java,0,1,8,3,40,9,4,4,0,2,1,4,4,1,0.7842797202797204,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\SignRequestDetailDTO.java,0,1,4,0,22,0,0,0,0,0,0,0,1,1,0.5933333333333334,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\SignRequestSummaryDTO.java,0,1,4,0,16,0,0,0,0,0,0,0,1,1,0.6066666666666667,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\WetSignatureMetadata.java,0,2,12,6,66,9,5,7,0,2,0,25,4,1,0.89,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\WorkflowCreationRequest.java,0,1,5,0,19,4,0,0,0,0,0,0,1,1,0.6866666666666666,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\dto\WorkflowSessionResponse.java,0,1,7,0,31,2,0,0,0,0,0,0,1,1,0.5109463869463869,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\CertificateType.java,0,1,0,0,5,0,0,0,0,0,0,0,1,0,0.25666666666666665,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\ParticipantStatus.java,0,1,0,0,8,0,0,0,0,0,0,0,1,1,0.88,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\UserServerCertificateEntity.java,0,1,8,0,54,0,0,0,0,0,0,28,1,1,0.67,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\WorkflowParticipant.java,1,1,26,4,97,15,5,6,0,5,0,39,3,1,0.65443682233081,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\WorkflowSession.java,1,1,28,7,101,12,2,4,0,4,0,49,2,1,0.7125676966429969,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\WorkflowStatus.java,0,1,0,0,6,0,0,0,0,0,0,0,1,0,0.22,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\model\WorkflowType.java,0,1,0,0,6,0,0,0,0,0,0,0,1,0,0.22,Non-defective,Low,Low priority
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\repository\UserServerCertificateRepository.java,0,2,6,0,16,6,0,0,0,0,0,2,1,1,0.6566666666666666,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\repository\WorkflowParticipantRepository.java,0,2,12,0,41,21,0,0,0,0,0,6,1,1,0.6342797202797203,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\repository\WorkflowSessionRepository.java,0,2,10,0,35,19,0,0,0,0,0,8,1,1,0.5742797202797203,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\service\CertificateSubmissionValidator.java,5,1,33,49,150,25,11,25,7,7,2,19,5,1,0.9260423725438507,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\service\MetadataEncryptionService.java,10,1,20,25,76,5,8,9,3,3,0,17,3,1,0.7292341870536682,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\service\SigningFinalizationService.java,18,1,89,440,1074,185,32,86,12,12,9,211,7,1,0.8278191942242455,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\service\UnifiedAccessControlService.java,10,1,16,69,163,19,27,27,16,16,0,14,4,1,0.7720951878176358,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\service\UserServerCertificateService.java,15,1,55,113,193,9,9,9,6,6,0,37,3,1,0.7319699841396861,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\service\WorkflowSessionService.java,7,1,70,366,652,118,27,78,26,26,4,75,6,1,0.8216536479595393,Defective,High,Review immediately
+temp_repo\app\proprietary\src\main\java\stirling\software\proprietary\workflow\util\WorkflowMapper.java,2,1,12,91,117,19,12,17,5,5,1,8,6,1,0.8450295866816205,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\controller\api\ProprietaryUIDataControllerTest.java,7,1,38,72,118,6,0,4,0,4,0,13,2,1,0.802997951137572,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\controller\api\SignatureControllerTest.java,1,1,18,36,71,0,0,1,0,1,0,2,3,1,0.7687173275611914,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\model\TeamTest.java,0,1,11,23,52,0,0,5,5,5,0,9,2,1,0.8070369903661607,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\model\dto\TeamWithUserCountDTOTest.java,0,1,8,20,43,0,0,4,4,4,0,7,2,1,0.7648075526506899,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\CustomLogoutSuccessHandlerTest.java,0,1,14,228,238,0,0,0,0,0,0,65,2,1,0.7258779575195152,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\InitialSecuritySetupTest.java,11,1,30,72,98,2,0,2,0,2,0,7,2,1,0.7537302049197558,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\JwtAuthenticationEntryPointTest.java,0,1,10,6,26,0,0,0,0,0,0,1,2,1,0.5266666666666666,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\configuration\DatabaseConfigTest.java,1,1,14,41,71,1,0,2,1,2,0,10,2,1,0.7968458904288372,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\configuration\ee\LicenseKeyCheckerTest.java,1,1,23,33,70,0,0,3,1,3,0,10,2,1,0.7913048344707282,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\controller\api\AuthControllerLoginTest.java,14,1,48,186,266,16,2,3,0,3,0,25,2,1,0.7847827787701618,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\controller\api\AuthControllerMfaTest.java,15,1,35,148,181,0,0,1,0,1,0,5,3,1,0.7103460886956584,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\controller\api\EmailControllerTest.java,6,1,24,21,76,3,1,4,0,2,0,6,3,1,0.7109267253431746,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\controller\api\InviteLinkControllerTest.java,12,1,35,123,159,1,0,1,0,1,0,9,2,1,0.7243052311711744,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\controller\api\UIDataTessdataControllerTest.java,71,1,29,262,312,24,20,20,17,17,0,41,6,1,0.6684783782496342,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\controller\api\UserControllerTest.java,5,1,41,73,129,0,0,1,0,1,0,11,2,1,0.7998761512053217,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\database\H2SQLConditionTest.java,0,1,16,17,68,5,1,5,5,5,0,20,2,1,0.777325652555903,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\database\ScheduledTasksTest.java,1,1,18,13,55,2,0,1,0,1,0,7,3,1,0.75,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\database\repository\JPATokenRepositoryImplTest.java,5,1,21,51,110,3,2,7,7,7,0,12,3,1,0.8392606924152346,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\filter\JwtAuthenticationFilterTest.java,3,1,39,121,193,10,0,0,0,0,0,13,3,1,0.747230385654659,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\model\ApiKeyAuthenticationTokenTest.java,3,1,15,30,62,1,0,5,5,5,0,12,2,1,0.8078360221099856,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\model\AttemptCounterTest.java,8,1,17,60,211,33,3,18,15,15,0,38,3,1,0.8199240960066642,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\model\AuthorityTest.java,0,1,18,35,73,2,0,7,7,7,0,13,2,1,0.8264235065163832,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\model\UserTest.java,6,1,26,57,105,13,0,9,9,9,0,20,3,1,0.814051511483278,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\model\exception\BackupNotFoundExceptionTest.java,0,1,4,4,28,1,0,3,3,3,0,2,3,1,0.52,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\model\exception\NoProviderFoundExceptionTest.java,0,1,6,5,26,0,0,4,3,3,0,3,3,0,0.4066666666666667,Non-defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\oauth2\CustomOAuth2AuthenticationFailureHandlerTest.java,0,1,16,7,38,0,0,0,0,0,0,9,2,1,0.6333333333333333,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\oauth2\CustomOAuth2AuthenticationSuccessHandlerTest.java,6,1,25,28,71,2,0,0,0,0,0,14,2,1,0.70971467186601,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\oauth2\OAuth2ConfigurationTest.java,1,1,3,9,63,18,1,5,4,4,1,25,4,1,0.6826510529803046,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\oauth2\TauriAuthorizationRequestResolverTest.java,1,1,12,22,54,0,2,5,4,4,0,6,3,1,0.8533333333333334,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\oauth2\TauriOAuthUtilsTest.java,22,1,10,29,108,0,0,18,18,18,0,17,2,1,0.6658399777401766,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\DatabaseServiceTest.java,21,1,24,61,237,7,0,5,2,4,0,16,3,1,0.8016298211923591,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\EmailServiceTest.java,0,1,22,60,128,0,1,12,2,6,0,8,3,1,0.8231459724669214,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\JwtServiceTest.java,18,1,37,182,245,34,0,3,0,3,0,35,3,1,0.7519603382855189,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\KeyPersistenceServiceInterfaceTest.java,10,1,41,94,186,22,0,4,0,4,0,41,3,1,0.7511970903166432,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\LoginAttemptServiceTest.java,7,1,21,113,289,64,22,22,5,5,1,73,5,1,0.7560393939043349,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\MailConfigTest.java,0,1,12,51,68,15,0,3,3,3,0,10,2,1,0.893169920879756,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\MfaServiceTest.java,0,1,20,90,113,7,0,3,0,3,0,11,2,1,0.8538512914874055,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\TeamServiceTest.java,5,1,15,30,59,0,0,4,2,4,0,10,2,1,0.8015206956183806,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\TotpServiceTest.java,5,1,15,27,75,0,2,6,6,6,0,21,2,1,0.8074179629014551,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\service\UserServiceTest.java,29,1,53,184,248,13,0,6,0,6,0,26,2,1,0.7464838887477763,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\security\util\Base32CodecTest.java,9,1,6,10,35,3,0,5,5,5,0,4,2,1,0.5511456982344928,Defective,Medium,Review if time permits
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\service\UserLicenseSettingsServiceTest.java,1,1,23,199,349,13,6,32,25,32,0,38,4,1,0.7721187747101638,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\storage\converter\JsonMapConverterTest.java,3,1,5,30,64,13,0,11,11,11,0,11,4,1,0.7994093290116915,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\storage\service\FileStorageServiceTest.java,25,1,41,298,445,34,3,32,24,32,0,90,3,1,0.7866397444174368,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\util\SecretMaskerTest.java,23,1,7,57,129,89,1,9,9,9,0,26,5,1,0.8074694681436015,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\web\AuditWebFilterTest.java,22,2,39,80,247,24,7,11,8,11,0,22,5,1,0.782906975126427,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\web\CorrelationIdFilterTest.java,11,2,22,31,133,9,0,2,0,2,0,19,3,1,0.7881674465160635,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\controller\CertificateValidationIntegrationTest.java,5,1,32,77,154,11,3,1,0,0,0,6,3,1,0.8425032996631185,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\controller\WorkflowParticipantValidateCertificateTest.java,6,1,35,55,126,0,2,2,0,2,0,9,2,1,0.793209484538655,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\dto\WetSignatureMetadataTest.java,0,1,8,28,82,8,1,14,14,14,0,8,2,1,0.7742079220034581,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\service\CertificateSubmissionValidatorTest.java,12,1,56,106,293,10,4,8,3,5,0,47,3,1,0.7865936619102152,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\service\MetadataEncryptionServiceTest.java,0,1,9,29,77,2,1,13,12,13,0,13,2,1,0.7902892403346858,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\service\SigningFinalizationServiceTest.java,17,1,25,65,133,12,2,11,2,10,1,23,3,1,0.7766972905746699,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\service\UnifiedAccessControlServiceTest.java,26,1,37,163,250,0,3,23,20,23,0,62,2,1,0.7678575990758929,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\service\UserServerCertificateServiceTest.java,10,1,49,75,140,6,2,4,0,4,0,34,3,1,0.8356722962277128,Defective,High,Review immediately
+temp_repo\app\proprietary\src\test\java\stirling\software\proprietary\workflow\service\WorkflowSessionServiceTest.java,20,1,78,300,433,59,3,22,13,22,0,82,3,1,0.8333580241158898,Defective,High,Review immediately
+temp_repo\scripts\PropSync.java,4,1,7,34,67,31,2,12,2,2,3,20,6,1,0.772206068762526,Defective,High,Review immediately
+temp_repo\scripts\RestartHelper.java,17,1,4,49,84,21,2,17,5,5,3,15,6,1,0.8864995881808252,Defective,High,Review immediately

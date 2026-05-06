@@ -1,0 +1,5 @@
+https://github.com/apache/commons-lang.git
+https://github.com/apache/commons-io.git
+https://github.com/apache/commons-collections.git
+https://github.com/google/gson.git
+https://github.com/square/retrofit.git

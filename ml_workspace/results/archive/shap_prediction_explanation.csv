@@ -1,0 +1,16 @@
+file_path,prediction_label,defect_risk_probability,feature,feature_value,shap_value,impact_direction
+src/UserService.java,Defective,0.8721084024598933,returnQty,5,0.07712634367966908,increase_defect_risk
+src/UserService.java,Defective,0.8721084024598933,comparisonsQty,10,0.07311191971103104,increase_defect_risk
+src/UserService.java,Defective,0.8721084024598933,rfc,20,0.05234687729432817,increase_defect_risk
+src/UserService.java,Defective,0.8721084024598933,nosi,12,0.04720163667905016,increase_defect_risk
+src/UserService.java,Defective,0.8721084024598933,lcom,4,0.04093230431254985,increase_defect_risk
+src/AuthController.java,Defective,0.8631380844380517,rfc,45,0.07866205242770273,increase_defect_risk
+src/AuthController.java,Defective,0.8631380844380517,lcom,10,0.054090443996930804,increase_defect_risk
+src/AuthController.java,Defective,0.8631380844380517,loc,420,0.05305866610769469,increase_defect_risk
+src/AuthController.java,Defective,0.8631380844380517,comparisonsQty,25,0.05156796035377369,increase_defect_risk
+src/AuthController.java,Defective,0.8631380844380517,totalMethods,15,0.034022112031972376,increase_defect_risk
+src/Helper.java,Non-defective,0.42777963949036385,rfc,4,-0.06784254012492986,decrease_defect_risk
+src/Helper.java,Non-defective,0.42777963949036385,comparisonsQty,1,-0.0430329517181445,decrease_defect_risk
+src/Helper.java,Non-defective,0.42777963949036385,totalMethods,2,0.03352090058028027,increase_defect_risk
+src/Helper.java,Non-defective,0.42777963949036385,cbo,1,-0.03201366233127536,decrease_defect_risk
+src/Helper.java,Non-defective,0.42777963949036385,nosi,2,0.028377699496019593,increase_defect_risk
