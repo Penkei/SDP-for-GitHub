@@ -6,10 +6,39 @@
   margin-bottom: 24px;
 }
 
+.result-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
 .result-header h1 {
   margin-top: 0;
 }
 
 .result-header p {
   color: #4b5563;
+}
+
+.metric-guide-open-button {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.metric-guide-open-button:hover {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+
+@media (max-width: 800px) {
+  .result-header-top {
+    flex-direction: column;
+  }
 }

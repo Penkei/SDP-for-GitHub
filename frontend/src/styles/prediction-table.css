@@ -3,12 +3,18 @@
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
   padding: 0;
+  overflow: hidden;
+}
+
+.table-scroll-box {
+  max-height: 650px;
+  overflow-y: auto;
   overflow-x: auto;
 }
 
 .prediction-table {
   width: 100%;
-  min-width: 1200px;
+  min-width: 1280px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -16,17 +22,22 @@
 .prediction-table th,
 .prediction-table td {
   padding: 14px 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #111827;
+  border-right: 1px solid #e5e7eb;
   text-align: left;
   vertical-align: top;
   font-size: 14px;
 }
 
-.prediction-table th {
-  background: #f9fafb;
+.prediction-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f3f4f6;
   font-weight: 700;
   color: #111827;
   white-space: nowrap;
+  border-bottom: 2px solid #111827;
 }
 
 .prediction-table tbody tr:hover {
@@ -34,31 +45,35 @@
 }
 
 .col-no {
-  width: 54px;
+  width: 48px;
 }
 
 .col-file {
-  width: 360px;
+  width: 255px;
 }
 
 .col-prediction {
-  width: 140px;
+  width: 125px;
 }
 
 .col-probability {
-  width: 190px;
+  width: 150px;
 }
 
 .col-risk {
-  width: 110px;
+  width: 105px;
 }
 
 .col-recommendation {
-  width: 170px;
+  width: 165px;
 }
 
-.col-explanation {
-  width: 460px;
+.col-metrics {
+  width: 320px;
+}
+
+.col-readable-explanation {
+  width: 360px;
 }
 
 .file-path-cell {
@@ -75,8 +90,14 @@
 }
 
 .explanation-cell {
-  color: #4b5563;
+  color: #111827;
   line-height: 1.45;
+  word-break: break-word;
+}
+
+.readable-explanation-cell {
+  color: #374151;
+  line-height: 1.55;
   word-break: break-word;
 }
 
@@ -91,7 +112,7 @@
   border: 1px solid #bfdbfe;
   background: #eff6ff;
   color: #1d4ed8;
-  padding: 5px 9px;
+  padding: 4px 8px;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
@@ -108,8 +129,8 @@
 }
 
 .sort-table-icon {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   object-fit: contain;
   transition: transform 0.2s ease;
 }

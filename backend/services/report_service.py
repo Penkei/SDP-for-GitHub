@@ -1,7 +1,12 @@
 import pandas as pd
 
+from services.readable_explanation_service import ReadableExplanationService
+
 
 class ReportService:
+
+    def __init__(self):
+        self.readable_explanation_service = ReadableExplanationService()
 
     def generate(self, prediction_df: pd.DataFrame) -> list:
         if prediction_df.empty:
@@ -14,7 +19,17 @@ class ReportService:
         prediction_df["recommendation"] = prediction_df.apply(
             lambda row: self._get_recommendation(
                 row["prediction_label"],
-                row["risk_level"]
+                row["risk_level"],
+                row["defect_risk_probability"]
+            ),
+            axis=1
+        )
+
+        prediction_df["readable_explanation"] = prediction_df.apply(
+            lambda row: self.readable_explanation_service.generate(
+                row["top_contributing_metrics"],
+                row["risk_level"],
+                row["defect_risk_probability"]
             ),
             axis=1
         )
@@ -25,7 +40,8 @@ class ReportService:
             "defect_risk_probability",
             "risk_level",
             "recommendation",
-            "top_contributing_metrics"
+            "top_contributing_metrics",
+            "readable_explanation"
         ]
 
         result_df = prediction_df[output_columns].copy()
@@ -44,10 +60,11 @@ class ReportService:
         else:
             return "Low"
 
-    def _get_recommendation(self, label: str, risk: str) -> str:
-        if label == "Defective" or risk == "High":
-            return "Review immediately"
-        elif risk == "Medium":
-            return "Review if time permits"
-        else:
-            return "Low priority"
+    def _get_recommendation(self, label: str, risk: str, probability: float) -> str:
+        if risk == "High" or label == "Defective":
+            return "Review immediately before release"
+
+        if risk == "Medium":
+            return "Review key logic when time permits"
+
+        return "Low priority, monitor if modified later"

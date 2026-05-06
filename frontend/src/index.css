@@ -6,3 +6,5 @@
 @import "./styles/prediction-table.css";
 @import "./styles/side-panel.css";
 @import "./styles/badges.css";
+@import "./styles/metric-guide.css";
+@import "./styles/compact-explanation.css";

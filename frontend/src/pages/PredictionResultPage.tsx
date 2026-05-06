@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import type { PredictionResponse, PredictionResult } from "../types/prediction";
 import PredictionTable from "../components/PredictionTable";
+import MetricGuide from "../components/MetricGuide";
 
 export type ProbabilitySortDirection = "desc" | "asc";
 
@@ -14,6 +15,8 @@ function PredictionResultPage() {
 
   const [probabilitySortDirection, setProbabilitySortDirection] =
     useState<ProbabilitySortDirection>("desc");
+
+  const [isMetricGuideOpen, setIsMetricGuideOpen] = useState(false);
 
   const sortedResults = useMemo(() => {
     if (!predictionResponse) {
@@ -50,20 +53,31 @@ function PredictionResultPage() {
   return (
     <div className="page">
       <div className="result-header">
-        <h1>Prediction Result</h1>
+        <div className="result-header-top">
+          <div>
+            <h1>Prediction Result</h1>
 
-        <p>
-          Repository: <strong>{predictionResponse.repo_url}</strong>
-        </p>
+            <p>
+              Repository: <strong>{predictionResponse.repo_url}</strong>
+            </p>
 
-        <p>
-          Commit: <strong>{predictionResponse.commit_sha}</strong>
-        </p>
+            <p>
+              Commit: <strong>{predictionResponse.commit_sha}</strong>
+            </p>
 
-        <p>
-          Total Java Files Scanned:{" "}
-          <strong>{predictionResponse.total_files_scanned}</strong>
-        </p>
+            <p>
+              Total Java Files Scanned:{" "}
+              <strong>{predictionResponse.total_files_scanned}</strong>
+            </p>
+          </div>
+
+          <button
+            className="metric-guide-open-button"
+            onClick={() => setIsMetricGuideOpen(true)}
+          >
+            Metric Explanation Guide
+          </button>
+        </div>
       </div>
 
       <PredictionTable
@@ -74,6 +88,11 @@ function PredictionResultPage() {
             current === "desc" ? "asc" : "desc"
           )
         }
+      />
+
+      <MetricGuide
+        isOpen={isMetricGuideOpen}
+        onClose={() => setIsMetricGuideOpen(false)}
       />
     </div>
   );

@@ -10,6 +10,7 @@ export interface PredictionResult {
   risk_level: string;
   recommendation: string;
   top_contributing_metrics: string;
+  readable_explanation?: string;
 }
 
 export interface PredictionResponse {

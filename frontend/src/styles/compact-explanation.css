@@ -1,0 +1,34 @@
+.compact-explanation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.compact-explanation-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #f3f4f6;
+  border-left: 3px solid #111827;
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+.compact-explanation-keyword {
+  color: #111827;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.compact-explanation-value {
+  font-family: Consolas, monospace;
+  font-weight: 700;
+  font-size: 12px;
+  color: white;
+  background: #111827;
+  border-radius: 999px;
+  padding: 2px 8px;
+  min-width: 30px;
+  text-align: center;
+}
