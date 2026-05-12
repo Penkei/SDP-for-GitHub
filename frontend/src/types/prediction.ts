@@ -5,6 +5,7 @@ export interface PredictionRequest {
 
 export interface PredictionResult {
   file_path: string;
+  language: string;
   prediction_label: string;
   defect_risk_probability: number;
   risk_level: string;

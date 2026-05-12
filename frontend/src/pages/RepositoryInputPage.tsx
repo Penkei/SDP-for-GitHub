@@ -292,8 +292,8 @@ function RepositoryInputPage() {
               <div className="progress-bar-fill"></div>
             </div>
             <p>
-              Cloning repository, checking out selected commit, extracting Java
-              metrics, running ML prediction, and generating explanation...
+              Cloning repository, checking out selected commit, extracting source
+              code metrics, running ML prediction, and generating explanation...
             </p>
           </div>
         )}

@@ -4,7 +4,7 @@ import re
 import pandas as pd
 from git import Repo
 
-from extract_java_metrics import extract_metrics_from_java
+from extract_java_metrics import SUPPORTED_SOURCE_EXTENSIONS, extract_metrics_from_source
 
 
 BUG_KEYWORDS = [
@@ -53,8 +53,9 @@ def is_merge_message(message):
 
 def should_exclude_file(file_path):
     lower_path = file_path.lower()
+    extension = os.path.splitext(lower_path)[1]
 
-    if not lower_path.endswith(".java"):
+    if extension not in SUPPORTED_SOURCE_EXTENSIONS:
         return True
 
     for keyword in EXCLUDE_PATH_KEYWORDS:
@@ -63,10 +64,10 @@ def should_exclude_file(file_path):
 
     file_name = os.path.basename(lower_path)
 
-    if file_name.endswith("test.java"):
+    if file_name.startswith("test"):
         return True
 
-    if file_name.startswith("test"):
+    if file_name.endswith(("_test.py", "_test.cpp", "_test.cc", "_test.cxx")):
         return True
 
     return False
@@ -86,7 +87,7 @@ def clone_repository(repo_url, output_dir):
     return repo
 
 
-def get_changed_java_files(commit):
+def get_changed_source_files(commit):
     changed_files = []
 
     if not commit.parents:
@@ -129,7 +130,7 @@ def build_dataset_for_repo(repo_url, max_commits=500):
 
     skipped_merge = 0
     skipped_unlabelled = 0
-    skipped_no_java = 0
+    skipped_no_supported_source = 0
 
     for index, commit in enumerate(commits, start=1):
         try:
@@ -151,15 +152,15 @@ def build_dataset_for_repo(repo_url, max_commits=500):
                 skipped_unlabelled += 1
                 continue
 
-            changed_java_files = get_changed_java_files(commit)
+            changed_source_files = get_changed_source_files(commit)
 
-            if not changed_java_files:
-                skipped_no_java += 1
+            if not changed_source_files:
+                skipped_no_supported_source += 1
                 continue
 
             print(f"[{repo_name}] [{index}/{len(commits)}] {commit_sha[:8]} | defect={label}")
 
-            for file_path in changed_java_files:
+            for file_path in changed_source_files:
                 try:
                     if label == 1 and commit.parents:
                         checkout_commit = commit.parents[0].hexsha
@@ -173,7 +174,7 @@ def build_dataset_for_repo(repo_url, max_commits=500):
                     if not os.path.exists(full_file_path):
                         continue
 
-                    metrics = extract_metrics_from_java(full_file_path)
+                    metrics = extract_metrics_from_source(full_file_path)
 
                     metrics["repo_name"] = repo_name
                     metrics["repo_url"] = repo_url
@@ -195,7 +196,7 @@ def build_dataset_for_repo(repo_url, max_commits=500):
     print("Rows collected:", len(rows))
     print("Skipped merge commits:", skipped_merge)
     print("Skipped unlabelled commits:", skipped_unlabelled)
-    print("Skipped commits without Java files:", skipped_no_java)
+    print("Skipped commits without supported source files:", skipped_no_supported_source)
 
     return rows
 

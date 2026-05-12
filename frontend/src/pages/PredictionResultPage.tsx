@@ -66,7 +66,7 @@ function PredictionResultPage() {
             </p>
 
             <p>
-              Total Java Files Scanned:{" "}
+              Total Supported Files Scanned:{" "}
               <strong>{predictionResponse.total_files_scanned}</strong>
             </p>
           </div>

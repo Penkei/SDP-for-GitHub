@@ -17,7 +17,7 @@ function PredictionTable({
   if (results.length === 0) {
     return (
       <div className="form-card">
-        <p>No Java files found for prediction.</p>
+        <p>No supported Java, Python, or C++ files found for prediction.</p>
       </div>
     );
   }
@@ -33,6 +33,7 @@ function PredictionTable({
             <tr>
               <th className="col-no">No.</th>
               <th className="col-file">File Path</th>
+              <th className="col-language">Language</th>
               <th className="col-prediction">Prediction</th>
 
               <th className="col-probability">
@@ -71,6 +72,8 @@ function PredictionTable({
                 <td className="col-no">{index + 1}</td>
 
                 <td className="col-file file-path-cell">{item.file_path}</td>
+
+                <td className="col-language">{item.language || "Unknown"}</td>
 
                 <td className="col-prediction">
                   <span

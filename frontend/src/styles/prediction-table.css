@@ -14,7 +14,7 @@
 
 .prediction-table {
   width: 100%;
-  min-width: 1280px;
+  min-width: 1360px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -50,6 +50,10 @@
 
 .col-file {
   width: 255px;
+}
+
+.col-language {
+  width: 95px;
 }
 
 .col-prediction {

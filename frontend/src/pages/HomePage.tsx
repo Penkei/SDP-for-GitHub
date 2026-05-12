@@ -7,8 +7,9 @@ function HomePage() {
         <h1>Program Defect Prediction for GitHub</h1>
 
         <p>
-          This system uses a machine learning model to analyze Java files from a
-          GitHub repository and predict potential defect risk at file level.
+          This system uses a machine learning model to analyze Java, Python, and
+          C++ files from a GitHub repository and predict potential defect risk at
+          file level.
         </p>
 
         <div className="hero-actions">

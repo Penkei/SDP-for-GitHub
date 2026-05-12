@@ -36,6 +36,7 @@ class ReportService:
 
         output_columns = [
             "file_path",
+            "language",
             "prediction_label",
             "defect_risk_probability",
             "risk_level",
@@ -43,6 +44,10 @@ class ReportService:
             "top_contributing_metrics",
             "readable_explanation"
         ]
+
+        for column in output_columns:
+            if column not in prediction_df.columns:
+                prediction_df[column] = ""
 
         result_df = prediction_df[output_columns].copy()
 
