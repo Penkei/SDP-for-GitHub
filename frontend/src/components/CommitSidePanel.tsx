@@ -14,6 +14,26 @@ interface CommitSidePanelProps {
   onPreviousPage: () => void;
 }
 
+const splitCommitMessage = (message: string) => {
+  const normalizedMessage = message.replace(/\s+/g, " ").trim();
+  const sentenceBreak = normalizedMessage.search(/(?<=\.)\s/);
+  const subjectBreak = sentenceBreak > 0 ? sentenceBreak : normalizedMessage.indexOf(" -- ");
+  const splitIndex =
+    subjectBreak > 0 && subjectBreak < 140 ? subjectBreak : 110;
+
+  if (normalizedMessage.length <= splitIndex) {
+    return {
+      subject: normalizedMessage,
+      details: "",
+    };
+  }
+
+  return {
+    subject: `${normalizedMessage.slice(0, splitIndex).trim()}...`,
+    details: normalizedMessage.slice(splitIndex).trim(),
+  };
+};
+
 function CommitSidePanel({
   isOpen,
   loading,
@@ -87,24 +107,41 @@ function CommitSidePanel({
 
           {!loading && commits.length > 0 && (
             <div className="commit-list">
-              {commits.map((commit) => (
-                <button
-                  key={commit.sha}
-                  className="commit-item"
-                  onClick={() => onSelectCommit(commit)}
-                >
-                  <div className="commit-top-row">
-                    <span className="commit-sha">{commit.short_sha}</span>
-                    <span className="commit-date">
-                      {new Date(commit.date).toLocaleDateString()}
-                    </span>
+              {commits.map((commit) => {
+                const commitMessage = splitCommitMessage(commit.message);
+
+                return (
+                  <div key={commit.sha} className="commit-item">
+                    <div className="commit-top-row">
+                      <span className="commit-sha">{commit.short_sha}</span>
+                      <span className="commit-date">
+                        {new Date(commit.date).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    <div className="commit-message" title={commit.message}>
+                      {commitMessage.subject}
+                    </div>
+
+                    {commitMessage.details && (
+                      <details className="commit-details">
+                        <summary>Show full message</summary>
+                        <p>{commit.message}</p>
+                      </details>
+                    )}
+
+                    <div className="commit-footer-row">
+                      <div className="commit-author">By {commit.author}</div>
+                      <button
+                        className="select-commit-button"
+                        onClick={() => onSelectCommit(commit)}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
-
-                  <div className="commit-message">{commit.message}</div>
-
-                  <div className="commit-author">By {commit.author}</div>
-                </button>
-              ))}
+                );
+              })}
             </div>
           )}
 

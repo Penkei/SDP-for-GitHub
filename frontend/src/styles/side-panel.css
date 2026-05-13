@@ -124,7 +124,6 @@
   background: #ffffff;
   border-radius: 14px;
   padding: 14px;
-  cursor: pointer;
   text-align: left;
 }
 
@@ -159,11 +158,63 @@
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+.commit-details {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 10px 0;
+  padding: 10px 12px;
+}
+
+.commit-details summary {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.commit-details p {
+  margin: 8px 0 0;
+  max-height: 120px;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.commit-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .commit-author {
   color: #6b7280;
   font-size: 13px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-commit-button {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-weight: 700;
+  padding: 8px 12px;
+}
+
+.select-commit-button:hover {
+  background: #1d4ed8;
 }
 
 .empty-box {

@@ -68,6 +68,8 @@ body {
   padding: 12px 14px;
   border-radius: 12px;
   margin-top: 18px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .loading-box {

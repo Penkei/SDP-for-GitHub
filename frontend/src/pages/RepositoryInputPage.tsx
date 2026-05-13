@@ -5,6 +5,7 @@ import {
   fetchCommits,
   fetchPredictionJob,
   fetchTags,
+  getApiErrorMessage,
   startPredictionJob,
 } from "../services/api";
 import type {
@@ -82,7 +83,10 @@ function RepositoryInputPage() {
       setRefs(response.branches);
     } catch (error) {
       setRefErrorMessage(
-        "Failed to load branches. Please check the repository URL or backend server."
+        getApiErrorMessage(
+          error,
+          "Failed to load branches. Please check the repository URL or backend server."
+        )
       );
     } finally {
       setLoadingRefs(false);
@@ -106,7 +110,10 @@ function RepositoryInputPage() {
       setRefs(response.tags);
     } catch (error) {
       setRefErrorMessage(
-        "Failed to load tags. Please check the repository URL or backend server."
+        getApiErrorMessage(
+          error,
+          "Failed to load tags. Please check the repository URL or backend server."
+        )
       );
     } finally {
       setLoadingRefs(false);
@@ -149,7 +156,10 @@ function RepositoryInputPage() {
       setHasNextCommitPage(response.commits.length === commitPageSize);
     } catch (error) {
       setCommitErrorMessage(
-        "Failed to load commits for the selected branch/tag. Please check the repository URL or backend server."
+        getApiErrorMessage(
+          error,
+          "Failed to load commits for the selected branch/tag. Please check the repository URL or backend server."
+        )
       );
     } finally {
       setLoadingCommits(false);
@@ -230,7 +240,10 @@ function RepositoryInputPage() {
       });
     } catch (error) {
       setErrorMessage(
-        "Prediction failed. Please check the backend server and input values."
+        getApiErrorMessage(
+          error,
+          "Prediction failed. Please check the backend server and input values."
+        )
       );
     } finally {
       setLoadingPrediction(false);

@@ -13,6 +13,40 @@ import type {
 const API_BASE_URL = "http://127.0.0.1:8000";
 
 
+export const getApiErrorMessage = (
+  error: unknown,
+  fallbackMessage: string
+) => {
+  if (axios.isAxiosError(error)) {
+    if (error.response?.status === 404) {
+      return "The requested backend resource was not found. If this happened during prediction, the backend may have restarted while the job was running.";
+    }
+
+    const detail = error.response?.data?.detail;
+
+    if (typeof detail === "string" && detail.trim()) {
+      return detail;
+    }
+
+    if (Array.isArray(detail) && detail.length > 0) {
+      return detail
+        .map((item) => item.msg || JSON.stringify(item))
+        .join(" ");
+    }
+
+    if (error.message) {
+      return error.message;
+    }
+  }
+
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return fallbackMessage;
+};
+
+
 export const predictDefects = async (
   request: PredictionRequest
 ): Promise<PredictionResponse> => {

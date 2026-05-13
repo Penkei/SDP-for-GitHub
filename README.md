@@ -156,14 +156,16 @@ ml_workspace/results/
 
 ## Cache Behavior
 
-The backend stores temporary repository mirrors and working copies under:
+The backend stores temporary repository mirrors and working copies outside the
+project directory by default, under the operating system temp folder:
 
 ```text
-temp_repos/
+%TEMP%/sdp_github_temp_repos/
 ```
 
-This directory is ignored by Git. Metadata such as branches, tags, and commit
-pages is cached in memory for a short period to reduce repeated Git operations.
+This avoids `uvicorn --reload` treating cloned repository files as backend
+source-code changes. Metadata such as branches, tags, and commit pages is cached
+in memory for a short period to reduce repeated Git operations.
 
 ## Notes And Limitations
 

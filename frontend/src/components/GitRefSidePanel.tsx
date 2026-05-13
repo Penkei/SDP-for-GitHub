@@ -45,7 +45,7 @@ function GitRefSidePanel({
               <div className="progress-bar">
                 <div className="progress-bar-fill"></div>
               </div>
-              <p>Loading references from GitHub...</p>
+              <p>Loading branch/tag names from GitHub...</p>
             </div>
           )}
 

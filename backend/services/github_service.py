@@ -5,13 +5,17 @@ import uuid
 import stat
 import time
 import hashlib
+import tempfile
 from threading import RLock
-from git import Repo
+from git import Git, Repo
 
 
 class GitHubService:
-    def __init__(self, base_dir="temp_repos", cache_ttl_seconds=300):
-        self.base_dir = base_dir
+    def __init__(self, base_dir=None, cache_ttl_seconds=300):
+        self.base_dir = base_dir or os.path.join(
+            tempfile.gettempdir(),
+            "sdp_github_temp_repos"
+        )
         self.worktree_dir = os.path.join(self.base_dir, "worktrees")
         self.cache_dir = os.path.join(self.base_dir, "repo_cache")
         self.cache_ttl_seconds = cache_ttl_seconds
@@ -181,15 +185,16 @@ class GitHubService:
             print(f"Using cached branch list: {repo_url}")
             return cached_branches
 
-        cache_path = self._ensure_cached_repo(repo_url)
-        repo = Repo(cache_path)
-
         branches = []
-        branch_output = repo.git.for_each_ref("--format=%(refname:short)", "refs/heads")
+        branch_output = Git().ls_remote("--heads", repo_url)
 
-        for branch_name in branch_output.splitlines():
-            if not branch_name:
+        for line in branch_output.splitlines():
+            parts = line.split()
+
+            if len(parts) < 2 or not parts[1].startswith("refs/heads/"):
                 continue
+
+            branch_name = parts[1].replace("refs/heads/", "", 1)
 
             branches.append({
                 "name": branch_name,
@@ -214,15 +219,19 @@ class GitHubService:
             print(f"Using cached tag list: {repo_url}")
             return cached_tags
 
-        cache_path = self._ensure_cached_repo(repo_url)
-        repo = Repo(cache_path)
-
         tags = []
-        tag_output = repo.git.tag("-l")
+        tag_output = Git().ls_remote("--tags", repo_url)
 
-        for tag_name in tag_output.splitlines():
-            if not tag_name:
+        for line in tag_output.splitlines():
+            parts = line.split()
+
+            if len(parts) < 2 or not parts[1].startswith("refs/tags/"):
                 continue
+
+            if parts[1].endswith("^{}"):
+                continue
+
+            tag_name = parts[1].replace("refs/tags/", "", 1)
 
             tags.append({
                 "name": tag_name,
