@@ -21,6 +21,52 @@ export interface PredictionResponse {
   results: PredictionResult[];
 }
 
+export interface PredictionJobStatus {
+  job_id: string;
+  status: "queued" | "running" | "completed" | "failed";
+  stage: string;
+  progress_percent: number;
+  message: string;
+  repo_url: string;
+  commit_sha: string;
+  created_at: string;
+  updated_at: string;
+  result: PredictionResponse | null;
+  error: string | null;
+}
+
+export interface ModelComparisonItem {
+  model: string;
+  accuracy: number;
+  precision: number;
+  recall: number;
+  f1: number;
+  roc_auc: number;
+  pr_auc: number;
+}
+
+export interface FeatureImportanceItem {
+  feature: string;
+  importance: number;
+}
+
+export interface DatasetSummary {
+  total_rows: number;
+  defective_rows: number;
+  non_defective_rows: number;
+  repositories: number;
+  languages: string[];
+}
+
+export interface ModelTransparencyResponse {
+  model_name: string;
+  selected_features: string[];
+  model_comparison: ModelComparisonItem[];
+  feature_importance: FeatureImportanceItem[];
+  dataset_summary: DatasetSummary;
+  limitations: string[];
+}
+
 export interface CommitItem {
   sha: string;
   short_sha: string;

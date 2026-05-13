@@ -2,9 +2,11 @@ import axios from "axios";
 import type { 
   PredictionRequest, 
   PredictionResponse,
+  PredictionJobStatus,
   CommitListResponse,
   BranchListResponse,
   TagListResponse,
+  ModelTransparencyResponse,
 } from "../types/prediction";
 
 
@@ -21,6 +23,50 @@ export const predictDefects = async (
 
   return response.data;
 };
+
+export const startPredictionJob = async (
+  request: PredictionRequest
+): Promise<PredictionJobStatus> => {
+  const response = await axios.post<PredictionJobStatus>(
+    `${API_BASE_URL}/prediction-jobs`,
+    request
+  );
+
+  return response.data;
+};
+
+export const fetchPredictionJob = async (
+  jobId: string
+): Promise<PredictionJobStatus> => {
+  const response = await axios.get<PredictionJobStatus>(
+    `${API_BASE_URL}/prediction-jobs/${jobId}`
+  );
+
+  return response.data;
+};
+
+export const exportPredictionReport = async (
+  predictionResponse: PredictionResponse
+): Promise<Blob> => {
+  const response = await axios.post(
+    `${API_BASE_URL}/export-report`,
+    predictionResponse,
+    {
+      responseType: "blob",
+    }
+  );
+
+  return response.data;
+};
+
+export const fetchModelTransparency =
+  async (): Promise<ModelTransparencyResponse> => {
+    const response = await axios.get<ModelTransparencyResponse>(
+      `${API_BASE_URL}/model-transparency`
+    );
+
+    return response.data;
+  };
 
 export const fetchBranches = async (
   repoUrl: string

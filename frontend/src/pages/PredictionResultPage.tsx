@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import type { PredictionResponse, PredictionResult } from "../types/prediction";
 import PredictionTable from "../components/PredictionTable";
 import MetricGuide from "../components/MetricGuide";
+import { exportPredictionReport } from "../services/api";
 
 export type ProbabilitySortDirection = "desc" | "asc";
 type RiskFilter = "All" | "High" | "Medium" | "Low";
@@ -39,6 +40,7 @@ function PredictionResultPage() {
     useState<PredictionFilter>("All");
   const [minProbability, setMinProbability] = useState("");
   const [maxProbability, setMaxProbability] = useState("");
+  const [exportingReport, setExportingReport] = useState(false);
 
   const availableLanguages = useMemo(() => {
     if (!predictionResponse) {
@@ -242,6 +244,32 @@ function PredictionResultPage() {
     setMaxProbability("");
   };
 
+  const handleExportReport = async () => {
+    if (!predictionResponse) {
+      return;
+    }
+
+    setExportingReport(true);
+
+    try {
+      const reportBlob = await exportPredictionReport(predictionResponse);
+      const downloadUrl = URL.createObjectURL(reportBlob);
+      const link = document.createElement("a");
+
+      link.href = downloadUrl;
+      link.download = `defect_prediction_report_${predictionResponse.commit_sha.slice(
+        0,
+        8
+      )}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(downloadUrl);
+    } finally {
+      setExportingReport(false);
+    }
+  };
+
   if (!predictionResponse) {
     return (
       <div className="page">
@@ -277,12 +305,22 @@ function PredictionResultPage() {
             </p>
           </div>
 
-          <button
-            className="metric-guide-open-button"
-            onClick={() => setIsMetricGuideOpen(true)}
-          >
-            Metric Explanation Guide
-          </button>
+          <div className="result-header-actions">
+            <button
+              className="export-report-button"
+              onClick={handleExportReport}
+              disabled={exportingReport}
+            >
+              {exportingReport ? "Exporting..." : "Export Report"}
+            </button>
+
+            <button
+              className="metric-guide-open-button"
+              onClick={() => setIsMetricGuideOpen(true)}
+            >
+              Metric Explanation Guide
+            </button>
+          </div>
         </div>
       </div>
 

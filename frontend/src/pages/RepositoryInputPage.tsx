@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import {
   fetchBranches,
   fetchCommits,
+  fetchPredictionJob,
   fetchTags,
-  predictDefects,
+  startPredictionJob,
 } from "../services/api";
 import type {
   CommitItem,
   GitRefItem,
-  PredictionResponse,
 } from "../types/prediction";
 import CommitSidePanel from "../components/CommitSidePanel";
 import GitRefSidePanel from "../components/GitRefSidePanel";
@@ -25,6 +25,11 @@ function RepositoryInputPage() {
   const [loadingPrediction, setLoadingPrediction] = useState(false);
   const [loadingCommits, setLoadingCommits] = useState(false);
   const [loadingRefs, setLoadingRefs] = useState(false);
+  const [predictionProgress, setPredictionProgress] = useState({
+    percent: 0,
+    stage: "idle",
+    message: "",
+  });
 
   const [errorMessage, setErrorMessage] = useState("");
   const [commitErrorMessage, setCommitErrorMessage] = useState("");
@@ -180,16 +185,47 @@ function RepositoryInputPage() {
 
     setLoadingPrediction(true);
     setErrorMessage("");
+    setPredictionProgress({
+      percent: 0,
+      stage: "queued",
+      message: "Submitting prediction job",
+    });
 
     try {
-      const response: PredictionResponse = await predictDefects({
+      const startedJob = await startPredictionJob({
         repo_url: repoUrl.trim(),
         commit_sha: commitSha.trim(),
       });
 
+      setPredictionProgress({
+        percent: startedJob.progress_percent,
+        stage: startedJob.stage,
+        message: startedJob.message,
+      });
+
+      let currentJob = startedJob;
+
+      while (
+        currentJob.status !== "completed" &&
+        currentJob.status !== "failed"
+      ) {
+        await new Promise((resolve) => setTimeout(resolve, 900));
+        currentJob = await fetchPredictionJob(currentJob.job_id);
+
+        setPredictionProgress({
+          percent: currentJob.progress_percent,
+          stage: currentJob.stage,
+          message: currentJob.message,
+        });
+      }
+
+      if (currentJob.status === "failed" || !currentJob.result) {
+        throw new Error(currentJob.error || "Prediction failed");
+      }
+
       navigate("/prediction-result", {
         state: {
-          predictionResponse: response,
+          predictionResponse: currentJob.result,
         },
       });
     } catch (error) {
@@ -288,13 +324,36 @@ function RepositoryInputPage() {
 
         {loadingPrediction && (
           <div className="loading-box">
-            <div className="progress-bar">
-              <div className="progress-bar-fill"></div>
+            <div className="progress-status-header">
+              <strong>{predictionProgress.message}</strong>
+              <span>{predictionProgress.percent}%</span>
             </div>
-            <p>
-              Cloning repository, checking out selected commit, extracting source
-              code metrics, running ML prediction, and generating explanation...
-            </p>
+            <div className="progress-bar">
+              <div
+                className="progress-bar-fill determinate"
+                style={{ width: `${predictionProgress.percent}%` }}
+              ></div>
+            </div>
+            <ol className="progress-steps">
+              <li className={predictionProgress.percent >= 5 ? "active" : ""}>
+                Starting
+              </li>
+              <li className={predictionProgress.percent >= 15 ? "active" : ""}>
+                Cloning
+              </li>
+              <li className={predictionProgress.percent >= 40 ? "active" : ""}>
+                Extracting Metrics
+              </li>
+              <li className={predictionProgress.percent >= 65 ? "active" : ""}>
+                Predicting
+              </li>
+              <li className={predictionProgress.percent >= 82 ? "active" : ""}>
+                Explaining
+              </li>
+              <li className={predictionProgress.percent >= 100 ? "active" : ""}>
+                Complete
+              </li>
+            </ol>
           </div>
         )}
       </div>

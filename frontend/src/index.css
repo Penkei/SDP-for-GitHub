@@ -3,6 +3,7 @@
 @import "./styles/home-page.css";
 @import "./styles/repository-input-page.css";
 @import "./styles/prediction-result-page.css";
+@import "./styles/model-transparency-page.css";
 @import "./styles/prediction-table.css";
 @import "./styles/side-panel.css";
 @import "./styles/badges.css";

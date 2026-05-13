@@ -21,6 +21,13 @@
   color: #4b5563;
 }
 
+.result-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
 .metric-guide-open-button {
   border: 1px solid #bfdbfe;
   background: #eff6ff;
@@ -32,9 +39,30 @@
   white-space: nowrap;
 }
 
+.export-report-button {
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
 .metric-guide-open-button:hover {
   background: #dbeafe;
   border-color: #2563eb;
+}
+
+.export-report-button:hover:not(:disabled) {
+  background: #dcfce7;
+  border-color: #16a34a;
+}
+
+.export-report-button:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
 .risk-dashboard {
@@ -314,6 +342,10 @@
 @media (max-width: 800px) {
   .result-header-top {
     flex-direction: column;
+  }
+
+  .result-header-actions {
+    justify-content: flex-start;
   }
 
   .dashboard-summary-grid,

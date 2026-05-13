@@ -53,9 +53,60 @@ input[readonly] {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.progress-status-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.progress-status-header strong {
+  color: #1e3a8a;
+}
+
+.progress-status-header span {
+  color: #1e40af;
+  font-weight: 800;
+}
+
+.progress-bar-fill.determinate {
+  min-width: 6px;
+  transform: none;
+  animation: none;
+  transition: width 0.25s ease;
+}
+
+.progress-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.progress-steps li {
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 9px;
+  text-align: center;
+}
+
+.progress-steps li.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
 @media (max-width: 700px) {
   .button-row,
   .button-row.two-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-steps {
     grid-template-columns: 1fr;
   }
 }
