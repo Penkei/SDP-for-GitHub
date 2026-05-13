@@ -15,6 +15,47 @@ import type {
 import CommitSidePanel from "../components/CommitSidePanel";
 import GitRefSidePanel from "../components/GitRefSidePanel";
 
+const validateGitHubRepositoryUrl = (value: string) => {
+  const trimmedUrl = value.trim();
+
+  if (!trimmedUrl) {
+    return "Please enter a GitHub repository URL first.";
+  }
+
+  let parsedUrl: URL;
+
+  try {
+    parsedUrl = new URL(trimmedUrl);
+  } catch {
+    return "Repository URL is not valid. Use https://github.com/owner/repository.";
+  }
+
+  if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+    return "Repository URL must start with http:// or https://.";
+  }
+
+  if (parsedUrl.hostname.toLowerCase() !== "github.com") {
+    return "Only github.com repository URLs are supported.";
+  }
+
+  const pathParts = parsedUrl.pathname
+    .replace(/\/$/, "")
+    .split("/")
+    .filter(Boolean);
+
+  if (pathParts.length !== 2) {
+    return "Repository URL must use the format https://github.com/owner/repository.";
+  }
+
+  const repositoryName = pathParts[1].replace(/\.git$/, "");
+
+  if (!pathParts[0] || !repositoryName) {
+    return "Repository URL must include both owner and repository name.";
+  }
+
+  return "";
+};
+
 function RepositoryInputPage() {
   const navigate = useNavigate();
 
@@ -49,8 +90,10 @@ function RepositoryInputPage() {
   const commitPageSize = 20;
 
   const validateRepoUrl = () => {
-    if (!repoUrl.trim()) {
-      setErrorMessage("Please enter a GitHub repository URL first.");
+    const validationMessage = validateGitHubRepositoryUrl(repoUrl);
+
+    if (validationMessage) {
+      setErrorMessage(validationMessage);
       return false;
     }
 
@@ -266,6 +309,9 @@ function RepositoryInputPage() {
           value={repoUrl}
           onChange={(e) => {
             setRepoUrl(e.target.value);
+            setErrorMessage("");
+            setRefErrorMessage("");
+            setCommitErrorMessage("");
             setSelectedGitRef("");
             setSelectedGitRefType("");
             setCommitSha("");
@@ -273,6 +319,10 @@ function RepositoryInputPage() {
           }}
           placeholder="https://github.com/apache/commons-lang.git"
         />
+        <p className="input-hint">
+          Use a public GitHub repository URL, for example
+          https://github.com/owner/repository.
+        </p>
 
         <div className="button-row two-columns">
           <button
