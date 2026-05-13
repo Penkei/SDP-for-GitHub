@@ -8,6 +8,19 @@ export type ProbabilitySortDirection = "desc" | "asc";
 type RiskFilter = "All" | "High" | "Medium" | "Low";
 type PredictionFilter = "All" | "Defective" | "Non-defective";
 
+const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
+
+const getTopLevelFolder = (filePath: string) => {
+  const normalizedPath = filePath.replaceAll("\\", "/");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+
+  if (pathParts.length <= 1) {
+    return "Repository root";
+  }
+
+  return pathParts[0];
+};
+
 function PredictionResultPage() {
   const location = useLocation();
 
@@ -39,6 +52,115 @@ function PredictionResultPage() {
           .filter(Boolean)
       )
     ).sort();
+  }, [predictionResponse]);
+
+  const dashboardStats = useMemo(() => {
+    const emptyStats = {
+      totalFiles: 0,
+      highRiskCount: 0,
+      mediumRiskCount: 0,
+      lowRiskCount: 0,
+      defectiveCount: 0,
+      averageProbability: 0,
+      highestRiskFile: null as PredictionResult | null,
+      riskiestFolder: "No folder",
+      riskiestFolderAverage: 0,
+      languageBreakdown: [] as Array<{
+        language: string;
+        count: number;
+        averageProbability: number;
+      }>,
+    };
+
+    if (!predictionResponse || predictionResponse.results.length === 0) {
+      return emptyStats;
+    }
+
+    const folderStats = new Map<string, { count: number; probabilitySum: number }>();
+    const languageStats = new Map<string, { count: number; probabilitySum: number }>();
+
+    const stats = predictionResponse.results.reduce(
+      (summary, result) => {
+        const probability = result.defect_risk_probability;
+        const folder = getTopLevelFolder(result.file_path);
+        const language = result.language || "Unknown";
+
+        if (result.risk_level === "High") {
+          summary.highRiskCount += 1;
+        } else if (result.risk_level === "Medium") {
+          summary.mediumRiskCount += 1;
+        } else {
+          summary.lowRiskCount += 1;
+        }
+
+        if (result.prediction_label === "Defective") {
+          summary.defectiveCount += 1;
+        }
+
+        summary.probabilitySum += probability;
+
+        if (
+          !summary.highestRiskFile ||
+          probability > summary.highestRiskFile.defect_risk_probability
+        ) {
+          summary.highestRiskFile = result;
+        }
+
+        const folderItem = folderStats.get(folder) || {
+          count: 0,
+          probabilitySum: 0,
+        };
+        folderItem.count += 1;
+        folderItem.probabilitySum += probability;
+        folderStats.set(folder, folderItem);
+
+        const languageItem = languageStats.get(language) || {
+          count: 0,
+          probabilitySum: 0,
+        };
+        languageItem.count += 1;
+        languageItem.probabilitySum += probability;
+        languageStats.set(language, languageItem);
+
+        return summary;
+      },
+      {
+        ...emptyStats,
+        probabilitySum: 0,
+      }
+    );
+
+    const sortedFolders = Array.from(folderStats.entries()).sort((a, b) => {
+      const averageA = a[1].probabilitySum / a[1].count;
+      const averageB = b[1].probabilitySum / b[1].count;
+
+      return averageB - averageA;
+    });
+
+    const languageBreakdown = Array.from(languageStats.entries())
+      .map(([language, item]) => ({
+        language,
+        count: item.count,
+        averageProbability: item.probabilitySum / item.count,
+      }))
+      .sort((a, b) => b.count - a.count);
+
+    const riskiestFolder = sortedFolders[0];
+
+    return {
+      totalFiles: predictionResponse.results.length,
+      highRiskCount: stats.highRiskCount,
+      mediumRiskCount: stats.mediumRiskCount,
+      lowRiskCount: stats.lowRiskCount,
+      defectiveCount: stats.defectiveCount,
+      averageProbability: stats.probabilitySum / predictionResponse.results.length,
+      highestRiskFile: stats.highestRiskFile,
+      riskiestFolder: riskiestFolder ? riskiestFolder[0] : "No folder",
+      riskiestFolderAverage: riskiestFolder
+        ? riskiestFolder[1].probabilitySum / riskiestFolder[1].count
+        : 0,
+      languageBreakdown,
+    };
   }, [predictionResponse]);
 
   const filteredResults = useMemo(() => {
@@ -163,6 +285,126 @@ function PredictionResultPage() {
           </button>
         </div>
       </div>
+
+      <section className="risk-dashboard" aria-label="Risk dashboard">
+        <div className="dashboard-summary-grid">
+          <div className="dashboard-stat high-risk-stat">
+            <span>High Risk</span>
+            <strong>{dashboardStats.highRiskCount}</strong>
+          </div>
+
+          <div className="dashboard-stat medium-risk-stat">
+            <span>Medium Risk</span>
+            <strong>{dashboardStats.mediumRiskCount}</strong>
+          </div>
+
+          <div className="dashboard-stat low-risk-stat">
+            <span>Low Risk</span>
+            <strong>{dashboardStats.lowRiskCount}</strong>
+          </div>
+
+          <div className="dashboard-stat defective-stat">
+            <span>Defective</span>
+            <strong>{dashboardStats.defectiveCount}</strong>
+          </div>
+
+          <div className="dashboard-stat average-risk-stat">
+            <span>Average Risk</span>
+            <strong>{formatPercent(dashboardStats.averageProbability)}</strong>
+          </div>
+        </div>
+
+        <div className="dashboard-detail-grid">
+          <div className="risk-panel">
+            <div className="risk-panel-header">
+              <h2>Risk Distribution</h2>
+              <span>{dashboardStats.totalFiles} files</span>
+            </div>
+
+            <div className="risk-stack-bar" aria-hidden="true">
+              <span
+                className="risk-stack-segment high-segment"
+                style={{
+                  width: `${dashboardStats.totalFiles
+                    ? (dashboardStats.highRiskCount / dashboardStats.totalFiles) * 100
+                    : 0}%`,
+                }}
+              />
+              <span
+                className="risk-stack-segment medium-segment"
+                style={{
+                  width: `${dashboardStats.totalFiles
+                    ? (dashboardStats.mediumRiskCount / dashboardStats.totalFiles) * 100
+                    : 0}%`,
+                }}
+              />
+              <span
+                className="risk-stack-segment low-segment"
+                style={{
+                  width: `${dashboardStats.totalFiles
+                    ? (dashboardStats.lowRiskCount / dashboardStats.totalFiles) * 100
+                    : 0}%`,
+                }}
+              />
+            </div>
+
+            <div className="risk-legend">
+              <span>
+                <i className="legend-dot high-dot" /> High
+              </span>
+              <span>
+                <i className="legend-dot medium-dot" /> Medium
+              </span>
+              <span>
+                <i className="legend-dot low-dot" /> Low
+              </span>
+            </div>
+          </div>
+
+          <div className="risk-panel">
+            <div className="risk-panel-header">
+              <h2>Highest Risk File</h2>
+              <span>
+                {dashboardStats.highestRiskFile
+                  ? formatPercent(
+                      dashboardStats.highestRiskFile.defect_risk_probability
+                    )
+                  : "0.0%"}
+              </span>
+            </div>
+
+            <p className="dashboard-file-path">
+              {dashboardStats.highestRiskFile?.file_path || "No file available"}
+            </p>
+            <p className="dashboard-muted">
+              {dashboardStats.highestRiskFile?.language || "No language"} |{" "}
+              {dashboardStats.highestRiskFile?.risk_level || "No risk"}
+            </p>
+          </div>
+
+          <div className="risk-panel">
+            <div className="risk-panel-header">
+              <h2>Riskiest Folder</h2>
+              <span>{formatPercent(dashboardStats.riskiestFolderAverage)}</span>
+            </div>
+
+            <p className="dashboard-file-path">{dashboardStats.riskiestFolder}</p>
+            <p className="dashboard-muted">Average defect probability</p>
+          </div>
+        </div>
+
+        {dashboardStats.languageBreakdown.length > 0 && (
+          <div className="language-risk-strip">
+            {dashboardStats.languageBreakdown.map((item) => (
+              <div className="language-risk-item" key={item.language}>
+                <span>{item.language}</span>
+                <strong>{item.count}</strong>
+                <small>{formatPercent(item.averageProbability)} avg</small>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
 
       <div className="result-filters">
         <div className="filter-summary">
