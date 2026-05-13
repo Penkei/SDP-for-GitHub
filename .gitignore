@@ -1,0 +1,4 @@
+temp_repos/
+__pycache__/
+*.pyc
+frontend/dist/
