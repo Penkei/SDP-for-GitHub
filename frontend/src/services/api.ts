@@ -7,6 +7,8 @@ import type {
   BranchListResponse,
   TagListResponse,
   ModelTransparencyResponse,
+  PredictionHistoryListResponse,
+  PredictionHistoryDetail,
 } from "../types/prediction";
 
 
@@ -101,6 +103,31 @@ export const fetchModelTransparency =
 
     return response.data;
   };
+
+export const fetchPredictionHistory =
+  async (): Promise<PredictionHistoryListResponse> => {
+    const response = await axios.get<PredictionHistoryListResponse>(
+      `${API_BASE_URL}/prediction-history`
+    );
+
+    return response.data;
+  };
+
+export const fetchPredictionHistoryDetail = async (
+  historyId: string
+): Promise<PredictionHistoryDetail> => {
+  const response = await axios.get<PredictionHistoryDetail>(
+    `${API_BASE_URL}/prediction-history/${historyId}`
+  );
+
+  return response.data;
+};
+
+export const deletePredictionHistoryItem = async (
+  historyId: string
+): Promise<void> => {
+  await axios.delete(`${API_BASE_URL}/prediction-history/${historyId}`);
+};
 
 export const fetchBranches = async (
   repoUrl: string

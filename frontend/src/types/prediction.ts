@@ -33,6 +33,29 @@ export interface PredictionJobStatus {
   updated_at: string;
   result: PredictionResponse | null;
   error: string | null;
+  history_id?: string | null;
+}
+
+export interface PredictionHistorySummary {
+  id: string;
+  repo_url: string;
+  commit_sha: string;
+  scanned_at: string;
+  total_files_scanned: number;
+  high_risk_count: number;
+  medium_risk_count: number;
+  low_risk_count: number;
+  defective_count: number;
+  average_risk_probability: number;
+}
+
+export interface PredictionHistoryListResponse {
+  history: PredictionHistorySummary[];
+}
+
+export interface PredictionHistoryDetail extends PredictionResponse {
+  history_id: string;
+  scanned_at: string;
 }
 
 export interface ModelComparisonItem {

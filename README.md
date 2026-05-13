@@ -24,6 +24,7 @@ The application has three main parts:
 - Export prediction results as a CSV report.
 - View model transparency details, including model comparison, feature
   importance, selected features, dataset summary, and limitations.
+- Store completed prediction history in SQLite for long-term review.
 - Cache repository metadata and local repository mirrors to reduce repeated
   GitHub cloning.
 
@@ -105,6 +106,21 @@ npm run build
 | `POST` | `/commits` | List commits for a branch/tag |
 | `POST` | `/export-report` | Export prediction response as CSV |
 | `GET` | `/model-transparency` | Return model and dataset transparency data |
+| `GET` | `/prediction-history` | List saved prediction runs |
+| `GET` | `/prediction-history/{history_id}` | Open a saved prediction run |
+| `DELETE` | `/prediction-history/{history_id}` | Delete a saved prediction run |
+
+## Prediction History
+
+Completed predictions are saved automatically in SQLite:
+
+```text
+backend/data/prediction_history.db
+```
+
+This database is ignored by Git because it is runtime data. The frontend
+Prediction History page can list previous runs, reopen a saved result, or delete
+old entries.
 
 ## Supported Source Languages
 

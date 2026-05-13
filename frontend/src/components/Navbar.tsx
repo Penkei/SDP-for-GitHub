@@ -8,6 +8,7 @@ function Navbar() {
       <div className="navbar-links">
         <Link to="/">Home</Link>
         <Link to="/repository-input">Repository Input</Link>
+        <Link to="/prediction-history">Prediction History</Link>
         <Link to="/model-transparency">Model Transparency</Link>
       </div>
     </nav>

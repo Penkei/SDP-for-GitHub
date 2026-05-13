@@ -15,6 +15,7 @@ from models.request_models import (
 )
 from services.defect_prediction_pipeline import DefectPredictionPipeline
 from services.prediction_job_service import PredictionJobService
+from services.prediction_history_service import PredictionHistoryService
 
 
 app = FastAPI(
@@ -31,8 +32,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+prediction_history = PredictionHistoryService()
 pipeline = DefectPredictionPipeline()
-prediction_jobs = PredictionJobService(pipeline)
+prediction_jobs = PredictionJobService(pipeline, prediction_history)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 ML_WORKSPACE_DIR = os.path.join(PROJECT_DIR, "ml_workspace")
@@ -53,12 +55,15 @@ def predict_defect(request: PredictionRequest):
             commit_sha=request.commit_sha
         )
 
-        return {
+        response = {
             "repo_url": request.repo_url,
             "commit_sha": request.commit_sha,
             "total_files_scanned": len(result),
             "results": result
         }
+
+        prediction_history.save_prediction(response)
+        return response
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -84,6 +89,36 @@ def get_prediction_job(job_id: str):
         raise HTTPException(status_code=404, detail="Prediction job not found")
 
     return job
+
+
+@app.get("/prediction-history")
+def list_prediction_history():
+    return {
+        "history": prediction_history.list_predictions()
+    }
+
+
+@app.get("/prediction-history/{history_id}")
+def get_prediction_history_item(history_id: str):
+    prediction = prediction_history.get_prediction(history_id)
+
+    if not prediction:
+        raise HTTPException(status_code=404, detail="Prediction history item not found")
+
+    return prediction
+
+
+@app.delete("/prediction-history/{history_id}")
+def delete_prediction_history_item(history_id: str):
+    deleted = prediction_history.delete_prediction(history_id)
+
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Prediction history item not found")
+
+    return {
+        "deleted": True,
+        "history_id": history_id
+    }
 
 
 @app.post("/export-report")

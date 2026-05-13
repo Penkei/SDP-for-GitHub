@@ -5,8 +5,9 @@ from threading import RLock
 
 
 class PredictionJobService:
-    def __init__(self, pipeline, max_workers: int = 2):
+    def __init__(self, pipeline, history_service=None, max_workers: int = 2):
         self.pipeline = pipeline
+        self.history_service = history_service
         self.executor = ThreadPoolExecutor(max_workers=max_workers)
         self.jobs = {}
         self.lock = RLock()
@@ -68,18 +69,25 @@ class PredictionJobService:
                 progress_callback=progress_callback
             )
 
+            prediction_response = {
+                "repo_url": repo_url,
+                "commit_sha": commit_sha,
+                "total_files_scanned": len(result),
+                "results": result
+            }
+            history_id = None
+
+            if self.history_service:
+                history_id = self.history_service.save_prediction(prediction_response)
+
             self._update_job(
                 job_id,
                 status="completed",
                 stage="completed",
                 progress_percent=100,
                 message="Prediction completed",
-                result={
-                    "repo_url": repo_url,
-                    "commit_sha": commit_sha,
-                    "total_files_scanned": len(result),
-                    "results": result
-                }
+                result=prediction_response,
+                history_id=history_id
             )
         except Exception as e:
             self._update_job(
