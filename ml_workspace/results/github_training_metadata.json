@@ -1,0 +1,19 @@
+{
+  "best_model_name": "XGBoost",
+  "best_f1": 0.7314487632508834,
+  "prediction_threshold": 0.25,
+  "selected_features": [
+    "nosi",
+    "dit",
+    "cbo",
+    "rfc",
+    "loc",
+    "comparisonsQty",
+    "returnQty",
+    "wmc",
+    "lcom",
+    "totalMethods"
+  ],
+  "random_state": 42,
+  "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning"
+}

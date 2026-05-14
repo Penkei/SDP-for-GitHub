@@ -1,0 +1,10 @@
+# Add only new repositories here when want to append data without rebuilding the full dataset.
+#
+# Example:
+# https://github.com/owner/repository.git
+
+
+https://github.com/Textualize/textual.git
+https://github.com/anxolerd/dvpwa.git
+https://github.com/digitalocean/sample-python.git
+https://github.com/kivy/kivy.git
