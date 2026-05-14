@@ -54,44 +54,6 @@ the full workflow from repository input to model-backed decision support.
 | Storage | SQLite |
 | Charts/UI | React components and CSS |
 
-## System Overview
-
-```mermaid
-flowchart LR
-    A["User enters GitHub repository"] --> B["Backend validates repository"]
-    B --> C["Load branches, tags, and commits"]
-    C --> D["User selects commit"]
-    D --> E["Extract file metrics"]
-    E --> F["ML model predicts defect risk"]
-    F --> G["Risk dashboard and result table"]
-    G --> H["SQLite prediction history"]
-    G --> I["CSV report export"]
-```
-
-## Project Structure
-
-```text
-SDP-for-GitHub/
-|-- backend/
-|   |-- main.py
-|   |-- models/
-|   |-- services/
-|   `-- backend requirements.txt
-|-- frontend/
-|   |-- src/
-|   |-- assets/
-|   |   `-- logo.png
-|   |-- public/
-|   `-- package.json
-|-- ml_workspace/
-|   |-- data/
-|   |-- models/
-|   |-- results/
-|   `-- scripts/
-|-- .gitignore
-`-- README.md
-```
-
 ## Prerequisites
 
 Install these before running the project locally.
@@ -101,7 +63,6 @@ Install these before running the project locally.
 | Python | 3.10 or newer | [python.org/downloads](https://www.python.org/downloads/) |
 | Node.js | 20 LTS or newer | [nodejs.org/download](https://nodejs.org/en/download) |
 | Git | Latest stable | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| Visual Studio Code | Optional | [code.visualstudio.com/download](https://code.visualstudio.com/download) |
 
 During Python installation on Windows, enable **Add python.exe to PATH**. During
 Git installation, the default options are usually fine.
@@ -115,18 +76,17 @@ The project needs two terminals:
 
 ### 1. Open The Project
 
-Clone the repository or open the extracted project folder:
+Clone the repository and enter the project folder:
 
 ```powershell
-cd "D:\Academic\Final Year Project\SDP-for-GitHub"
-```
-
-If you are cloning from GitHub:
-
-```powershell
-git clone <your-repository-url>
+git clone <repository-url>
 cd SDP-for-GitHub
 ```
+
+If you already downloaded the project as a ZIP file, extract it and open a
+terminal inside the extracted `SDP-for-GitHub` folder.
+
+All commands below assume your terminal is already at the project root.
 
 ### 2. Create A Python Virtual Environment
 
@@ -177,7 +137,7 @@ http://127.0.0.1:8000/docs
 Open a second terminal and go to the frontend folder:
 
 ```powershell
-cd "D:\Academic\Final Year Project\SDP-for-GitHub\frontend"
+cd frontend
 npm install
 ```
 
@@ -271,7 +231,7 @@ want to demonstrate the training process.
 Go to the ML workspace:
 
 ```powershell
-cd "D:\Academic\Final Year Project\SDP-for-GitHub\ml_workspace"
+cd ml_workspace
 ```
 
 ### Build A New Dataset
@@ -410,7 +370,7 @@ They are caches, not source files.
 To check the frontend production build:
 
 ```powershell
-cd "D:\Academic\Final Year Project\SDP-for-GitHub\frontend"
+cd frontend
 npm run build
 ```
 
