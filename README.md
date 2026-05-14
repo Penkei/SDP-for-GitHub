@@ -163,12 +163,53 @@ python scripts/build_multi_repo_dataset.py
 python scripts/train_github_dataset_model.py
 ```
 
+For the current multi-repository setup, suggested dataset-builder inputs are:
+
+```text
+max commits per repo: 500
+max rows per repo: 800
+```
+
+Increase those numbers only if you have enough time and disk space. Large
+repositories such as PyTorch and ClickHouse can take a long time to scan.
+
+To append new repositories without rebuilding the whole dataset:
+
+1. Add only the new repository URLs to:
+
+```text
+ml_workspace/data/repositories_append.txt
+```
+
+2. Run:
+
+```powershell
+python scripts/append_multi_repo_dataset.py
+```
+
+The append script backs up the current dataset to
+`data/github_defect_dataset_before_append.csv`, adds rows from only the new
+repositories, and removes duplicate repo/commit/file rows.
+
+The training script compares Logistic Regression, Random Forest, and XGBoost
+using randomized hyperparameter search, then tunes the prediction threshold on a
+validation split before saving the best model.
+
 Generated artifacts are saved under:
 
 ```text
 ml_workspace/models/
 ml_workspace/results/
 ```
+
+Key generated files:
+
+- `models/github_defect_prediction_model.pkl`
+- `models/github_model_features.pkl`
+- `models/github_prediction_threshold.pkl`
+- `results/github_model_comparison.csv`
+- `results/github_feature_importance.csv`
+- `results/github_training_metadata.json`
 
 ## Cache Behavior
 

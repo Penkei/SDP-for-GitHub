@@ -1,14 +1,27 @@
 import pandas as pd
 import joblib
 import os
+import numpy as np
 
 model = joblib.load("models/github_defect_prediction_model.pkl")
 feature_names = joblib.load("models/github_model_features.pkl")
 
-if hasattr(model, "feature_importances_"):
-    importances = model.feature_importances_
+estimator = model
+
+if hasattr(model, "named_steps"):
+    estimator = model.named_steps.get("classifier", model)
+
+if hasattr(estimator, "feature_importances_"):
+    importances = estimator.feature_importances_
+elif hasattr(estimator, "coef_"):
+    importances = np.abs(estimator.coef_[0])
 else:
-    raise ValueError("Current model does not support feature_importances_ directly.")
+    raise ValueError("Current model does not expose feature importances or coefficients.")
+
+total_importance = importances.sum()
+
+if total_importance > 0:
+    importances = importances / total_importance
 
 df = pd.DataFrame({
     "feature": feature_names,

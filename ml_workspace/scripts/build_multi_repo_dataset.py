@@ -1,6 +1,7 @@
 import os
 import shutil
 import re
+import tempfile
 import pandas as pd
 from git import Repo
 
@@ -15,7 +16,8 @@ BUG_KEYWORDS = [
 
 NON_BUG_KEYWORDS = [
     "feature", "refactor", "docs", "style",
-    "cleanup", "rename", "format", "comment"
+    "cleanup", "rename", "format", "comment",
+    "update", "add", "remove", "improve"
 ]
 
 EXCLUDE_PATH_KEYWORDS = [
@@ -23,7 +25,18 @@ EXCLUDE_PATH_KEYWORDS = [
     "/tests/", "\\tests\\",
     "/target/", "\\target\\",
     "/build/", "\\build\\",
-    "/generated/", "\\generated\\"
+    "/generated/", "\\generated\\",
+    "/vendor/", "\\vendor\\",
+    "/third_party/", "\\third_party\\",
+    "/node_modules/", "\\node_modules\\",
+    "/dist/", "\\dist\\"
+]
+
+BOT_AUTHOR_KEYWORDS = [
+    "dependabot",
+    "renovate",
+    "github-actions",
+    "pre-commit-ci"
 ]
 
 
@@ -51,6 +64,11 @@ def is_merge_message(message):
     return any(keyword in message for keyword in merge_keywords)
 
 
+def is_bot_commit(commit):
+    author_text = f"{commit.author.name} {commit.author.email}".lower()
+    return any(keyword in author_text for keyword in BOT_AUTHOR_KEYWORDS)
+
+
 def should_exclude_file(file_path):
     lower_path = file_path.lower()
     extension = os.path.splitext(lower_path)[1]
@@ -75,7 +93,8 @@ def should_exclude_file(file_path):
 
 def safe_repo_name(repo_url):
     name = repo_url.rstrip("/").replace(".git", "").split("/")[-1]
-    return re.sub(r"[^a-zA-Z0-9_-]", "_", name)
+    safe_name = re.sub(r"[^a-zA-Z0-9_-]", "_", name)
+    return safe_name[:24]
 
 
 def clone_repository(repo_url, output_dir):
@@ -83,7 +102,13 @@ def clone_repository(repo_url, output_dir):
         shutil.rmtree(output_dir)
 
     print(f"\nCloning repository: {repo_url}")
-    repo = Repo.clone_from(repo_url, output_dir)
+    repo = Repo.clone_from(
+        repo_url,
+        output_dir,
+        multi_options=["--config", "core.longpaths=true"],
+        allow_unsafe_options=True
+    )
+    repo.git.config("core.longpaths", "true")
     return repo
 
 
@@ -116,29 +141,44 @@ def safe_checkout(repo, commit_sha):
     repo.git.checkout(commit_sha)
 
 
-def build_dataset_for_repo(repo_url, max_commits=500):
+def build_dataset_for_repo(repo_url, max_commits=500, max_rows_per_repo=800):
     repo_name = safe_repo_name(repo_url)
-    repo_dir = os.path.join("temp_repos", repo_name)
+    repo_dir = os.path.join(
+        tempfile.gettempdir(),
+        "sdpds",
+        repo_name
+    )
 
     repo = clone_repository(repo_url, repo_dir)
 
     rows = []
+    seen_file_commits = set()
 
     commits = list(repo.iter_commits("--all", max_count=max_commits))
 
     print(f"Total commits scanned for {repo_name}: {len(commits)}")
 
     skipped_merge = 0
+    skipped_bot = 0
     skipped_unlabelled = 0
     skipped_no_supported_source = 0
+    language_counts = {}
 
     for index, commit in enumerate(commits, start=1):
         try:
+            if len(rows) >= max_rows_per_repo:
+                print(f"Reached max rows for {repo_name}: {max_rows_per_repo}")
+                break
+
             commit_sha = commit.hexsha
             commit_message = commit.message.strip().replace("\n", " ")
 
             if is_merge_commit(commit) or is_merge_message(commit_message):
                 skipped_merge += 1
+                continue
+
+            if is_bot_commit(commit):
+                skipped_bot += 1
                 continue
 
             bug_fix = is_bug_fix_commit(commit_message)
@@ -162,6 +202,16 @@ def build_dataset_for_repo(repo_url, max_commits=500):
 
             for file_path in changed_source_files:
                 try:
+                    if len(rows) >= max_rows_per_repo:
+                        break
+
+                    file_commit_key = (commit_sha, file_path)
+
+                    if file_commit_key in seen_file_commits:
+                        continue
+
+                    seen_file_commits.add(file_commit_key)
+
                     if label == 1 and commit.parents:
                         checkout_commit = commit.parents[0].hexsha
                     else:
@@ -185,6 +235,8 @@ def build_dataset_for_repo(repo_url, max_commits=500):
                     metrics["defect"] = label
 
                     rows.append(metrics)
+                    language = metrics.get("language", "Unknown")
+                    language_counts[language] = language_counts.get(language, 0) + 1
 
                 except Exception as e:
                     print(f"Skipped file {file_path}: {e}")
@@ -195,8 +247,10 @@ def build_dataset_for_repo(repo_url, max_commits=500):
     print(f"\nFinished repo: {repo_name}")
     print("Rows collected:", len(rows))
     print("Skipped merge commits:", skipped_merge)
+    print("Skipped bot commits:", skipped_bot)
     print("Skipped unlabelled commits:", skipped_unlabelled)
     print("Skipped commits without supported source files:", skipped_no_supported_source)
+    print("Rows by language:", language_counts)
 
     return rows
 
@@ -214,11 +268,17 @@ def read_repo_list(path="data/repositories.txt"):
 
 if __name__ == "__main__":
     max_commits_input = input("Enter max commits per repo, example 500: ").strip()
+    max_rows_input = input("Enter max rows per repo, example 800: ").strip()
 
     if max_commits_input:
         max_commits = int(max_commits_input)
     else:
         max_commits = 500
+
+    if max_rows_input:
+        max_rows_per_repo = int(max_rows_input)
+    else:
+        max_rows_per_repo = 800
 
     repos = read_repo_list()
 
@@ -226,7 +286,7 @@ if __name__ == "__main__":
 
     for repo_url in repos:
         try:
-            rows = build_dataset_for_repo(repo_url, max_commits)
+            rows = build_dataset_for_repo(repo_url, max_commits, max_rows_per_repo)
             all_rows.extend(rows)
         except Exception as e:
             print(f"Failed repository {repo_url}: {e}")
@@ -236,6 +296,20 @@ if __name__ == "__main__":
     os.makedirs("data", exist_ok=True)
 
     output_path = "data/github_defect_dataset.csv"
+    backup_path = "data/github_defect_dataset_latest_backup.csv"
+
+    if df.empty:
+        raise ValueError("No dataset rows were collected. Try increasing max commits or checking repository URLs.")
+
+    if os.path.exists(output_path):
+        shutil.copy2(output_path, backup_path)
+        print(f"Previous dataset backed up to: {backup_path}")
+
+    df = df.drop_duplicates(
+        subset=["repo_url", "commit_sha", "file_path", "defect"],
+        keep="first"
+    )
+
     df.to_csv(output_path, index=False)
 
     print("\nCombined dataset completed.")
@@ -248,3 +322,7 @@ if __name__ == "__main__":
 
         print("\nRows by repository:")
         print(df["repo_name"].value_counts())
+
+        if "language" in df.columns:
+            print("\nRows by language:")
+            print(df["language"].value_counts())

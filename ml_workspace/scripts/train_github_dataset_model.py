@@ -1,8 +1,10 @@
 import os
+import json
+import numpy as np
 import pandas as pd
 import joblib
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import RandomizedSearchCV, StratifiedKFold, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import (
@@ -19,6 +21,9 @@ from sklearn.metrics import (
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+
+
+RANDOM_STATE = 42
 
 
 # =========================
@@ -93,12 +98,20 @@ if y.nunique() < 2:
 # 5. Train-Test Split
 # =========================
 
-X_train, X_test, y_train, y_test = train_test_split(
+X_train_full, X_test, y_train_full, y_test = train_test_split(
     X,
     y,
     test_size=0.2,
-    random_state=42,
+    random_state=RANDOM_STATE,
     stratify=y
+)
+
+X_train, X_valid, y_train, y_valid = train_test_split(
+    X_train_full,
+    y_train_full,
+    test_size=0.2,
+    random_state=RANDOM_STATE,
+    stratify=y_train_full
 )
 
 
@@ -106,8 +119,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 # 6. Handle Imbalance
 # =========================
 
-neg_count = (y_train == 0).sum()
-pos_count = (y_train == 1).sum()
+neg_count = (y_train_full == 0).sum()
+pos_count = (y_train_full == 1).sum()
 
 scale_pos_weight = neg_count / pos_count if pos_count > 0 else 1
 
@@ -125,29 +138,115 @@ models = {
     "Logistic Regression": Pipeline([
         ("scaler", StandardScaler()),
         ("classifier", LogisticRegression(
-            max_iter=2000,
+            max_iter=3000,
             class_weight="balanced",
-            random_state=42
+            random_state=RANDOM_STATE
         ))
     ]),
 
     "Random Forest": RandomForestClassifier(
-        n_estimators=300,
-        random_state=42,
+        random_state=RANDOM_STATE,
         class_weight="balanced"
     ),
 
     "XGBoost": XGBClassifier(
-        n_estimators=300,
-        learning_rate=0.05,
-        max_depth=5,
-        subsample=0.8,
-        colsample_bytree=0.8,
         scale_pos_weight=scale_pos_weight,
         eval_metric="logloss",
-        random_state=42
+        random_state=RANDOM_STATE
     )
 }
+
+param_distributions = {
+    "Logistic Regression": {
+        "classifier__C": [0.01, 0.05, 0.1, 0.5, 1, 2, 5, 10],
+        "classifier__solver": ["lbfgs", "liblinear"]
+    },
+    "Random Forest": {
+        "n_estimators": [200, 300, 500, 700],
+        "max_depth": [None, 6, 10, 14, 20],
+        "min_samples_split": [2, 5, 10],
+        "min_samples_leaf": [1, 2, 4],
+        "max_features": ["sqrt", "log2", None]
+    },
+    "XGBoost": {
+        "n_estimators": [200, 300, 500],
+        "learning_rate": [0.01, 0.03, 0.05, 0.08, 0.1],
+        "max_depth": [3, 4, 5, 6],
+        "subsample": [0.75, 0.85, 1.0],
+        "colsample_bytree": [0.75, 0.85, 1.0],
+        "min_child_weight": [1, 3, 5],
+        "gamma": [0, 0.1, 0.3]
+    }
+}
+
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
+
+
+def get_probabilities(model, features):
+    if hasattr(model, "predict_proba"):
+        return model.predict_proba(features)[:, 1]
+
+    return model.predict(features)
+
+
+def find_best_threshold(y_true, y_prob):
+    best_threshold = 0.5
+    best_f1 = -1
+
+    for threshold in np.arange(0.25, 0.76, 0.01):
+        y_pred = (y_prob >= threshold).astype(int)
+        score = f1_score(y_true, y_pred, zero_division=0)
+
+        if score > best_f1:
+            best_f1 = score
+            best_threshold = threshold
+
+    return round(float(best_threshold), 2), best_f1
+
+
+def evaluate_model(model, threshold):
+    y_prob = get_probabilities(model, X_test)
+    y_pred = (y_prob >= threshold).astype(int)
+
+    return {
+        "accuracy": accuracy_score(y_test, y_pred),
+        "precision": precision_score(y_test, y_pred, zero_division=0),
+        "recall": recall_score(y_test, y_pred, zero_division=0),
+        "f1": f1_score(y_test, y_pred, zero_division=0),
+        "roc_auc": roc_auc_score(y_test, y_prob),
+        "pr_auc": average_precision_score(y_test, y_prob),
+        "confusion_matrix": confusion_matrix(y_test, y_pred),
+        "classification_report": classification_report(
+            y_test,
+            y_pred,
+            digits=3,
+            zero_division=0
+        )
+    }
+
+
+def extract_feature_importance(model, feature_names):
+    estimator = model
+
+    if hasattr(model, "named_steps"):
+        estimator = model.named_steps.get("classifier", model)
+
+    if hasattr(estimator, "feature_importances_"):
+        importance = estimator.feature_importances_
+    elif hasattr(estimator, "coef_"):
+        importance = np.abs(estimator.coef_[0])
+    else:
+        importance = np.zeros(len(feature_names))
+
+    total = importance.sum()
+
+    if total > 0:
+        importance = importance / total
+
+    return pd.DataFrame({
+        "feature": feature_names,
+        "importance": importance
+    }).sort_values(by="importance", ascending=False)
 
 
 # =========================
@@ -159,55 +258,68 @@ results = []
 best_model = None
 best_model_name = None
 best_f1 = -1
+best_prediction_threshold = 0.5
 
 for model_name, model in models.items():
     print("\n==============================")
     print("Training:", model_name)
     print("==============================")
 
-    model.fit(X_train, y_train)
+    search = RandomizedSearchCV(
+        estimator=model,
+        param_distributions=param_distributions[model_name],
+        n_iter=15,
+        scoring="f1",
+        cv=cv,
+        random_state=RANDOM_STATE,
+        n_jobs=-1,
+        verbose=1
+    )
 
-    y_pred = model.predict(X_test)
+    search.fit(X_train, y_train)
 
-    if hasattr(model, "predict_proba"):
-        y_prob = model.predict_proba(X_test)[:, 1]
-    else:
-        y_prob = y_pred
+    tuned_model = search.best_estimator_
+    valid_prob = get_probabilities(tuned_model, X_valid)
+    model_threshold, validation_f1 = find_best_threshold(y_valid, valid_prob)
 
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, zero_division=0)
-    recall = recall_score(y_test, y_pred, zero_division=0)
-    f1 = f1_score(y_test, y_pred, zero_division=0)
-    roc_auc = roc_auc_score(y_test, y_prob)
-    pr_auc = average_precision_score(y_test, y_prob)
+    tuned_model.fit(X_train_full, y_train_full)
+
+    evaluation = evaluate_model(tuned_model, model_threshold)
 
     print("\nConfusion Matrix:")
-    print(confusion_matrix(y_test, y_pred))
+    print(evaluation["confusion_matrix"])
 
     print("\nClassification Report:")
-    print(classification_report(y_test, y_pred, digits=3, zero_division=0))
+    print(evaluation["classification_report"])
 
-    print("Accuracy:", round(accuracy, 4))
-    print("Precision:", round(precision, 4))
-    print("Recall:", round(recall, 4))
-    print("F1-score:", round(f1, 4))
-    print("ROC-AUC:", round(roc_auc, 4))
-    print("PR-AUC:", round(pr_auc, 4))
+    print("Best params:", search.best_params_)
+    print("Optimized threshold:", model_threshold)
+    print("Validation F1 at threshold:", round(validation_f1, 4))
+    print("Accuracy:", round(evaluation["accuracy"], 4))
+    print("Precision:", round(evaluation["precision"], 4))
+    print("Recall:", round(evaluation["recall"], 4))
+    print("F1-score:", round(evaluation["f1"], 4))
+    print("ROC-AUC:", round(evaluation["roc_auc"], 4))
+    print("PR-AUC:", round(evaluation["pr_auc"], 4))
 
     results.append({
         "model": model_name,
-        "accuracy": accuracy,
-        "precision": precision,
-        "recall": recall,
-        "f1": f1,
-        "roc_auc": roc_auc,
-        "pr_auc": pr_auc
+        "best_params": search.best_params_,
+        "threshold": model_threshold,
+        "validation_f1": validation_f1,
+        "accuracy": evaluation["accuracy"],
+        "precision": evaluation["precision"],
+        "recall": evaluation["recall"],
+        "f1": evaluation["f1"],
+        "roc_auc": evaluation["roc_auc"],
+        "pr_auc": evaluation["pr_auc"]
     })
 
-    if f1 > best_f1:
-        best_f1 = f1
-        best_model = model
+    if evaluation["f1"] > best_f1:
+        best_f1 = evaluation["f1"]
+        best_model = tuned_model
         best_model_name = model_name
+        best_prediction_threshold = model_threshold
 
 
 # =========================
@@ -218,14 +330,37 @@ os.makedirs("models", exist_ok=True)
 os.makedirs("results", exist_ok=True)
 
 results_df = pd.DataFrame(results)
+results_df["best_params"] = results_df["best_params"].apply(
+    lambda params: json.dumps(params)
+)
 results_df.to_csv("results/github_model_comparison.csv", index=False)
+
+feature_importance_df = extract_feature_importance(best_model, selected_features)
+feature_importance_df.to_csv("results/github_feature_importance.csv", index=False)
+feature_importance_df.head(10).to_csv("results/github_top_10_features.csv", index=False)
 
 joblib.dump(best_model, "models/github_defect_prediction_model.pkl")
 joblib.dump(selected_features, "models/github_model_features.pkl")
+joblib.dump(best_prediction_threshold, "models/github_prediction_threshold.pkl")
+
+metadata = {
+    "best_model_name": best_model_name,
+    "best_f1": best_f1,
+    "prediction_threshold": best_prediction_threshold,
+    "selected_features": selected_features,
+    "random_state": RANDOM_STATE,
+    "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning"
+}
+
+with open("results/github_training_metadata.json", "w", encoding="utf-8") as file:
+    json.dump(metadata, file, indent=2)
 
 print("\n==============================")
 print("Best GitHub-trained model:", best_model_name)
 print("Best F1-score:", round(best_f1, 4))
 print("Saved model to: models/github_defect_prediction_model.pkl")
 print("Saved features to: models/github_model_features.pkl")
+print("Saved threshold to: models/github_prediction_threshold.pkl")
 print("Saved comparison to: results/github_model_comparison.csv")
+print("Saved feature importance to: results/github_feature_importance.csv")
+print("Saved metadata to: results/github_training_metadata.json")

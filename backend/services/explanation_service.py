@@ -6,7 +6,12 @@ class ExplanationService:
     def __init__(self, model, feature_names):
         self.model = model
         self.feature_names = feature_names
-        self.explainer = shap.TreeExplainer(self.model)
+        try:
+            self.explainer = shap.TreeExplainer(self.model)
+            self.explainer_type = "tree"
+        except Exception:
+            self.explainer = None
+            self.explainer_type = "fallback"
 
     def _get_feature_meaning(self, feature: str) -> str:
         meanings = {
@@ -30,12 +35,21 @@ class ExplanationService:
 
         X = prediction_df[self.feature_names]
 
-        shap_values = self.explainer.shap_values(X)
+        if self.explainer_type == "tree":
+            shap_values = self.explainer.shap_values(X)
 
-        if isinstance(shap_values, list):
-            shap_class_1 = shap_values[1]
+            if isinstance(shap_values, list):
+                shap_class_1 = shap_values[1]
+            else:
+                shap_class_1 = shap_values[:, :, 1] if len(shap_values.shape) == 3 else shap_values
         else:
-            shap_class_1 = shap_values[:, :, 1] if len(shap_values.shape) == 3 else shap_values
+            fallback_explainer = shap.Explainer(self.model.predict_proba, X)
+            shap_values = fallback_explainer(X)
+            shap_class_1 = (
+                shap_values.values[:, :, 1]
+                if len(shap_values.values.shape) == 3
+                else shap_values.values
+            )
 
         explanation_summaries = []
 

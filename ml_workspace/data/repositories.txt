@@ -3,3 +3,9 @@ https://github.com/apache/commons-io.git
 https://github.com/apache/commons-collections.git
 https://github.com/google/gson.git
 https://github.com/square/retrofit.git
+https://github.com/WerWolv/ImHex.git
+https://github.com/ClickHouse/ClickHouse.git
+https://github.com/aseprite/aseprite.git
+https://github.com/pytorch/pytorch.git
+https://github.com/nvbn/thefuck.git
+https://github.com/sherlock-project/sherlock.git

@@ -72,6 +72,12 @@ function PredictionResultPage() {
         count: number;
         averageProbability: number;
       }>,
+      riskDistribution: [] as Array<{
+        label: string;
+        count: number;
+        percent: number;
+        className: string;
+      }>,
     };
 
     if (!predictionResponse || predictionResponse.results.length === 0) {
@@ -149,6 +155,28 @@ function PredictionResultPage() {
 
     const riskiestFolder = sortedFolders[0];
 
+    const totalFiles = predictionResponse.results.length;
+    const riskDistribution = [
+      {
+        label: "High",
+        count: stats.highRiskCount,
+        percent: totalFiles ? stats.highRiskCount / totalFiles : 0,
+        className: "high",
+      },
+      {
+        label: "Medium",
+        count: stats.mediumRiskCount,
+        percent: totalFiles ? stats.mediumRiskCount / totalFiles : 0,
+        className: "medium",
+      },
+      {
+        label: "Low",
+        count: stats.lowRiskCount,
+        percent: totalFiles ? stats.lowRiskCount / totalFiles : 0,
+        className: "low",
+      },
+    ];
+
     return {
       totalFiles: predictionResponse.results.length,
       highRiskCount: stats.highRiskCount,
@@ -162,8 +190,21 @@ function PredictionResultPage() {
         ? riskiestFolder[1].probabilitySum / riskiestFolder[1].count
         : 0,
       languageBreakdown,
+      riskDistribution,
     };
   }, [predictionResponse]);
+
+  const riskDonutBackground = useMemo(() => {
+    if (dashboardStats.totalFiles === 0) {
+      return "#e5e7eb";
+    }
+
+    const highEnd = dashboardStats.riskDistribution[0].percent * 100;
+    const mediumEnd =
+      highEnd + dashboardStats.riskDistribution[1].percent * 100;
+
+    return `conic-gradient(#dc2626 0 ${highEnd}%, #d97706 ${highEnd}% ${mediumEnd}%, #16a34a ${mediumEnd}% 100%)`;
+  }, [dashboardStats]);
 
   const filteredResults = useMemo(() => {
     if (!predictionResponse) {
@@ -329,73 +370,71 @@ function PredictionResultPage() {
           <div className="dashboard-stat high-risk-stat">
             <span>High Risk</span>
             <strong>{dashboardStats.highRiskCount}</strong>
+            <small>{formatPercent(dashboardStats.riskDistribution[0]?.percent || 0)}</small>
           </div>
 
           <div className="dashboard-stat medium-risk-stat">
             <span>Medium Risk</span>
             <strong>{dashboardStats.mediumRiskCount}</strong>
+            <small>{formatPercent(dashboardStats.riskDistribution[1]?.percent || 0)}</small>
           </div>
 
           <div className="dashboard-stat low-risk-stat">
             <span>Low Risk</span>
             <strong>{dashboardStats.lowRiskCount}</strong>
+            <small>{formatPercent(dashboardStats.riskDistribution[2]?.percent || 0)}</small>
           </div>
 
           <div className="dashboard-stat defective-stat">
             <span>Defective</span>
             <strong>{dashboardStats.defectiveCount}</strong>
+            <small>
+              {formatPercent(
+                dashboardStats.totalFiles
+                  ? dashboardStats.defectiveCount / dashboardStats.totalFiles
+                  : 0
+              )}
+            </small>
           </div>
 
           <div className="dashboard-stat average-risk-stat">
             <span>Average Risk</span>
             <strong>{formatPercent(dashboardStats.averageProbability)}</strong>
+            <small>Mean probability</small>
           </div>
         </div>
 
         <div className="dashboard-detail-grid">
-          <div className="risk-panel">
+          <div className="risk-panel risk-distribution-panel">
             <div className="risk-panel-header">
               <h2>Risk Distribution</h2>
               <span>{dashboardStats.totalFiles} files</span>
             </div>
 
-            <div className="risk-stack-bar" aria-hidden="true">
-              <span
-                className="risk-stack-segment high-segment"
-                style={{
-                  width: `${dashboardStats.totalFiles
-                    ? (dashboardStats.highRiskCount / dashboardStats.totalFiles) * 100
-                    : 0}%`,
-                }}
-              />
-              <span
-                className="risk-stack-segment medium-segment"
-                style={{
-                  width: `${dashboardStats.totalFiles
-                    ? (dashboardStats.mediumRiskCount / dashboardStats.totalFiles) * 100
-                    : 0}%`,
-                }}
-              />
-              <span
-                className="risk-stack-segment low-segment"
-                style={{
-                  width: `${dashboardStats.totalFiles
-                    ? (dashboardStats.lowRiskCount / dashboardStats.totalFiles) * 100
-                    : 0}%`,
-                }}
-              />
-            </div>
+            <div className="risk-chart-layout">
+              <div
+                className="risk-donut"
+                style={{ background: riskDonutBackground }}
+                aria-hidden="true"
+              >
+                <div className="risk-donut-center">
+                  <strong>{formatPercent(dashboardStats.averageProbability)}</strong>
+                  <span>Avg risk</span>
+                </div>
+              </div>
 
-            <div className="risk-legend">
-              <span>
-                <i className="legend-dot high-dot" /> High
-              </span>
-              <span>
-                <i className="legend-dot medium-dot" /> Medium
-              </span>
-              <span>
-                <i className="legend-dot low-dot" /> Low
-              </span>
+              <div className="risk-breakdown-list">
+                {dashboardStats.riskDistribution.map((item) => (
+                  <div className="risk-breakdown-row" key={item.label}>
+                    <span>
+                      <i className={`legend-dot ${item.className}-dot`} />
+                      {item.label}
+                    </span>
+                    <strong>{item.count}</strong>
+                    <small>{formatPercent(item.percent)}</small>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -432,14 +471,49 @@ function PredictionResultPage() {
         </div>
 
         {dashboardStats.languageBreakdown.length > 0 && (
-          <div className="language-risk-strip">
-            {dashboardStats.languageBreakdown.map((item) => (
-              <div className="language-risk-item" key={item.language}>
-                <span>{item.language}</span>
-                <strong>{item.count}</strong>
-                <small>{formatPercent(item.averageProbability)} avg</small>
-              </div>
-            ))}
+          <div className="risk-panel language-chart-panel">
+            <div className="risk-panel-header">
+              <h2>Language Risk Overview</h2>
+              <span>Count and average risk</span>
+            </div>
+
+            <div className="language-column-chart">
+              {dashboardStats.languageBreakdown.map((item) => (
+                <div className="language-column-item" key={item.language}>
+                  <div className="language-column-bars">
+                    <span
+                      className="language-count-bar"
+                      style={{
+                        height: `${Math.max(
+                          12,
+                          (item.count / dashboardStats.totalFiles) * 100
+                        )}%`,
+                      }}
+                    />
+                    <span
+                      className="language-risk-bar"
+                      style={{
+                        height: `${Math.max(12, item.averageProbability * 100)}%`,
+                      }}
+                    />
+                  </div>
+                  <div className="language-column-label">
+                    <strong>{item.language}</strong>
+                    <span>{item.count} files</span>
+                    <small>{formatPercent(item.averageProbability)} avg</small>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="chart-legend">
+              <span>
+                <i className="legend-line count-line" /> File volume
+              </span>
+              <span>
+                <i className="legend-line risk-line" /> Average risk
+              </span>
+            </div>
           </div>
         )}
       </section>
