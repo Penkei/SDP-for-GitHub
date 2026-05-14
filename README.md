@@ -1,48 +1,162 @@
+<p align="center">
+  <img src="frontend/assets/logo.png" alt="SDP for GitHub logo" width="120" />
+</p>
+
 # SDP for GitHub
 
-Software Defect Prediction for GitHub is a final year project that analyzes a
-GitHub repository at a selected commit and predicts file-level defect risk using
-static code metrics and a trained machine learning model.
+**SDP for GitHub** is a Software Defect Prediction application that analyzes a
+public GitHub repository at a selected commit and predicts file-level defect
+risk. It is designed for developers, reviewers, and project maintainers who want
+an early indication of which source files may need more attention before
+reviewing or releasing code.
 
-The application has three main parts:
+The system combines GitHub repository inspection, static code metric extraction,
+a trained machine learning model, prediction history, report export, and a
+developer-friendly explanation page.
 
-- `backend/` - FastAPI backend for GitHub access, metric extraction, prediction,
-  progress tracking, report export, and model transparency.
-- `frontend/` - React + Vite user interface.
-- `ml_workspace/` - model training scripts, datasets, trained model artifacts,
-  and evaluation results.
+## What The Application Does
 
-## Current Features
+1. Accepts a public GitHub repository URL.
+2. Loads repository branches, tags, and commits.
+3. Lets the user select a commit for analysis.
+4. Extracts static code metrics from supported source files.
+5. Predicts whether each file is likely to be defect-prone.
+6. Displays a risk dashboard, detailed file results, and model explanations.
+7. Saves completed predictions to SQLite for long-term history.
+8. Exports prediction results as a CSV report.
 
-- Select a GitHub repository, branch/tag, and commit.
-- Predict defect risk for Java, Python, and C++ source files.
-- Track prediction progress by backend stage.
-- View a risk dashboard with high/medium/low counts, average risk, highest-risk
-  file, riskiest folder, and language breakdown.
-- Search and filter prediction results by file path, language, risk level,
-  prediction label, and probability range.
-- Export prediction results as a CSV report.
-- View model transparency details, including model comparison, feature
-  importance, selected features, dataset summary, and limitations.
-- Store completed prediction history in SQLite for long-term review.
-- Cache repository metadata and local repository mirrors to reduce repeated
-  GitHub cloning.
+This project is suitable for a Final Year Project demonstration because it shows
+the full workflow from repository input to model-backed decision support.
 
-## Requirements
+## Key Features
 
-- Python 3.10 or newer
-- Node.js 20 or newer
-- Git
+- GitHub repository, branch, tag, and commit selection.
+- File-level defect prediction for Java, Python, and C++.
+- Prediction progress status while the backend is analyzing a commit.
+- Risk dashboard with summary cards, charts, high-risk files, and language
+  breakdowns.
+- Search and filtering by file path, language, risk level, prediction label, and
+  probability range.
+- CSV report export.
+- Prediction history stored in SQLite.
+- "How It Works" page for non-ML developers and project evaluators.
+- Backend repository caching to reduce repeated GitHub operations.
+- Training scripts for building, appending, analyzing, and retraining the model.
 
-## Backend Setup
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | React, Vite, TypeScript |
+| Backend | FastAPI, Python |
+| Machine Learning | scikit-learn, XGBoost, pandas, joblib |
+| Repository Access | Git, GitPython |
+| Storage | SQLite |
+| Charts/UI | React components and CSS |
+
+## System Overview
+
+```mermaid
+flowchart LR
+    A["User enters GitHub repository"] --> B["Backend validates repository"]
+    B --> C["Load branches, tags, and commits"]
+    C --> D["User selects commit"]
+    D --> E["Extract file metrics"]
+    E --> F["ML model predicts defect risk"]
+    F --> G["Risk dashboard and result table"]
+    G --> H["SQLite prediction history"]
+    G --> I["CSV report export"]
+```
+
+## Project Structure
+
+```text
+SDP-for-GitHub/
+|-- backend/
+|   |-- main.py
+|   |-- models/
+|   |-- services/
+|   `-- backend requirements.txt
+|-- frontend/
+|   |-- src/
+|   |-- assets/
+|   |   `-- logo.png
+|   |-- public/
+|   `-- package.json
+|-- ml_workspace/
+|   |-- data/
+|   |-- models/
+|   |-- results/
+|   `-- scripts/
+|-- .gitignore
+`-- README.md
+```
+
+## Prerequisites
+
+Install these before running the project locally.
+
+| Tool | Recommended Version | Download |
+| --- | --- | --- |
+| Python | 3.10 or newer | [python.org/downloads](https://www.python.org/downloads/) |
+| Node.js | 20 LTS or newer | [nodejs.org/download](https://nodejs.org/en/download) |
+| Git | Latest stable | [git-scm.com/downloads](https://git-scm.com/downloads) |
+| Visual Studio Code | Optional | [code.visualstudio.com/download](https://code.visualstudio.com/download) |
+
+During Python installation on Windows, enable **Add python.exe to PATH**. During
+Git installation, the default options are usually fine.
+
+## Local Setup Guide
+
+The project needs two terminals:
+
+- Terminal 1 runs the FastAPI backend.
+- Terminal 2 runs the React frontend.
+
+### 1. Open The Project
+
+Clone the repository or open the extracted project folder:
+
+```powershell
+cd "D:\Academic\Final Year Project\SDP-for-GitHub"
+```
+
+If you are cloning from GitHub:
+
+```powershell
+git clone <your-repository-url>
+cd SDP-for-GitHub
+```
+
+### 2. Create A Python Virtual Environment
 
 From the project root:
 
 ```powershell
-cd backend
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install -r "backend requirements.txt"
+```
+
+If PowerShell blocks virtual environment activation, run:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
+
+### 3. Install Backend Dependencies
+
+With the virtual environment activated:
+
+```powershell
+pip install --upgrade pip
+pip install -r "backend\backend requirements.txt"
+```
+
+### 4. Start The Backend
+
+```powershell
+cd backend
 uvicorn main:app --reload
 ```
 
@@ -52,19 +166,24 @@ The backend runs at:
 http://127.0.0.1:8000
 ```
 
-If PowerShell blocks script activation, run:
+FastAPI API documentation is available at:
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```text
+http://127.0.0.1:8000/docs
 ```
 
-## Frontend Setup
+### 5. Install Frontend Dependencies
 
-From the project root:
+Open a second terminal and go to the frontend folder:
 
 ```powershell
-cd frontend
+cd "D:\Academic\Final Year Project\SDP-for-GitHub\frontend"
 npm install
+```
+
+### 6. Start The Frontend
+
+```powershell
 npm run dev
 ```
 
@@ -74,161 +193,322 @@ The frontend runs at:
 http://127.0.0.1:5173
 ```
 
-For a production build:
+Open this URL in your browser and use the application.
 
-```powershell
-npm run build
-```
+## How To Use The Application
 
-## How To Use
+1. Start the backend and frontend.
+2. Open `http://127.0.0.1:5173`.
+3. Enter a public GitHub repository URL.
+4. Load branches or tags.
+5. Select a branch or tag.
+6. Load commits.
+7. Select a commit.
+8. Run prediction.
+9. Wait for the progress status to complete.
+10. Review the risk dashboard and result table.
+11. Export the report or revisit the run from Prediction History.
 
-1. Start the backend.
-2. Start the frontend.
-3. Open the frontend URL in a browser.
-4. Go to Repository Input.
-5. Enter a public GitHub repository URL.
-6. Load branches or tags.
-7. Load commits for the selected branch/tag.
-8. Select a commit and run prediction.
-9. Review the progress status, risk dashboard, result table, and explanations.
-10. Export the report if needed.
-
-## Backend API Summary
-
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/` | Backend health message |
-| `POST` | `/prediction-jobs` | Start an async prediction job |
-| `GET` | `/prediction-jobs/{job_id}` | Poll job progress/result |
-| `POST` | `/predict` | Run legacy synchronous prediction |
-| `POST` | `/branches` | List repository branches |
-| `POST` | `/tags` | List repository tags |
-| `POST` | `/commits` | List commits for a branch/tag |
-| `POST` | `/export-report` | Export prediction response as CSV |
-| `GET` | `/model-transparency` | Return model and dataset transparency data |
-| `GET` | `/prediction-history` | List saved prediction runs |
-| `GET` | `/prediction-history/{history_id}` | Open a saved prediction run |
-| `DELETE` | `/prediction-history/{history_id}` | Delete a saved prediction run |
-
-## Prediction History
-
-Completed predictions are saved automatically in SQLite:
+Example repository URL format:
 
 ```text
-backend/data/prediction_history.db
+https://github.com/owner/repository.git
 ```
 
-This database is ignored by Git because it is runtime data. The frontend
-Prediction History page can list previous runs, reopen a saved result, or delete
-old entries.
+The application also accepts common GitHub HTTPS repository URLs without `.git`
+and normalizes them internally.
 
-## Supported Source Languages
+## Supported Languages
 
-The live extractor currently scans:
+The live prediction extractor scans these source files:
 
-- Java: `.java`
-- Python: `.py`
-- C++: `.cpp`, `.cc`, `.cxx`, `.hpp`, `.h`, `.hh`
+| Language | Extensions |
+| --- | --- |
+| Java | `.java` |
+| Python | `.py` |
+| C++ | `.cpp`, `.cc`, `.cxx`, `.hpp`, `.h`, `.hh` |
 
-The model uses a shared feature set:
+The model uses a shared static metric feature set:
 
-- `nosi`
-- `dit`
-- `cbo`
-- `rfc`
-- `loc`
-- `comparisonsQty`
-- `returnQty`
-- `wmc`
-- `lcom`
-- `totalMethods`
+| Feature | Meaning |
+| --- | --- |
+| `nosi` | Number of static invocations or similar interaction indicators |
+| `dit` | Depth of inheritance tree approximation |
+| `cbo` | Coupling between objects approximation |
+| `rfc` | Response for class approximation |
+| `loc` | Lines of code |
+| `comparisonsQty` | Number of comparison expressions |
+| `returnQty` | Number of return statements |
+| `wmc` | Weighted methods per class approximation |
+| `lcom` | Lack of cohesion approximation |
+| `totalMethods` | Total detected methods or functions |
 
-Python and C++ metrics are approximated into this shared feature set. For the
-best accuracy, rebuild the dataset and retrain the model with representative
-repositories from all target languages.
+Python and C++ metrics are approximated into the same feature structure so that
+the trained model can score multiple languages consistently.
 
-## Model Training
+## Machine Learning Setup
 
-Training scripts are stored in:
+The app expects trained model artifacts inside:
 
 ```text
-ml_workspace/scripts/
+ml_workspace/models/
 ```
 
-Typical workflow:
+Important files:
+
+```text
+github_defect_prediction_model.pkl
+github_model_features.pkl
+github_prediction_threshold.pkl
+```
+
+If these files already exist, you can run the application without retraining.
+Retraining is only needed when you update the dataset, improve model quality, or
+want to demonstrate the training process.
+
+## Training Workflow
+
+Go to the ML workspace:
 
 ```powershell
-cd ml_workspace
-python scripts/build_multi_repo_dataset.py
-python scripts/train_github_dataset_model.py
+cd "D:\Academic\Final Year Project\SDP-for-GitHub\ml_workspace"
 ```
 
-For the current multi-repository setup, suggested dataset-builder inputs are:
+### Build A New Dataset
+
+Edit this file and add repository URLs:
+
+```text
+ml_workspace/data/repositories.txt
+```
+
+Then run:
+
+```powershell
+python scripts\build_multi_repo_dataset.py
+```
+
+Suggested inputs for a reasonable FYP training run:
 
 ```text
 max commits per repo: 500
 max rows per repo: 800
 ```
 
-Increase those numbers only if you have enough time and disk space. Large
-repositories such as PyTorch and ClickHouse can take a long time to scan.
+Large repositories can take a long time. Use smaller values first if you are
+testing the pipeline.
 
-To append new repositories without rebuilding the whole dataset:
+### Append New Repositories Without Rebuilding
 
-1. Add only the new repository URLs to:
+If you already have a dataset and only want to add more repositories, edit:
 
 ```text
 ml_workspace/data/repositories_append.txt
 ```
 
-2. Run:
+Then run:
 
 ```powershell
-python scripts/append_multi_repo_dataset.py
+python scripts\append_multi_repo_dataset.py
 ```
 
-The append script backs up the current dataset to
-`data/github_defect_dataset_before_append.csv`, adds rows from only the new
-repositories, and removes duplicate repo/commit/file rows.
+The append script backs up the current dataset to:
 
-The training script compares Logistic Regression, Random Forest, and XGBoost
-using randomized hyperparameter search, then tunes the prediction threshold on a
-validation split before saving the best model.
+```text
+ml_workspace/data/github_defect_dataset_before_append.csv
+```
 
-Generated artifacts are saved under:
+It then adds new rows and removes duplicate repository, commit, and file rows.
+
+### Analyze The Dataset
+
+```powershell
+python scripts\analyze_github_dataset.py
+```
+
+Use this before training to check language distribution, label balance, duplicate
+rows, and metric patterns.
+
+### Train The Model
+
+```powershell
+python scripts\train_github_dataset_model.py
+```
+
+The training script compares Logistic Regression, Random Forest, and XGBoost. It
+uses hyperparameter search and threshold tuning, then saves the best model and
+evaluation outputs.
+
+### Analyze Feature Importance
+
+```powershell
+python scripts\analyze_github_feature_importance.py
+```
+
+Generated outputs are saved under:
 
 ```text
 ml_workspace/models/
 ml_workspace/results/
 ```
 
-Key generated files:
-
-- `models/github_defect_prediction_model.pkl`
-- `models/github_model_features.pkl`
-- `models/github_prediction_threshold.pkl`
-- `results/github_model_comparison.csv`
-- `results/github_feature_importance.csv`
-- `results/github_training_metadata.json`
-
-## Cache Behavior
-
-The backend stores temporary repository mirrors and working copies outside the
-project directory by default, under the operating system temp folder:
+Key result files:
 
 ```text
-%TEMP%/sdp_github_temp_repos/
+ml_workspace/results/github_model_comparison.csv
+ml_workspace/results/github_feature_importance.csv
+ml_workspace/results/github_top_10_features.csv
+ml_workspace/results/github_training_metadata.json
 ```
 
-This avoids `uvicorn --reload` treating cloned repository files as backend
-source-code changes. Metadata such as branches, tags, and commit pages is cached
-in memory for a short period to reduce repeated Git operations.
+After retraining, restart the backend so it loads the latest model files.
 
-## Notes And Limitations
+## Backend API Summary
 
-- The project currently targets public GitHub repositories.
-- Static metrics cannot capture runtime behavior, test quality, or production
-  incidents.
-- SHAP explanations describe model feature influence, not guaranteed root cause.
-- Model quality depends on the training dataset and how closely it matches the
-  analyzed repository.
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/` | Backend health check |
+| `POST` | `/branches` | List repository branches |
+| `POST` | `/tags` | List repository tags |
+| `POST` | `/commits` | List commits for a branch or tag |
+| `POST` | `/prediction-jobs` | Start an asynchronous prediction job |
+| `GET` | `/prediction-jobs/{job_id}` | Poll prediction progress and result |
+| `POST` | `/predict` | Run legacy synchronous prediction |
+| `POST` | `/export-report` | Export prediction result as CSV |
+| `GET` | `/model-transparency` | Return model evidence for the How It Works page |
+| `GET` | `/prediction-history` | List saved prediction runs |
+| `GET` | `/prediction-history/{history_id}` | Open a saved prediction run |
+| `DELETE` | `/prediction-history/{history_id}` | Delete a saved prediction run |
+
+## Runtime Data And Cache Locations
+
+Prediction history is stored in SQLite:
+
+```text
+backend/data/prediction_history.db
+```
+
+This file is ignored by Git because it is runtime data.
+
+The backend stores temporary Git repository mirrors outside the project folder:
+
+```text
+%TEMP%\sdp_github_temp_repos\
+```
+
+The dataset builder uses a separate temporary clone location:
+
+```text
+%TEMP%\sdpds\
+```
+
+These folders can be deleted when the backend or training scripts are stopped.
+They are caches, not source files.
+
+## Production Build
+
+To check the frontend production build:
+
+```powershell
+cd "D:\Academic\Final Year Project\SDP-for-GitHub\frontend"
+npm run build
+```
+
+The generated frontend build is placed in:
+
+```text
+frontend/dist/
+```
+
+For an FYP demonstration, running locally is usually enough unless your
+supervisor requires a public deployment. If deploying, the frontend and backend
+must be hosted separately because Vercel and Netlify are mainly frontend hosting
+platforms, while this project also needs a Python FastAPI backend.
+
+## Troubleshooting
+
+### Python Is Not Recognized
+
+Install Python from [python.org/downloads](https://www.python.org/downloads/)
+and enable **Add python.exe to PATH**. Then restart the terminal.
+
+### PowerShell Cannot Activate `.venv`
+
+Run:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
+
+### Backend Port Is Already In Use
+
+Start the backend on another port:
+
+```powershell
+uvicorn main:app --reload --port 8001
+```
+
+If you change the backend port, update the frontend API base URL if required.
+
+### Frontend Port Is Already In Use
+
+Vite will usually suggest another port. You can also run:
+
+```powershell
+npm run dev -- --port 5174
+```
+
+### Model File Is Missing
+
+Run the training script or restore the model artifacts in:
+
+```text
+ml_workspace/models/
+```
+
+Then restart the backend.
+
+### Branch Or Tag Loading Is Slow
+
+The backend uses Git metadata and repository cache. The first request for a
+large repository can still take time, but repeated requests should be faster.
+Check your internet connection and confirm the repository URL is public.
+
+### Prediction Triggers Backend Reload
+
+Repository clones should be stored outside the project folder under:
+
+```text
+%TEMP%\sdp_github_temp_repos\
+```
+
+If old clones exist inside the project `temp_repos/` folder from earlier runs,
+stop the backend and delete that old folder manually.
+
+### Git Fails Because File Names Are Too Long
+
+On Windows, enable long paths for Git:
+
+```powershell
+git config --global core.longpaths true
+```
+
+The dataset scripts also shorten temporary clone folder names, but some large
+repositories may still require this Git setting.
+
+## Notes For Evaluation
+
+- The model output is a decision-support signal, not a guaranteed defect label.
+- High-risk files should be reviewed more carefully, tested more thoroughly, or
+  inspected for complexity and coupling.
+- The model quality depends on the size, balance, and relevance of the training
+  dataset.
+- Static metrics do not capture runtime failures, developer intent, production
+  incidents, or test coverage quality.
+
+## License
+
+This repository is prepared as an academic Final Year Project. Add a formal
+license file if the project will be published or reused outside the university
+submission context.
