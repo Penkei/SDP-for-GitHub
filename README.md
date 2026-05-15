@@ -289,6 +289,19 @@ python scripts\analyze_github_dataset.py
 Use this before training to check language distribution, label balance, duplicate
 rows, and metric patterns.
 
+### Add Process Metrics To An Existing Dataset
+
+If `data/github_defect_dataset.csv` was created before process metrics were added,
+run this once before training:
+
+```powershell
+python scripts\enrich_dataset_process_metrics.py
+```
+
+This backfills commit-history features such as previous file changes, recent
+change count, previous bug-fix count, days since last change, previous churn, and
+author-file history without rebuilding the whole dataset from scratch.
+
 ### Train The Model
 
 ```powershell
