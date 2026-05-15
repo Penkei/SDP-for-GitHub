@@ -21,7 +21,12 @@ print("\nAverage metrics by label:")
 numeric_cols = [
     "nosi", "dit", "cbo", "rfc", "loc",
     "comparisonsQty", "returnQty", "wmc",
-    "lcom", "totalMethods"
+    "lcom", "totalMethods",
+    "file_change_count", "file_bug_fix_count",
+    "recent_file_change_count", "days_since_last_change",
+    "last_change_lines_added", "last_change_lines_deleted",
+    "last_change_churn", "last_change_file_count",
+    "author_file_change_count"
 ]
 
 available_numeric_cols = [

@@ -10,6 +10,12 @@ export interface PredictionResult {
   defect_risk_probability: number;
   risk_level: string;
   recommendation: string;
+  file_change_count?: number;
+  file_bug_fix_count?: number;
+  recent_file_change_count?: number;
+  days_since_last_change?: number;
+  last_change_churn?: number;
+  author_file_change_count?: number;
   top_contributing_metrics: string;
   readable_explanation?: string;
 }

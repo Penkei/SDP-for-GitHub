@@ -147,6 +147,12 @@ def export_report(request: ExportReportRequest):
         "Risk Probability",
         "Risk Level",
         "Recommendation",
+        "File Change Count",
+        "File Bug-fix Count",
+        "Recent File Change Count",
+        "Days Since Last Change",
+        "Previous Change Churn",
+        "Author File Change Count",
         "Top Contributing Metrics",
         "Readable Explanation"
     ])
@@ -159,6 +165,12 @@ def export_report(request: ExportReportRequest):
             result.defect_risk_probability,
             result.risk_level,
             result.recommendation,
+            result.file_change_count,
+            result.file_bug_fix_count,
+            result.recent_file_change_count,
+            result.days_since_last_change,
+            result.last_change_churn,
+            result.author_file_change_count,
             result.top_contributing_metrics,
             result.readable_explanation
         ])
@@ -211,7 +223,7 @@ def get_model_transparency():
         "feature_importance": feature_importance,
         "dataset_summary": dataset_summary,
         "limitations": [
-            "Metrics are static code approximations and may not capture runtime behavior.",
+            "Metrics combine static code approximations with Git commit-history process metrics, but still may not capture runtime behavior.",
             "Python and C++ support maps language-specific patterns into the existing shared feature set.",
             "Prediction quality depends on how representative the training dataset is for the analyzed repository.",
             "Generated explanations identify influential metrics, not guaranteed root causes."

@@ -24,7 +24,16 @@ class ExplanationService:
             "cbo": "Dependency between classes",
             "wmc": "Overall method complexity",
             "returnQty": "Number of return paths",
-            "dit": "Inheritance depth"
+            "dit": "Inheritance depth",
+            "file_change_count": "Historical file change frequency",
+            "file_bug_fix_count": "Previous bug-fix activity for this file",
+            "recent_file_change_count": "Recent file change activity",
+            "days_since_last_change": "Time since the file was last changed",
+            "last_change_lines_added": "Lines added in the previous file change",
+            "last_change_lines_deleted": "Lines deleted in the previous file change",
+            "last_change_churn": "Code churn in the previous file change",
+            "last_change_file_count": "Files changed together in the previous commit",
+            "author_file_change_count": "Selected commit author's prior changes to this file"
         }
 
         return meanings.get(feature, feature)

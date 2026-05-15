@@ -1,5 +1,6 @@
 from services.github_service import GitHubService
 from services.metric_extraction_service import MetricExtractionService
+from services.process_metric_service import ProcessMetricService
 from services.prediction_service import PredictionService
 from services.explanation_service import ExplanationService
 from services.report_service import ReportService
@@ -9,6 +10,7 @@ class DefectPredictionPipeline:
     def __init__(self):
         self.github_service = GitHubService()
         self.metric_service = MetricExtractionService()
+        self.process_metric_service = ProcessMetricService()
         self.prediction_service = PredictionService()
         self.explanation_service = ExplanationService(
             self.prediction_service.model,
@@ -47,8 +49,20 @@ class DefectPredictionPipeline:
 
             self._report_progress(
                 progress_callback,
+                "extracting_process_metrics",
+                55,
+                "Extracting commit-history process metrics for each file"
+            )
+            metrics_df = self.process_metric_service.enrich_with_process_metrics(
+                metrics_df=metrics_df,
+                repo_path=repo_path,
+                commit_sha=commit_sha
+            )
+
+            self._report_progress(
+                progress_callback,
                 "predicting",
-                65,
+                72,
                 "Running the trained defect prediction model"
             )
             prediction_df = self.prediction_service.predict(metrics_df)
@@ -56,7 +70,7 @@ class DefectPredictionPipeline:
             self._report_progress(
                 progress_callback,
                 "explaining",
-                82,
+                86,
                 "Generating SHAP-based metric explanations"
             )
             explained_df = self.explanation_service.explain(prediction_df)

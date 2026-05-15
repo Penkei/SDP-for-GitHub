@@ -41,6 +41,12 @@ class ReportService:
             "defect_risk_probability",
             "risk_level",
             "recommendation",
+            "file_change_count",
+            "file_bug_fix_count",
+            "recent_file_change_count",
+            "days_since_last_change",
+            "last_change_churn",
+            "author_file_change_count",
             "top_contributing_metrics",
             "readable_explanation"
         ]

@@ -61,6 +61,12 @@ class PredictionResultForExport(BaseModel):
     defect_risk_probability: float
     risk_level: str
     recommendation: str
+    file_change_count: Optional[int] = 0
+    file_bug_fix_count: Optional[int] = 0
+    recent_file_change_count: Optional[int] = 0
+    days_since_last_change: Optional[int] = 0
+    last_change_churn: Optional[int] = 0
+    author_file_change_count: Optional[int] = 0
     top_contributing_metrics: str
     readable_explanation: Optional[str] = ""
 
