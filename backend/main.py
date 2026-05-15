@@ -1,4 +1,5 @@
 import csv
+import json
 import os
 from io import StringIO
 
@@ -203,10 +204,28 @@ def get_model_transparency():
         "data",
         "github_defect_dataset.csv"
     )
+    metadata_path = os.path.join(
+        ML_WORKSPACE_DIR,
+        "results",
+        "github_training_metadata.json"
+    )
+    confusion_matrix_path = os.path.join(
+        ML_WORKSPACE_DIR,
+        "results",
+        "github_confusion_matrix.csv"
+    )
+    classification_report_path = os.path.join(
+        ML_WORKSPACE_DIR,
+        "results",
+        "github_classification_report.txt"
+    )
 
     model_comparison = _read_csv_records(comparison_path)
     feature_importance = _read_csv_records(feature_importance_path)
     dataset_summary = _build_dataset_summary(dataset_path)
+    training_metadata = _read_json(metadata_path)
+    confusion_matrix = _read_csv_records(confusion_matrix_path)
+    classification_report = _read_text(classification_report_path)
 
     best_model = None
 
@@ -222,6 +241,9 @@ def get_model_transparency():
         "model_comparison": model_comparison,
         "feature_importance": feature_importance,
         "dataset_summary": dataset_summary,
+        "training_metadata": training_metadata,
+        "confusion_matrix": confusion_matrix,
+        "classification_report": classification_report,
         "limitations": [
             "Metrics combine static code approximations with Git commit-history process metrics, but still may not capture runtime behavior.",
             "Python and C++ support maps language-specific patterns into the existing shared feature set.",
@@ -291,6 +313,22 @@ def _read_csv_records(path: str) -> list:
         return []
 
     return pd.read_csv(path).fillna("").to_dict(orient="records")
+
+
+def _read_json(path: str) -> dict:
+    if not os.path.exists(path):
+        return {}
+
+    with open(path, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def _read_text(path: str) -> str:
+    if not os.path.exists(path):
+        return ""
+
+    with open(path, "r", encoding="utf-8") as file:
+        return file.read()
 
 
 def _build_dataset_summary(path: str) -> dict:

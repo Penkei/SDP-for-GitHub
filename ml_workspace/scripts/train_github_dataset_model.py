@@ -268,6 +268,7 @@ best_model = None
 best_model_name = None
 best_f1 = -1
 best_prediction_threshold = 0.5
+best_evaluation = None
 
 for model_name, model in models.items():
     print("\n==============================")
@@ -329,6 +330,7 @@ for model_name, model in models.items():
         best_model = tuned_model
         best_model_name = model_name
         best_prediction_threshold = model_threshold
+        best_evaluation = evaluation
 
 
 # =========================
@@ -348,6 +350,17 @@ feature_importance_df = extract_feature_importance(best_model, selected_features
 feature_importance_df.to_csv("results/github_feature_importance.csv", index=False)
 feature_importance_df.head(10).to_csv("results/github_top_10_features.csv", index=False)
 
+if best_evaluation is not None:
+    confusion_matrix_df = pd.DataFrame(
+        best_evaluation["confusion_matrix"],
+        index=["actual_non_defective", "actual_defective"],
+        columns=["predicted_non_defective", "predicted_defective"]
+    )
+    confusion_matrix_df.to_csv("results/github_confusion_matrix.csv")
+
+    with open("results/github_classification_report.txt", "w", encoding="utf-8") as file:
+        file.write(best_evaluation["classification_report"])
+
 joblib.dump(best_model, "models/github_defect_prediction_model.pkl")
 joblib.dump(selected_features, "models/github_model_features.pkl")
 joblib.dump(best_prediction_threshold, "models/github_prediction_threshold.pkl")
@@ -358,7 +371,20 @@ metadata = {
     "prediction_threshold": best_prediction_threshold,
     "selected_features": selected_features,
     "random_state": RANDOM_STATE,
-    "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning"
+    "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning",
+    "feature_groups": {
+        "static_code_metrics": [
+            "nosi", "dit", "cbo", "rfc", "loc",
+            "comparisonsQty", "returnQty", "wmc", "lcom", "totalMethods"
+        ],
+        "process_metrics": [
+            "file_change_count", "file_bug_fix_count",
+            "recent_file_change_count", "days_since_last_change",
+            "last_change_lines_added", "last_change_lines_deleted",
+            "last_change_churn", "last_change_file_count",
+            "author_file_change_count"
+        ]
+    }
 }
 
 with open("results/github_training_metadata.json", "w", encoding="utf-8") as file:
@@ -373,3 +399,5 @@ print("Saved threshold to: models/github_prediction_threshold.pkl")
 print("Saved comparison to: results/github_model_comparison.csv")
 print("Saved feature importance to: results/github_feature_importance.csv")
 print("Saved metadata to: results/github_training_metadata.json")
+print("Saved confusion matrix to: results/github_confusion_matrix.csv")
+print("Saved classification report to: results/github_classification_report.txt")

@@ -66,6 +66,9 @@ export interface PredictionHistoryDetail extends PredictionResponse {
 
 export interface ModelComparisonItem {
   model: string;
+  best_params?: string;
+  threshold?: number;
+  validation_f1?: number;
   accuracy: number;
   precision: number;
   recall: number;
@@ -93,6 +96,19 @@ export interface ModelTransparencyResponse {
   model_comparison: ModelComparisonItem[];
   feature_importance: FeatureImportanceItem[];
   dataset_summary: DatasetSummary;
+  training_metadata?: {
+    best_model_name?: string;
+    best_f1?: number;
+    prediction_threshold?: number;
+    random_state?: number;
+    optimization?: string;
+    feature_groups?: {
+      static_code_metrics?: string[];
+      process_metrics?: string[];
+    };
+  };
+  confusion_matrix?: Array<Record<string, number | string>>;
+  classification_report?: string;
   limitations: string[];
 }
 
