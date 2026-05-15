@@ -53,12 +53,16 @@ def predict_defect(request: PredictionRequest):
     try:
         result = pipeline.run(
             repo_url=request.repo_url,
-            commit_sha=request.commit_sha
+            commit_sha=request.commit_sha,
+            prediction_threshold=request.prediction_threshold
         )
 
         response = {
             "repo_url": request.repo_url,
             "commit_sha": request.commit_sha,
+            "prediction_threshold": _effective_prediction_threshold(
+                request.prediction_threshold
+            ),
             "total_files_scanned": len(result),
             "results": result
         }
@@ -75,7 +79,8 @@ def start_prediction_job(request: PredictionRequest):
     try:
         return prediction_jobs.start_job(
             repo_url=request.repo_url,
-            commit_sha=request.commit_sha
+            commit_sha=request.commit_sha,
+            prediction_threshold=request.prediction_threshold
         )
 
     except Exception as e:
@@ -134,6 +139,10 @@ def export_report(request: ExportReportRequest):
     writer.writerow([
         "Commit SHA",
         request.commit_sha
+    ])
+    writer.writerow([
+        "Prediction Threshold",
+        request.prediction_threshold if request.prediction_threshold is not None else "Model default"
     ])
     writer.writerow([
         "Total Files Scanned",
@@ -329,6 +338,13 @@ def _read_text(path: str) -> str:
 
     with open(path, "r", encoding="utf-8") as file:
         return file.read()
+
+
+def _effective_prediction_threshold(prediction_threshold: float = None) -> float:
+    if prediction_threshold is not None:
+        return float(prediction_threshold)
+
+    return float(pipeline.prediction_service.prediction_threshold)
 
 
 def _build_dataset_summary(path: str) -> dict:

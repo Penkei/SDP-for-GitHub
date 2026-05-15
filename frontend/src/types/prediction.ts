@@ -1,6 +1,7 @@
 export interface PredictionRequest {
   repo_url: string;
   commit_sha: string;
+  prediction_threshold?: number | null;
 }
 
 export interface PredictionResult {
@@ -23,6 +24,7 @@ export interface PredictionResult {
 export interface PredictionResponse {
   repo_url: string;
   commit_sha: string;
+  prediction_threshold?: number | null;
   total_files_scanned: number;
   results: PredictionResult[];
 }
@@ -35,6 +37,7 @@ export interface PredictionJobStatus {
   message: string;
   repo_url: string;
   commit_sha: string;
+  prediction_threshold?: number | null;
   created_at: string;
   updated_at: string;
   result: PredictionResponse | null;
@@ -46,6 +49,7 @@ export interface PredictionHistorySummary {
   id: string;
   repo_url: string;
   commit_sha: string;
+  prediction_threshold?: number | null;
   scanned_at: string;
   total_files_scanned: number;
   high_risk_count: number;

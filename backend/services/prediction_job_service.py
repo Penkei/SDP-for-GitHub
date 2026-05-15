@@ -12,9 +12,16 @@ class PredictionJobService:
         self.jobs = {}
         self.lock = RLock()
 
-    def start_job(self, repo_url: str, commit_sha: str) -> dict:
+    def start_job(
+        self,
+        repo_url: str,
+        commit_sha: str,
+        prediction_threshold: float = None
+    ) -> dict:
         job_id = str(uuid.uuid4())
         now = self._now()
+
+        effective_threshold = self._effective_threshold(prediction_threshold)
 
         with self.lock:
             self.jobs[job_id] = {
@@ -25,13 +32,20 @@ class PredictionJobService:
                 "message": "Prediction job is queued",
                 "repo_url": repo_url,
                 "commit_sha": commit_sha,
+                "prediction_threshold": effective_threshold,
                 "created_at": now,
                 "updated_at": now,
                 "result": None,
                 "error": None,
             }
 
-        self.executor.submit(self._run_job, job_id, repo_url, commit_sha)
+        self.executor.submit(
+            self._run_job,
+            job_id,
+            repo_url,
+            commit_sha,
+            prediction_threshold
+        )
 
         return self.get_job(job_id)
 
@@ -44,7 +58,13 @@ class PredictionJobService:
 
             return job.copy()
 
-    def _run_job(self, job_id: str, repo_url: str, commit_sha: str):
+    def _run_job(
+        self,
+        job_id: str,
+        repo_url: str,
+        commit_sha: str,
+        prediction_threshold: float = None
+    ):
         try:
             self._update_job(
                 job_id,
@@ -66,12 +86,14 @@ class PredictionJobService:
             result = self.pipeline.run(
                 repo_url=repo_url,
                 commit_sha=commit_sha,
+                prediction_threshold=prediction_threshold,
                 progress_callback=progress_callback
             )
 
             prediction_response = {
                 "repo_url": repo_url,
                 "commit_sha": commit_sha,
+                "prediction_threshold": self._effective_threshold(prediction_threshold),
                 "total_files_scanned": len(result),
                 "results": result
             }
@@ -111,3 +133,9 @@ class PredictionJobService:
 
     def _now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
+
+    def _effective_threshold(self, prediction_threshold: float = None) -> float:
+        if prediction_threshold is not None:
+            return float(prediction_threshold)
+
+        return float(self.pipeline.prediction_service.prediction_threshold)

@@ -18,7 +18,13 @@ class DefectPredictionPipeline:
         )
         self.report_service = ReportService()
 
-    def run(self, repo_url: str, commit_sha: str, progress_callback=None) -> list:
+    def run(
+        self,
+        repo_url: str,
+        commit_sha: str,
+        prediction_threshold: float = None,
+        progress_callback=None
+    ) -> list:
         repo_path = None
 
         try:
@@ -65,7 +71,10 @@ class DefectPredictionPipeline:
                 72,
                 "Running the trained defect prediction model"
             )
-            prediction_df = self.prediction_service.predict(metrics_df)
+            prediction_df = self.prediction_service.predict(
+                metrics_df,
+                prediction_threshold=prediction_threshold
+            )
 
             self._report_progress(
                 progress_callback,
