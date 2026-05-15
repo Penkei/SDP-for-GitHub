@@ -27,17 +27,29 @@ class ProcessMetricService:
             return metrics_df
 
         repo = Repo(repo_path)
-        target_commit = repo.commit(commit_sha)
-        rows = []
 
-        for _, row in metrics_df.iterrows():
-            file_path = self._to_git_path(row["file_path"])
-            process_metrics = self.extract_for_file(repo, target_commit, file_path)
-            merged_row = row.to_dict()
-            merged_row.update(process_metrics)
-            rows.append(merged_row)
+        try:
+            target_commit = repo.commit(commit_sha)
+            rows = []
 
-        return pd.DataFrame(rows)
+            for _, row in metrics_df.iterrows():
+                file_path = self._to_git_path(row["file_path"])
+                process_metrics = self.extract_for_file(repo, target_commit, file_path)
+                merged_row = row.to_dict()
+                merged_row.update(process_metrics)
+                rows.append(merged_row)
+
+            return pd.DataFrame(rows)
+        finally:
+            try:
+                repo.close()
+            except Exception:
+                pass
+
+            try:
+                repo.git.clear_cache()
+            except Exception:
+                pass
 
     def extract_for_file(self, repo: Repo, target_commit, file_path: str) -> dict:
         history = self._get_file_history(repo, target_commit.hexsha, file_path)

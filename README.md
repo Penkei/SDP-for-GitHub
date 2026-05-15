@@ -14,6 +14,16 @@ The system combines GitHub repository inspection, static code metric extraction,
 a trained machine learning model, prediction history, report export, and a
 developer-friendly explanation page.
 
+## Application Preview
+
+### Home Page
+
+![SDP for GitHub home page](readme-assets/HomePage.png)
+
+### Repository Input Page
+
+![Repository input page](readme-assets/InputPage.png)
+
 ## What The Application Does
 
 1. Accepts a public GitHub repository URL.

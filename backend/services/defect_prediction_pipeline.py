@@ -35,14 +35,24 @@ class DefectPredictionPipeline:
                 "Cloning repository and checking out the selected commit"
             )
             repo_path = self.github_service.clone_and_checkout(repo_url, commit_sha)
+            changed_files = self.github_service.get_changed_files(repo_path, commit_sha)
+            supported_changed_files = [
+                file_path for file_path in changed_files
+                if self.metric_service.is_supported_source_path(file_path)
+            ]
 
             self._report_progress(
                 progress_callback,
                 "extracting_metrics",
                 40,
-                "Extracting source code metrics from supported files"
+                "Extracting source code metrics from changed supported files"
+                if supported_changed_files
+                else "No changed supported files found; scanning a limited repository sample"
             )
-            metrics_df = self.metric_service.extract_from_project(repo_path)
+            metrics_df = self.metric_service.extract_from_project(
+                repo_path,
+                target_files=supported_changed_files if supported_changed_files else None
+            )
 
             if metrics_df.empty:
                 self._report_progress(
