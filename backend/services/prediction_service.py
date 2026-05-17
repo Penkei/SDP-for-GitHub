@@ -13,7 +13,11 @@ class PredictionService:
         self.feature_names = joblib.load(self.features_path)
         self.prediction_threshold = self._load_prediction_threshold()
 
+<<<<<<< HEAD
     def predict(self, metrics_df: pd.DataFrame) -> pd.DataFrame:
+=======
+    def predict(self, metrics_df: pd.DataFrame, prediction_threshold: float = None) -> pd.DataFrame:
+>>>>>>> Refinement
         if metrics_df.empty:
             return metrics_df
 
@@ -26,11 +30,21 @@ class PredictionService:
             raise ValueError(f"Missing required features: {missing_features}")
 
         X = metrics_df[self.feature_names]
+<<<<<<< HEAD
 
         metrics_df["defect_risk_probability"] = self.model.predict_proba(X)[:, 1]
         metrics_df["defect_prediction"] = (
             metrics_df["defect_risk_probability"] >= self.prediction_threshold
         ).astype(int)
+=======
+        threshold = self._resolve_prediction_threshold(prediction_threshold)
+
+        metrics_df["defect_risk_probability"] = self.model.predict_proba(X)[:, 1]
+        metrics_df["defect_prediction"] = (
+            metrics_df["defect_risk_probability"] >= threshold
+        ).astype(int)
+        metrics_df["prediction_threshold"] = threshold
+>>>>>>> Refinement
 
         metrics_df["prediction_label"] = metrics_df["defect_prediction"].map({
             0: "Non-defective",
@@ -44,3 +58,12 @@ class PredictionService:
             return float(joblib.load(self.threshold_path))
 
         return 0.5
+<<<<<<< HEAD
+=======
+
+    def _resolve_prediction_threshold(self, prediction_threshold: float = None) -> float:
+        if prediction_threshold is None:
+            return self.prediction_threshold
+
+        return max(0.05, min(0.95, float(prediction_threshold)))
+>>>>>>> Refinement

@@ -15,6 +15,43 @@ import type {
 import CommitSidePanel from "../components/CommitSidePanel";
 import GitRefSidePanel from "../components/GitRefSidePanel";
 
+<<<<<<< HEAD
+=======
+type ThresholdMode = "balanced" | "aggressive" | "conservative" | "custom";
+
+const thresholdOptions: Array<{
+  mode: ThresholdMode;
+  label: string;
+  value: number | null;
+  description: string;
+}> = [
+  {
+    mode: "balanced",
+    label: "Balanced",
+    value: null,
+    description: "Use trained model threshold",
+  },
+  {
+    mode: "aggressive",
+    label: "Aggressive",
+    value: 0.35,
+    description: "Flag more files",
+  },
+  {
+    mode: "conservative",
+    label: "Conservative",
+    value: 0.65,
+    description: "Flag fewer files",
+  },
+  {
+    mode: "custom",
+    label: "Custom",
+    value: null,
+    description: "Choose threshold",
+  },
+];
+
+>>>>>>> Refinement
 const validateGitHubRepositoryUrl = (value: string) => {
   const trimmedUrl = value.trim();
 
@@ -63,6 +100,11 @@ function RepositoryInputPage() {
   const [selectedGitRef, setSelectedGitRef] = useState("");
   const [selectedGitRefType, setSelectedGitRefType] = useState("");
   const [commitSha, setCommitSha] = useState("");
+<<<<<<< HEAD
+=======
+  const [thresholdMode, setThresholdMode] = useState<ThresholdMode>("balanced");
+  const [customThreshold, setCustomThreshold] = useState("0.50");
+>>>>>>> Refinement
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
   const [loadingCommits, setLoadingCommits] = useState(false);
@@ -109,6 +151,36 @@ function RepositoryInputPage() {
     return true;
   };
 
+<<<<<<< HEAD
+=======
+  const getPredictionThreshold = () => {
+    if (thresholdMode === "balanced") {
+      return null;
+    }
+
+    if (thresholdMode === "custom") {
+      const parsedThreshold = Number(customThreshold);
+
+      if (
+        Number.isNaN(parsedThreshold) ||
+        parsedThreshold < 0.05 ||
+        parsedThreshold > 0.95
+      ) {
+        setErrorMessage("Custom threshold must be between 0.05 and 0.95.");
+        return undefined;
+      }
+
+      return parsedThreshold;
+    }
+
+    const selectedOption = thresholdOptions.find(
+      (option) => option.mode === thresholdMode
+    );
+
+    return selectedOption?.value ?? null;
+  };
+
+>>>>>>> Refinement
   const handleLoadBranches = async () => {
     if (!validateRepoUrl()) {
       return;
@@ -236,6 +308,15 @@ function RepositoryInputPage() {
       return;
     }
 
+<<<<<<< HEAD
+=======
+    const predictionThreshold = getPredictionThreshold();
+
+    if (predictionThreshold === undefined) {
+      return;
+    }
+
+>>>>>>> Refinement
     setLoadingPrediction(true);
     setErrorMessage("");
     setPredictionProgress({
@@ -248,6 +329,10 @@ function RepositoryInputPage() {
       const startedJob = await startPredictionJob({
         repo_url: repoUrl.trim(),
         commit_sha: commitSha.trim(),
+<<<<<<< HEAD
+=======
+        prediction_threshold: predictionThreshold,
+>>>>>>> Refinement
       });
 
       setPredictionProgress({
@@ -375,6 +460,52 @@ function RepositoryInputPage() {
           placeholder="Select commit from the right-side panel"
         />
 
+<<<<<<< HEAD
+=======
+        <label>Prediction Sensitivity</label>
+        <div className="threshold-control">
+          {thresholdOptions.map((option) => (
+            <button
+              key={option.mode}
+              type="button"
+              className={
+                thresholdMode === option.mode
+                  ? "threshold-option active"
+                  : "threshold-option"
+              }
+              onClick={() => {
+                setThresholdMode(option.mode);
+                setErrorMessage("");
+              }}
+              disabled={loadingPrediction}
+            >
+              <strong>{option.label}</strong>
+              <span>{option.description}</span>
+            </button>
+          ))}
+        </div>
+
+        {thresholdMode === "custom" && (
+          <div className="threshold-custom-row">
+            <input
+              type="number"
+              min="0.05"
+              max="0.95"
+              step="0.01"
+              value={customThreshold}
+              onChange={(event) => {
+                setCustomThreshold(event.target.value);
+                setErrorMessage("");
+              }}
+              disabled={loadingPrediction}
+            />
+            <span>
+              {(Number(customThreshold || 0) * 100).toFixed(0)}% cutoff
+            </span>
+          </div>
+        )}
+
+>>>>>>> Refinement
         {errorMessage && <div className="error-box">{errorMessage}</div>}
 
         <button
@@ -407,10 +538,20 @@ function RepositoryInputPage() {
               <li className={predictionProgress.percent >= 40 ? "active" : ""}>
                 Extracting Metrics
               </li>
+<<<<<<< HEAD
               <li className={predictionProgress.percent >= 65 ? "active" : ""}>
                 Predicting
               </li>
               <li className={predictionProgress.percent >= 82 ? "active" : ""}>
+=======
+              <li className={predictionProgress.percent >= 55 ? "active" : ""}>
+                Process Metrics
+              </li>
+              <li className={predictionProgress.percent >= 72 ? "active" : ""}>
+                Predicting
+              </li>
+              <li className={predictionProgress.percent >= 86 ? "active" : ""}>
+>>>>>>> Refinement
                 Explaining
               </li>
               <li className={predictionProgress.percent >= 100 ? "active" : ""}>

@@ -42,6 +42,20 @@ class GitHubRepoRequest(BaseModel):
 
 class PredictionRequest(GitHubRepoRequest):
     commit_sha: str
+<<<<<<< HEAD
+=======
+    prediction_threshold: Optional[float] = None
+
+    @validator("prediction_threshold")
+    def validate_prediction_threshold(cls, value: Optional[float]) -> Optional[float]:
+        if value is None:
+            return value
+
+        if value < 0.05 or value > 0.95:
+            raise ValueError("Prediction threshold must be between 0.05 and 0.95.")
+
+        return value
+>>>>>>> Refinement
 
 
 class CommitListRequest(GitHubRepoRequest):
@@ -61,11 +75,24 @@ class PredictionResultForExport(BaseModel):
     defect_risk_probability: float
     risk_level: str
     recommendation: str
+<<<<<<< HEAD
+=======
+    file_change_count: Optional[int] = 0
+    file_bug_fix_count: Optional[int] = 0
+    recent_file_change_count: Optional[int] = 0
+    days_since_last_change: Optional[int] = 0
+    last_change_churn: Optional[int] = 0
+    author_file_change_count: Optional[int] = 0
+>>>>>>> Refinement
     top_contributing_metrics: str
     readable_explanation: Optional[str] = ""
 
 
 class ExportReportRequest(GitHubRepoRequest):
     commit_sha: str
+<<<<<<< HEAD
+=======
+    prediction_threshold: Optional[float] = None
+>>>>>>> Refinement
     total_files_scanned: int
     results: List[PredictionResultForExport]

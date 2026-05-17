@@ -26,6 +26,10 @@ class PredictionHistoryService:
                     id,
                     repo_url,
                     commit_sha,
+<<<<<<< HEAD
+=======
+                    prediction_threshold,
+>>>>>>> Refinement
                     scanned_at,
                     total_files_scanned,
                     high_risk_count,
@@ -34,12 +38,20 @@ class PredictionHistoryService:
                     defective_count,
                     average_risk_probability
                 )
+<<<<<<< HEAD
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+=======
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+>>>>>>> Refinement
                 """,
                 (
                     history_id,
                     prediction_response.get("repo_url", ""),
                     prediction_response.get("commit_sha", ""),
+<<<<<<< HEAD
+=======
+                    prediction_response.get("prediction_threshold"),
+>>>>>>> Refinement
                     scanned_at,
                     prediction_response.get("total_files_scanned", len(results)),
                     summary["high_risk_count"],
@@ -61,10 +73,23 @@ class PredictionHistoryService:
                     defect_risk_probability,
                     risk_level,
                     recommendation,
+<<<<<<< HEAD
                     top_contributing_metrics,
                     readable_explanation
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+=======
+                    file_change_count,
+                    file_bug_fix_count,
+                    recent_file_change_count,
+                    days_since_last_change,
+                    last_change_churn,
+                    author_file_change_count,
+                    top_contributing_metrics,
+                    readable_explanation
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+>>>>>>> Refinement
                 """,
                 [
                     (
@@ -76,6 +101,15 @@ class PredictionHistoryService:
                         result.get("defect_risk_probability", 0),
                         result.get("risk_level", ""),
                         result.get("recommendation", ""),
+<<<<<<< HEAD
+=======
+                        result.get("file_change_count", 0),
+                        result.get("file_bug_fix_count", 0),
+                        result.get("recent_file_change_count", 0),
+                        result.get("days_since_last_change", 0),
+                        result.get("last_change_churn", 0),
+                        result.get("author_file_change_count", 0),
+>>>>>>> Refinement
                         result.get("top_contributing_metrics", ""),
                         result.get("readable_explanation", ""),
                     )
@@ -93,6 +127,10 @@ class PredictionHistoryService:
                     id,
                     repo_url,
                     commit_sha,
+<<<<<<< HEAD
+=======
+                    prediction_threshold,
+>>>>>>> Refinement
                     scanned_at,
                     total_files_scanned,
                     high_risk_count,
@@ -115,6 +153,10 @@ class PredictionHistoryService:
                     id,
                     repo_url,
                     commit_sha,
+<<<<<<< HEAD
+=======
+                    prediction_threshold,
+>>>>>>> Refinement
                     scanned_at,
                     total_files_scanned
                 FROM prediction_runs
@@ -135,6 +177,15 @@ class PredictionHistoryService:
                     defect_risk_probability,
                     risk_level,
                     recommendation,
+<<<<<<< HEAD
+=======
+                    file_change_count,
+                    file_bug_fix_count,
+                    recent_file_change_count,
+                    days_since_last_change,
+                    last_change_churn,
+                    author_file_change_count,
+>>>>>>> Refinement
                     top_contributing_metrics,
                     readable_explanation
                 FROM prediction_results
@@ -150,6 +201,10 @@ class PredictionHistoryService:
             "history_id": run_dict["id"],
             "repo_url": run_dict["repo_url"],
             "commit_sha": run_dict["commit_sha"],
+<<<<<<< HEAD
+=======
+            "prediction_threshold": run_dict["prediction_threshold"],
+>>>>>>> Refinement
             "scanned_at": run_dict["scanned_at"],
             "total_files_scanned": run_dict["total_files_scanned"],
             "results": [dict(row) for row in result_rows],
@@ -178,6 +233,10 @@ class PredictionHistoryService:
                     id TEXT PRIMARY KEY,
                     repo_url TEXT NOT NULL,
                     commit_sha TEXT NOT NULL,
+<<<<<<< HEAD
+=======
+                    prediction_threshold REAL,
+>>>>>>> Refinement
                     scanned_at TEXT NOT NULL,
                     total_files_scanned INTEGER NOT NULL,
                     high_risk_count INTEGER NOT NULL,
@@ -200,6 +259,15 @@ class PredictionHistoryService:
                     defect_risk_probability REAL NOT NULL,
                     risk_level TEXT NOT NULL,
                     recommendation TEXT,
+<<<<<<< HEAD
+=======
+                    file_change_count INTEGER DEFAULT 0,
+                    file_bug_fix_count INTEGER DEFAULT 0,
+                    recent_file_change_count INTEGER DEFAULT 0,
+                    days_since_last_change INTEGER DEFAULT 0,
+                    last_change_churn INTEGER DEFAULT 0,
+                    author_file_change_count INTEGER DEFAULT 0,
+>>>>>>> Refinement
                     top_contributing_metrics TEXT,
                     readable_explanation TEXT,
                     FOREIGN KEY (run_id)
@@ -209,6 +277,31 @@ class PredictionHistoryService:
                 """
             )
 
+<<<<<<< HEAD
+=======
+            self._ensure_column(
+                connection,
+                "prediction_runs",
+                "prediction_threshold",
+                "REAL"
+            )
+
+            for column_name in [
+                "file_change_count",
+                "file_bug_fix_count",
+                "recent_file_change_count",
+                "days_since_last_change",
+                "last_change_churn",
+                "author_file_change_count",
+            ]:
+                self._ensure_column(
+                    connection,
+                    "prediction_results",
+                    column_name,
+                    "INTEGER DEFAULT 0"
+                )
+
+>>>>>>> Refinement
             connection.execute(
                 """
                 CREATE INDEX IF NOT EXISTS idx_prediction_results_run_id
@@ -216,6 +309,26 @@ class PredictionHistoryService:
                 """
             )
 
+<<<<<<< HEAD
+=======
+    def _ensure_column(
+        self,
+        connection: sqlite3.Connection,
+        table_name: str,
+        column_name: str,
+        column_definition: str
+    ):
+        existing_columns = {
+            row["name"]
+            for row in connection.execute(f"PRAGMA table_info({table_name})")
+        }
+
+        if column_name not in existing_columns:
+            connection.execute(
+                f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_definition}"
+            )
+
+>>>>>>> Refinement
     def _build_summary(self, results: list) -> dict:
         total_probability = sum(
             result.get("defect_risk_probability", 0)

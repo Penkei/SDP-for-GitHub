@@ -1,7 +1,12 @@
 {
   "best_model_name": "XGBoost",
+<<<<<<< HEAD
   "best_f1": 0.7314487632508834,
   "prediction_threshold": 0.25,
+=======
+  "best_f1": 0.8375558867362146,
+  "prediction_threshold": 0.36,
+>>>>>>> Refinement
   "selected_features": [
     "nosi",
     "dit",
@@ -12,7 +17,20 @@
     "returnQty",
     "wmc",
     "lcom",
+<<<<<<< HEAD
     "totalMethods"
+=======
+    "totalMethods",
+    "file_change_count",
+    "file_bug_fix_count",
+    "recent_file_change_count",
+    "days_since_last_change",
+    "last_change_lines_added",
+    "last_change_lines_deleted",
+    "last_change_churn",
+    "last_change_file_count",
+    "author_file_change_count"
+>>>>>>> Refinement
   ],
   "random_state": 42,
   "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning"

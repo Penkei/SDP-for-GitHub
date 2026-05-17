@@ -1,6 +1,10 @@
 export interface PredictionRequest {
   repo_url: string;
   commit_sha: string;
+<<<<<<< HEAD
+=======
+  prediction_threshold?: number | null;
+>>>>>>> Refinement
 }
 
 export interface PredictionResult {
@@ -10,6 +14,15 @@ export interface PredictionResult {
   defect_risk_probability: number;
   risk_level: string;
   recommendation: string;
+<<<<<<< HEAD
+=======
+  file_change_count?: number;
+  file_bug_fix_count?: number;
+  recent_file_change_count?: number;
+  days_since_last_change?: number;
+  last_change_churn?: number;
+  author_file_change_count?: number;
+>>>>>>> Refinement
   top_contributing_metrics: string;
   readable_explanation?: string;
 }
@@ -17,6 +30,10 @@ export interface PredictionResult {
 export interface PredictionResponse {
   repo_url: string;
   commit_sha: string;
+<<<<<<< HEAD
+=======
+  prediction_threshold?: number | null;
+>>>>>>> Refinement
   total_files_scanned: number;
   results: PredictionResult[];
 }
@@ -29,6 +46,10 @@ export interface PredictionJobStatus {
   message: string;
   repo_url: string;
   commit_sha: string;
+<<<<<<< HEAD
+=======
+  prediction_threshold?: number | null;
+>>>>>>> Refinement
   created_at: string;
   updated_at: string;
   result: PredictionResponse | null;
@@ -40,6 +61,10 @@ export interface PredictionHistorySummary {
   id: string;
   repo_url: string;
   commit_sha: string;
+<<<<<<< HEAD
+=======
+  prediction_threshold?: number | null;
+>>>>>>> Refinement
   scanned_at: string;
   total_files_scanned: number;
   high_risk_count: number;
@@ -60,6 +85,12 @@ export interface PredictionHistoryDetail extends PredictionResponse {
 
 export interface ModelComparisonItem {
   model: string;
+<<<<<<< HEAD
+=======
+  best_params?: string;
+  threshold?: number;
+  validation_f1?: number;
+>>>>>>> Refinement
   accuracy: number;
   precision: number;
   recall: number;
@@ -87,6 +118,22 @@ export interface ModelTransparencyResponse {
   model_comparison: ModelComparisonItem[];
   feature_importance: FeatureImportanceItem[];
   dataset_summary: DatasetSummary;
+<<<<<<< HEAD
+=======
+  training_metadata?: {
+    best_model_name?: string;
+    best_f1?: number;
+    prediction_threshold?: number;
+    random_state?: number;
+    optimization?: string;
+    feature_groups?: {
+      static_code_metrics?: string[];
+      process_metrics?: string[];
+    };
+  };
+  confusion_matrix?: Array<Record<string, number | string>>;
+  classification_report?: string;
+>>>>>>> Refinement
   limitations: string[];
 }
 

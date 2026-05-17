@@ -139,6 +139,18 @@ function PredictionHistoryPage() {
                     <strong>{item.total_files_scanned}</strong>
                   </div>
                   <div>
+<<<<<<< HEAD
+=======
+                    <span>Threshold</span>
+                    <strong>
+                      {item.prediction_threshold !== null &&
+                      item.prediction_threshold !== undefined
+                        ? formatPercent(item.prediction_threshold)
+                        : "Default"}
+                    </strong>
+                  </div>
+                  <div>
+>>>>>>> Refinement
                     <span>Avg Risk</span>
                     <strong>{formatPercent(item.average_risk_probability)}</strong>
                   </div>

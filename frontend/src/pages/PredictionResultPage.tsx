@@ -341,6 +341,19 @@ function PredictionResultPage() {
             </p>
 
             <p>
+<<<<<<< HEAD
+=======
+              Prediction Threshold:{" "}
+              <strong>
+                {predictionResponse.prediction_threshold !== null &&
+                predictionResponse.prediction_threshold !== undefined
+                  ? formatPercent(predictionResponse.prediction_threshold)
+                  : "Model default"}
+              </strong>
+            </p>
+
+            <p>
+>>>>>>> Refinement
               Total Supported Files Scanned:{" "}
               <strong>{predictionResponse.total_files_scanned}</strong>
             </p>

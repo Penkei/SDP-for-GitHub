@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 https://github.com/apache/commons-lang.git
 https://github.com/apache/commons-io.git
 https://github.com/apache/commons-collections.git
@@ -9,3 +10,14 @@ https://github.com/aseprite/aseprite.git
 https://github.com/pytorch/pytorch.git
 https://github.com/nvbn/thefuck.git
 https://github.com/sherlock-project/sherlock.git
+=======
+https://github.com/bitcoin/bitcoin
+https://github.com/opencv/opencv
+https://github.com/electron/electron
+https://github.com/spring-projects/spring-framework
+https://github.com/apache/kafka
+https://github.com/elastic/elasticsearch
+https://github.com/django/django
+https://github.com/pandas-dev/pandas
+https://github.com/psf/requests
+>>>>>>> Refinement

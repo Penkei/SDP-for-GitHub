@@ -107,6 +107,62 @@ input[readonly] {
   color: #ffffff;
 }
 
+<<<<<<< HEAD
+=======
+.threshold-control {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.threshold-option {
+  min-height: 76px;
+  padding: 12px;
+  border: 1px solid #d8e0eb;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #1f2a3d;
+  text-align: left;
+  cursor: pointer;
+}
+
+.threshold-option strong,
+.threshold-option span {
+  display: block;
+}
+
+.threshold-option strong {
+  margin-bottom: 5px;
+  font-size: 0.94rem;
+}
+
+.threshold-option span {
+  color: #667085;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.threshold-option.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.threshold-custom-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.threshold-custom-row span {
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+>>>>>>> Refinement
 @media (max-width: 700px) {
   .button-row,
   .button-row.two-columns {
@@ -116,4 +172,12 @@ input[readonly] {
   .progress-steps {
     grid-template-columns: 1fr;
   }
+<<<<<<< HEAD
+=======
+
+  .threshold-control,
+  .threshold-custom-row {
+    grid-template-columns: 1fr;
+  }
+>>>>>>> Refinement
 }

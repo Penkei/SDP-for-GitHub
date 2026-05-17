@@ -14,6 +14,10 @@ function Navbar() {
         <Link to="/repository-input">Repository Input</Link>
         <Link to="/prediction-history">Prediction History</Link>
         <Link to="/how-it-works">How It Works</Link>
+<<<<<<< HEAD
+=======
+        <Link to="/model-evaluation">Model Evaluation</Link>
+>>>>>>> Refinement
       </div>
     </nav>
   );

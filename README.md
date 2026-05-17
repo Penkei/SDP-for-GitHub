@@ -14,6 +14,16 @@ The system combines GitHub repository inspection, static code metric extraction,
 a trained machine learning model, prediction history, report export, and a
 developer-friendly explanation page.
 
+## Application Preview
+
+### Home Page
+
+![SDP for GitHub home page](readme-assets/HomePage.png)
+
+### Repository Input Page
+
+![Repository input page](readme-assets/InputPage.png)
+
 ## What The Application Does
 
 1. Accepts a public GitHub repository URL.
@@ -289,6 +299,19 @@ python scripts\analyze_github_dataset.py
 Use this before training to check language distribution, label balance, duplicate
 rows, and metric patterns.
 
+### Add Process Metrics To An Existing Dataset
+
+If `data/github_defect_dataset.csv` was created before process metrics were added,
+run this once before training:
+
+```powershell
+python scripts\enrich_dataset_process_metrics.py
+```
+
+This backfills commit-history features such as previous file changes, recent
+change count, previous bug-fix count, days since last change, previous churn, and
+author-file history without rebuilding the whole dataset from scratch.
+
 ### Train The Model
 
 ```powershell
@@ -323,139 +346,6 @@ ml_workspace/results/github_training_metadata.json
 
 After retraining, restart the backend so it loads the latest model files.
 
-## Backend API Summary
-
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/` | Backend health check |
-| `POST` | `/branches` | List repository branches |
-| `POST` | `/tags` | List repository tags |
-| `POST` | `/commits` | List commits for a branch or tag |
-| `POST` | `/prediction-jobs` | Start an asynchronous prediction job |
-| `GET` | `/prediction-jobs/{job_id}` | Poll prediction progress and result |
-| `POST` | `/predict` | Run legacy synchronous prediction |
-| `POST` | `/export-report` | Export prediction result as CSV |
-| `GET` | `/model-transparency` | Return model evidence for the How It Works page |
-| `GET` | `/prediction-history` | List saved prediction runs |
-| `GET` | `/prediction-history/{history_id}` | Open a saved prediction run |
-| `DELETE` | `/prediction-history/{history_id}` | Delete a saved prediction run |
-
-## Runtime Data And Cache Locations
-
-Prediction history is stored in SQLite:
-
-```text
-backend/data/prediction_history.db
-```
-
-This file is ignored by Git because it is runtime data.
-
-The backend stores temporary Git repository mirrors outside the project folder:
-
-```text
-%TEMP%\sdp_github_temp_repos\
-```
-
-The dataset builder uses a separate temporary clone location:
-
-```text
-%TEMP%\sdpds\
-```
-
-These folders can be deleted when the backend or training scripts are stopped.
-They are caches, not source files.
-
-## Production Build
-
-To check the frontend production build:
-
-```powershell
-cd frontend
-npm run build
-```
-
-The generated frontend build is placed in:
-
-```text
-frontend/dist/
-```
-
-For an FYP demonstration, running locally is usually enough unless your
-supervisor requires a public deployment. If deploying, the frontend and backend
-must be hosted separately because Vercel and Netlify are mainly frontend hosting
-platforms, while this project also needs a Python FastAPI backend.
-
-## Troubleshooting
-
-### Python Is Not Recognized
-
-Install Python from [python.org/downloads](https://www.python.org/downloads/)
-and enable **Add python.exe to PATH**. Then restart the terminal.
-
-### PowerShell Cannot Activate `.venv`
-
-Run:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
-```
-
-### Backend Port Is Already In Use
-
-Start the backend on another port:
-
-```powershell
-uvicorn main:app --reload --port 8001
-```
-
-If you change the backend port, update the frontend API base URL if required.
-
-### Frontend Port Is Already In Use
-
-Vite will usually suggest another port. You can also run:
-
-```powershell
-npm run dev -- --port 5174
-```
-
-### Model File Is Missing
-
-Run the training script or restore the model artifacts in:
-
-```text
-ml_workspace/models/
-```
-
-Then restart the backend.
-
-### Branch Or Tag Loading Is Slow
-
-The backend uses Git metadata and repository cache. The first request for a
-large repository can still take time, but repeated requests should be faster.
-Check your internet connection and confirm the repository URL is public.
-
-### Prediction Triggers Backend Reload
-
-Repository clones should be stored outside the project folder under:
-
-```text
-%TEMP%\sdp_github_temp_repos\
-```
-
-If old clones exist inside the project `temp_repos/` folder from earlier runs,
-stop the backend and delete that old folder manually.
-
-### Git Fails Because File Names Are Too Long
-
-On Windows, enable long paths for Git:
-
-```powershell
-git config --global core.longpaths true
-```
-
-The dataset scripts also shorten temporary clone folder names, but some large
-repositories may still require this Git setting.
 
 ## Notes For Evaluation
 

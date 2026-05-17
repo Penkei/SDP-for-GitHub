@@ -4,6 +4,11 @@ import pandas as pd
 
 
 class MetricExtractionService:
+<<<<<<< HEAD
+=======
+    MAX_FULL_REPOSITORY_FILES = 300
+
+>>>>>>> Refinement
     LANGUAGE_BY_EXTENSION = {
         ".java": "Java",
         ".py": "Python",
@@ -15,20 +20,65 @@ class MetricExtractionService:
         ".hh": "C++",
     }
 
+<<<<<<< HEAD
     def extract_from_project(self, project_path: str) -> pd.DataFrame:
         metrics = []
 
         for root, dirs, files in os.walk(project_path):
             for file in files:
+=======
+    EXCLUDE_PATH_KEYWORDS = [
+        "/.git/",
+        "/test/",
+        "/tests/",
+        "/target/",
+        "/build/",
+        "/generated/",
+        "/vendor/",
+        "/third_party/",
+        "/node_modules/",
+        "/dist/",
+    ]
+
+    def extract_from_project(
+        self,
+        project_path: str,
+        target_files: list[str] = None
+    ) -> pd.DataFrame:
+        if target_files is not None:
+            return self.extract_from_target_files(project_path, target_files)
+
+        metrics = []
+
+        for root, dirs, files in os.walk(project_path):
+            dirs[:] = [
+                directory for directory in dirs
+                if not self.should_exclude_path(directory)
+            ]
+
+            for file in files:
+                if len(metrics) >= self.MAX_FULL_REPOSITORY_FILES:
+                    return pd.DataFrame(metrics)
+
+>>>>>>> Refinement
                 extension = os.path.splitext(file)[1].lower()
 
                 if extension not in self.LANGUAGE_BY_EXTENSION:
                     continue
 
                 file_path = os.path.join(root, file)
+<<<<<<< HEAD
                 file_metrics = self.extract_from_file(file_path, extension)
 
                 relative_path = os.path.relpath(file_path, project_path)
+=======
+                relative_path = os.path.relpath(file_path, project_path)
+
+                if not self.is_supported_source_path(relative_path):
+                    continue
+
+                file_metrics = self.extract_from_file(file_path, extension)
+>>>>>>> Refinement
                 file_metrics["file_path"] = relative_path
                 file_metrics["language"] = self.LANGUAGE_BY_EXTENSION[extension]
 
@@ -36,6 +86,51 @@ class MetricExtractionService:
 
         return pd.DataFrame(metrics)
 
+<<<<<<< HEAD
+=======
+    def extract_from_target_files(self, project_path: str, target_files: list[str]) -> pd.DataFrame:
+        metrics = []
+
+        for relative_path in target_files:
+            if not self.is_supported_source_path(relative_path):
+                continue
+
+            safe_relative_path = relative_path.replace("/", os.sep)
+            file_path = os.path.normpath(os.path.join(project_path, safe_relative_path))
+            project_root = os.path.abspath(project_path)
+
+            if not os.path.abspath(file_path).startswith(project_root):
+                continue
+
+            if not os.path.exists(file_path):
+                continue
+
+            extension = os.path.splitext(file_path)[1].lower()
+            file_metrics = self.extract_from_file(file_path, extension)
+            file_metrics["file_path"] = relative_path
+            file_metrics["language"] = self.LANGUAGE_BY_EXTENSION[extension]
+            metrics.append(file_metrics)
+
+        return pd.DataFrame(metrics)
+
+    def is_supported_source_path(self, file_path: str) -> bool:
+        normalized_path = self._normalize_path(file_path)
+        extension = os.path.splitext(normalized_path)[1]
+
+        if extension not in self.LANGUAGE_BY_EXTENSION:
+            return False
+
+        return not self.should_exclude_path(normalized_path)
+
+    def should_exclude_path(self, path: str) -> bool:
+        normalized_path = self._normalize_path(path)
+
+        return any(keyword in normalized_path for keyword in self.EXCLUDE_PATH_KEYWORDS)
+
+    def _normalize_path(self, path: str) -> str:
+        return f"/{str(path).replace(os.sep, '/').lower().strip('/')}"
+
+>>>>>>> Refinement
     def extract_from_file(self, file_path: str, extension: str) -> dict:
         if extension == ".java":
             return self.extract_from_java_file(file_path)

@@ -1,5 +1,9 @@
 from services.github_service import GitHubService
 from services.metric_extraction_service import MetricExtractionService
+<<<<<<< HEAD
+=======
+from services.process_metric_service import ProcessMetricService
+>>>>>>> Refinement
 from services.prediction_service import PredictionService
 from services.explanation_service import ExplanationService
 from services.report_service import ReportService
@@ -9,6 +13,10 @@ class DefectPredictionPipeline:
     def __init__(self):
         self.github_service = GitHubService()
         self.metric_service = MetricExtractionService()
+<<<<<<< HEAD
+=======
+        self.process_metric_service = ProcessMetricService()
+>>>>>>> Refinement
         self.prediction_service = PredictionService()
         self.explanation_service = ExplanationService(
             self.prediction_service.model,
@@ -16,7 +24,17 @@ class DefectPredictionPipeline:
         )
         self.report_service = ReportService()
 
+<<<<<<< HEAD
     def run(self, repo_url: str, commit_sha: str, progress_callback=None) -> list:
+=======
+    def run(
+        self,
+        repo_url: str,
+        commit_sha: str,
+        prediction_threshold: float = None,
+        progress_callback=None
+    ) -> list:
+>>>>>>> Refinement
         repo_path = None
 
         try:
@@ -27,14 +45,33 @@ class DefectPredictionPipeline:
                 "Cloning repository and checking out the selected commit"
             )
             repo_path = self.github_service.clone_and_checkout(repo_url, commit_sha)
+<<<<<<< HEAD
+=======
+            changed_files = self.github_service.get_changed_files(repo_path, commit_sha)
+            supported_changed_files = [
+                file_path for file_path in changed_files
+                if self.metric_service.is_supported_source_path(file_path)
+            ]
+>>>>>>> Refinement
 
             self._report_progress(
                 progress_callback,
                 "extracting_metrics",
                 40,
+<<<<<<< HEAD
                 "Extracting source code metrics from supported files"
             )
             metrics_df = self.metric_service.extract_from_project(repo_path)
+=======
+                "Extracting source code metrics from changed supported files"
+                if supported_changed_files
+                else "No changed supported files found; scanning a limited repository sample"
+            )
+            metrics_df = self.metric_service.extract_from_project(
+                repo_path,
+                target_files=supported_changed_files if supported_changed_files else None
+            )
+>>>>>>> Refinement
 
             if metrics_df.empty:
                 self._report_progress(
@@ -47,16 +84,43 @@ class DefectPredictionPipeline:
 
             self._report_progress(
                 progress_callback,
+<<<<<<< HEAD
                 "predicting",
                 65,
                 "Running the trained defect prediction model"
             )
             prediction_df = self.prediction_service.predict(metrics_df)
+=======
+                "extracting_process_metrics",
+                55,
+                "Extracting commit-history process metrics for each file"
+            )
+            metrics_df = self.process_metric_service.enrich_with_process_metrics(
+                metrics_df=metrics_df,
+                repo_path=repo_path,
+                commit_sha=commit_sha
+            )
+
+            self._report_progress(
+                progress_callback,
+                "predicting",
+                72,
+                "Running the trained defect prediction model"
+            )
+            prediction_df = self.prediction_service.predict(
+                metrics_df,
+                prediction_threshold=prediction_threshold
+            )
+>>>>>>> Refinement
 
             self._report_progress(
                 progress_callback,
                 "explaining",
+<<<<<<< HEAD
                 82,
+=======
+                86,
+>>>>>>> Refinement
                 "Generating SHAP-based metric explanations"
             )
             explained_df = self.explanation_service.explain(prediction_df)

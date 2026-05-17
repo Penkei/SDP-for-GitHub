@@ -2,6 +2,10 @@ import os
 import shutil
 import re
 import tempfile
+<<<<<<< HEAD
+=======
+from datetime import timezone
+>>>>>>> Refinement
 import pandas as pd
 from git import Repo
 
@@ -39,6 +43,12 @@ BOT_AUTHOR_KEYWORDS = [
     "pre-commit-ci"
 ]
 
+<<<<<<< HEAD
+=======
+PROCESS_HISTORY_LIMIT = 200
+RECENT_CHANGE_DAYS = 90
+
+>>>>>>> Refinement
 
 def is_bug_fix_commit(message):
     message = message.lower()
@@ -135,6 +145,117 @@ def get_changed_source_files(commit):
     return changed_files
 
 
+<<<<<<< HEAD
+=======
+def to_git_path(file_path):
+    return str(file_path).replace(os.sep, "/")
+
+
+def author_key(commit):
+    return f"{commit.author.name} {commit.author.email}".strip().lower()
+
+
+def as_utc(value):
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+
+    return value.astimezone(timezone.utc)
+
+
+def get_file_history(repo, commit_sha, file_path):
+    try:
+        return list(
+            repo.iter_commits(
+                rev=commit_sha,
+                paths=to_git_path(file_path),
+                max_count=PROCESS_HISTORY_LIMIT
+            )
+        )
+    except Exception:
+        return []
+
+
+def get_file_stats(commit, file_path):
+    stats = commit.stats.files
+    normalized_path = to_git_path(file_path)
+    file_stats = stats.get(normalized_path)
+
+    if not file_stats:
+        matching_paths = [
+            path for path in stats
+            if to_git_path(path).endswith(normalized_path)
+            or normalized_path.endswith(to_git_path(path))
+        ]
+        file_stats = stats.get(matching_paths[0], {}) if matching_paths else {}
+
+    lines_added = int(file_stats.get("insertions", 0) or 0)
+    lines_deleted = int(file_stats.get("deletions", 0) or 0)
+
+    return {
+        "lines_added": lines_added,
+        "lines_deleted": lines_deleted,
+        "code_churn": lines_added + lines_deleted,
+    }
+
+
+def extract_process_metrics(repo, commit, file_path):
+    history = get_file_history(repo, commit.hexsha, file_path)
+    history_before_commit = [
+        historical_commit for historical_commit in history
+        if historical_commit.hexsha != commit.hexsha
+    ]
+
+    recent_file_change_count = 0
+    file_bug_fix_count = 0
+    author_file_change_count = 0
+    days_since_last_change = 9999
+    last_change_lines_added = 0
+    last_change_lines_deleted = 0
+    last_change_churn = 0
+    last_change_file_count = 0
+
+    commit_author = author_key(commit)
+    commit_date = as_utc(commit.committed_datetime)
+
+    for historical_commit in history_before_commit:
+        historical_date = as_utc(historical_commit.committed_datetime)
+        age_days = max(0, (commit_date - historical_date).days)
+
+        if age_days <= RECENT_CHANGE_DAYS:
+            recent_file_change_count += 1
+
+        if is_bug_fix_commit(historical_commit.message):
+            file_bug_fix_count += 1
+
+        if author_key(historical_commit) == commit_author:
+            author_file_change_count += 1
+
+    if history_before_commit:
+        last_change = history_before_commit[0]
+        days_since_last_change = max(
+            0,
+            (commit_date - as_utc(last_change.committed_datetime)).days
+        )
+        last_stats = get_file_stats(last_change, file_path)
+        last_change_lines_added = last_stats["lines_added"]
+        last_change_lines_deleted = last_stats["lines_deleted"]
+        last_change_churn = last_stats["code_churn"]
+        last_change_file_count = len(last_change.stats.files)
+
+    return {
+        "file_change_count": len(history_before_commit),
+        "file_bug_fix_count": file_bug_fix_count,
+        "recent_file_change_count": recent_file_change_count,
+        "days_since_last_change": days_since_last_change,
+        "last_change_lines_added": last_change_lines_added,
+        "last_change_lines_deleted": last_change_lines_deleted,
+        "last_change_churn": last_change_churn,
+        "last_change_file_count": last_change_file_count,
+        "author_file_change_count": author_file_change_count,
+    }
+
+
+>>>>>>> Refinement
 def safe_checkout(repo, commit_sha):
     repo.git.reset("--hard")
     repo.git.clean("-fd")
@@ -225,6 +346,10 @@ def build_dataset_for_repo(repo_url, max_commits=500, max_rows_per_repo=800):
                         continue
 
                     metrics = extract_metrics_from_source(full_file_path)
+<<<<<<< HEAD
+=======
+                    metrics.update(extract_process_metrics(repo, commit, file_path))
+>>>>>>> Refinement
 
                     metrics["repo_name"] = repo_name
                     metrics["repo_url"] = repo_url

@@ -1,4 +1,5 @@
 import csv
+import json
 import os
 from io import StringIO
 
@@ -52,12 +53,16 @@ def predict_defect(request: PredictionRequest):
     try:
         result = pipeline.run(
             repo_url=request.repo_url,
-            commit_sha=request.commit_sha
+            commit_sha=request.commit_sha,
+            prediction_threshold=request.prediction_threshold
         )
 
         response = {
             "repo_url": request.repo_url,
             "commit_sha": request.commit_sha,
+            "prediction_threshold": _effective_prediction_threshold(
+                request.prediction_threshold
+            ),
             "total_files_scanned": len(result),
             "results": result
         }
@@ -74,7 +79,8 @@ def start_prediction_job(request: PredictionRequest):
     try:
         return prediction_jobs.start_job(
             repo_url=request.repo_url,
-            commit_sha=request.commit_sha
+            commit_sha=request.commit_sha,
+            prediction_threshold=request.prediction_threshold
         )
 
     except Exception as e:
@@ -135,6 +141,10 @@ def export_report(request: ExportReportRequest):
         request.commit_sha
     ])
     writer.writerow([
+        "Prediction Threshold",
+        request.prediction_threshold if request.prediction_threshold is not None else "Model default"
+    ])
+    writer.writerow([
         "Total Files Scanned",
         request.total_files_scanned
     ])
@@ -147,6 +157,12 @@ def export_report(request: ExportReportRequest):
         "Risk Probability",
         "Risk Level",
         "Recommendation",
+        "File Change Count",
+        "File Bug-fix Count",
+        "Recent File Change Count",
+        "Days Since Last Change",
+        "Previous Change Churn",
+        "Author File Change Count",
         "Top Contributing Metrics",
         "Readable Explanation"
     ])
@@ -159,6 +175,12 @@ def export_report(request: ExportReportRequest):
             result.defect_risk_probability,
             result.risk_level,
             result.recommendation,
+            result.file_change_count,
+            result.file_bug_fix_count,
+            result.recent_file_change_count,
+            result.days_since_last_change,
+            result.last_change_churn,
+            result.author_file_change_count,
             result.top_contributing_metrics,
             result.readable_explanation
         ])
@@ -191,10 +213,28 @@ def get_model_transparency():
         "data",
         "github_defect_dataset.csv"
     )
+    metadata_path = os.path.join(
+        ML_WORKSPACE_DIR,
+        "results",
+        "github_training_metadata.json"
+    )
+    confusion_matrix_path = os.path.join(
+        ML_WORKSPACE_DIR,
+        "results",
+        "github_confusion_matrix.csv"
+    )
+    classification_report_path = os.path.join(
+        ML_WORKSPACE_DIR,
+        "results",
+        "github_classification_report.txt"
+    )
 
     model_comparison = _read_csv_records(comparison_path)
     feature_importance = _read_csv_records(feature_importance_path)
     dataset_summary = _build_dataset_summary(dataset_path)
+    training_metadata = _read_json(metadata_path)
+    confusion_matrix = _read_csv_records(confusion_matrix_path)
+    classification_report = _read_text(classification_report_path)
 
     best_model = None
 
@@ -210,8 +250,11 @@ def get_model_transparency():
         "model_comparison": model_comparison,
         "feature_importance": feature_importance,
         "dataset_summary": dataset_summary,
+        "training_metadata": training_metadata,
+        "confusion_matrix": confusion_matrix,
+        "classification_report": classification_report,
         "limitations": [
-            "Metrics are static code approximations and may not capture runtime behavior.",
+            "Metrics combine static code approximations with Git commit-history process metrics, but still may not capture runtime behavior.",
             "Python and C++ support maps language-specific patterns into the existing shared feature set.",
             "Prediction quality depends on how representative the training dataset is for the analyzed repository.",
             "Generated explanations identify influential metrics, not guaranteed root causes."
@@ -279,6 +322,29 @@ def _read_csv_records(path: str) -> list:
         return []
 
     return pd.read_csv(path).fillna("").to_dict(orient="records")
+
+
+def _read_json(path: str) -> dict:
+    if not os.path.exists(path):
+        return {}
+
+    with open(path, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def _read_text(path: str) -> str:
+    if not os.path.exists(path):
+        return ""
+
+    with open(path, "r", encoding="utf-8") as file:
+        return file.read()
+
+
+def _effective_prediction_threshold(prediction_threshold: float = None) -> float:
+    if prediction_threshold is not None:
+        return float(prediction_threshold)
+
+    return float(pipeline.prediction_service.prediction_threshold)
 
 
 def _build_dataset_summary(path: str) -> dict:

@@ -4,7 +4,10 @@
 # https://github.com/owner/repository.git
 
 
+<<<<<<< HEAD
 https://github.com/Textualize/textual.git
 https://github.com/anxolerd/dvpwa.git
 https://github.com/digitalocean/sample-python.git
 https://github.com/kivy/kivy.git
+=======
+>>>>>>> Refinement
