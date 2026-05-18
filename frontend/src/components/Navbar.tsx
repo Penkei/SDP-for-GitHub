@@ -14,7 +14,6 @@ function Navbar() {
         <Link to="/repository-input">Repository Input</Link>
         <Link to="/prediction-history">Prediction History</Link>
         <Link to="/how-it-works">How It Works</Link>
-        <Link to="/model-evaluation">Model Evaluation</Link>
       </div>
     </nav>
   );
