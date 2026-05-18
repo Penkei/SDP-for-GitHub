@@ -17,6 +17,52 @@
   margin-bottom: 28px;
 }
 
+.clone-mode-panel {
+  align-items: flex-start;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-bottom: 22px;
+  padding: 16px;
+}
+
+.clone-mode-panel strong {
+  color: #111827;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.clone-mode-panel p {
+  color: #4b5563;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.clone-mode-toggle {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  color: #1d4ed8;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 11px 15px;
+  white-space: nowrap;
+}
+
+.clone-mode-toggle:hover:not(:disabled) {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+
+.clone-mode-toggle:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
 label {
   display: block;
   margin-top: 18px;
@@ -171,7 +217,12 @@ input[readonly] {
   }
 
   .threshold-control,
-  .threshold-custom-row {
+  .threshold-custom-row,
+  .clone-mode-panel {
     grid-template-columns: 1fr;
+  }
+
+  .clone-mode-toggle {
+    white-space: normal;
   }
 }

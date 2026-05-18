@@ -34,10 +34,20 @@ def normalize_github_repo_url(repo_url: str) -> str:
 
 class GitHubRepoRequest(BaseModel):
     repo_url: str
+    use_personal_access_token: bool = False
+    github_token: Optional[str] = None
 
     @validator("repo_url")
     def validate_repo_url(cls, value: str) -> str:
         return normalize_github_repo_url(value)
+
+    @validator("github_token")
+    def normalize_github_token(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+
+        cleaned_value = value.strip()
+        return cleaned_value or None
 
 
 class PredictionRequest(GitHubRepoRequest):

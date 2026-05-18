@@ -23,6 +23,8 @@ class DefectPredictionPipeline:
         repo_url: str,
         commit_sha: str,
         prediction_threshold: float = None,
+        use_personal_access_token: bool = False,
+        github_token: str = None,
         progress_callback=None
     ) -> list:
         repo_path = None
@@ -34,7 +36,12 @@ class DefectPredictionPipeline:
                 15,
                 "Cloning repository and checking out the selected commit"
             )
-            repo_path = self.github_service.clone_and_checkout(repo_url, commit_sha)
+            repo_path = self.github_service.clone_and_checkout(
+                repo_url,
+                commit_sha,
+                use_personal_access_token=use_personal_access_token,
+                github_token=github_token
+            )
             changed_files = self.github_service.get_changed_files(repo_path, commit_sha)
             supported_changed_files = [
                 file_path for file_path in changed_files

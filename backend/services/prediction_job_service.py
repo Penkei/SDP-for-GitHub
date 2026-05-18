@@ -16,7 +16,9 @@ class PredictionJobService:
         self,
         repo_url: str,
         commit_sha: str,
-        prediction_threshold: float = None
+        prediction_threshold: float = None,
+        use_personal_access_token: bool = False,
+        github_token: str = None
     ) -> dict:
         job_id = str(uuid.uuid4())
         now = self._now()
@@ -33,6 +35,7 @@ class PredictionJobService:
                 "repo_url": repo_url,
                 "commit_sha": commit_sha,
                 "prediction_threshold": effective_threshold,
+                "clone_mode": "pat_temporary" if use_personal_access_token else "local_cache",
                 "created_at": now,
                 "updated_at": now,
                 "result": None,
@@ -44,7 +47,9 @@ class PredictionJobService:
             job_id,
             repo_url,
             commit_sha,
-            prediction_threshold
+            prediction_threshold,
+            use_personal_access_token,
+            github_token
         )
 
         return self.get_job(job_id)
@@ -63,7 +68,9 @@ class PredictionJobService:
         job_id: str,
         repo_url: str,
         commit_sha: str,
-        prediction_threshold: float = None
+        prediction_threshold: float = None,
+        use_personal_access_token: bool = False,
+        github_token: str = None
     ):
         try:
             self._update_job(
@@ -87,6 +94,8 @@ class PredictionJobService:
                 repo_url=repo_url,
                 commit_sha=commit_sha,
                 prediction_threshold=prediction_threshold,
+                use_personal_access_token=use_personal_access_token,
+                github_token=github_token,
                 progress_callback=progress_callback
             )
 
@@ -94,6 +103,7 @@ class PredictionJobService:
                 "repo_url": repo_url,
                 "commit_sha": commit_sha,
                 "prediction_threshold": self._effective_threshold(prediction_threshold),
+                "clone_mode": "pat_temporary" if use_personal_access_token else "local_cache",
                 "total_files_scanned": len(result),
                 "results": result
             }

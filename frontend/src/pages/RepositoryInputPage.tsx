@@ -99,6 +99,8 @@ function RepositoryInputPage() {
   const [commitSha, setCommitSha] = useState("");
   const [thresholdMode, setThresholdMode] = useState<ThresholdMode>("balanced");
   const [customThreshold, setCustomThreshold] = useState("0.50");
+  const [usePersonalAccessToken, setUsePersonalAccessToken] = useState(false);
+  const [githubToken, setGithubToken] = useState("");
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
   const [loadingCommits, setLoadingCommits] = useState(false);
@@ -145,6 +147,21 @@ function RepositoryInputPage() {
     return true;
   };
 
+  const validatePersonalAccessToken = () => {
+    if (!usePersonalAccessToken) {
+      return true;
+    }
+
+    if (!githubToken.trim()) {
+      setErrorMessage(
+        "Please enter a GitHub Personal Access Token, or switch back to normal repository input."
+      );
+      return false;
+    }
+
+    return true;
+  };
+
   const getPredictionThreshold = () => {
     if (thresholdMode === "balanced") {
       return null;
@@ -173,7 +190,7 @@ function RepositoryInputPage() {
   };
 
   const handleLoadBranches = async () => {
-    if (!validateRepoUrl()) {
+    if (!validateRepoUrl() || !validatePersonalAccessToken()) {
       return;
     }
 
@@ -185,7 +202,11 @@ function RepositoryInputPage() {
     setLoadingRefs(true);
 
     try {
-      const response = await fetchBranches(repoUrl.trim());
+      const response = await fetchBranches(
+        repoUrl.trim(),
+        usePersonalAccessToken,
+        githubToken.trim()
+      );
       setRefs(response.branches);
     } catch (error) {
       setRefErrorMessage(
@@ -200,7 +221,7 @@ function RepositoryInputPage() {
   };
 
   const handleLoadTags = async () => {
-    if (!validateRepoUrl()) {
+    if (!validateRepoUrl() || !validatePersonalAccessToken()) {
       return;
     }
 
@@ -212,7 +233,11 @@ function RepositoryInputPage() {
     setLoadingRefs(true);
 
     try {
-      const response = await fetchTags(repoUrl.trim());
+      const response = await fetchTags(
+        repoUrl.trim(),
+        usePersonalAccessToken,
+        githubToken.trim()
+      );
       setRefs(response.tags);
     } catch (error) {
       setRefErrorMessage(
@@ -237,7 +262,7 @@ function RepositoryInputPage() {
   };
 
   const loadCommitPage = async (page: number) => {
-    if (!validateRepoUrl() || !validateGitRef()) {
+    if (!validateRepoUrl() || !validateGitRef() || !validatePersonalAccessToken()) {
       return;
     }
 
@@ -254,7 +279,9 @@ function RepositoryInputPage() {
         repoUrl.trim(),
         selectedGitRef.trim(),
         commitPageSize,
-        skip
+        skip,
+        usePersonalAccessToken,
+        githubToken.trim()
       );
 
       setCommits(response.commits);
@@ -299,6 +326,10 @@ function RepositoryInputPage() {
       return;
     }
 
+    if (!validatePersonalAccessToken()) {
+      return;
+    }
+
     const predictionThreshold = getPredictionThreshold();
 
     if (predictionThreshold === undefined) {
@@ -318,6 +349,8 @@ function RepositoryInputPage() {
         repo_url: repoUrl.trim(),
         commit_sha: commitSha.trim(),
         prediction_threshold: predictionThreshold,
+        use_personal_access_token: usePersonalAccessToken,
+        github_token: usePersonalAccessToken ? githubToken.trim() : null,
       });
 
       setPredictionProgress({
@@ -373,6 +406,41 @@ function RepositoryInputPage() {
           select a commit for defect prediction.
         </p>
 
+        <div className="clone-mode-panel">
+          <div>
+            <strong>
+              {usePersonalAccessToken
+                ? "Personal Token online cloning"
+                : "Normal Repository Input"}
+            </strong>
+            <p>
+              {usePersonalAccessToken
+                ? "The PAT is sent to the backend for this request only. The repository is cloned into a temporary worktree under %TEMP%\\sdp_github_temp_repos\\worktrees and cleaned after use. The app will not create the persistent mirror cache for this mode."
+                : "The backend clones and stores a reusable mirror cache under %TEMP%\\sdp_github_temp_repos\\repo_cache. Temporary worktrees are created under %TEMP%\\sdp_github_temp_repos\\worktrees and cleaned after prediction."}
+            </p>
+          </div>
+
+          <button
+            type="button"
+            className="clone-mode-toggle"
+            onClick={() => {
+              setUsePersonalAccessToken((current) => !current);
+              setErrorMessage("");
+              setRefErrorMessage("");
+              setCommitErrorMessage("");
+              setSelectedGitRef("");
+              setSelectedGitRefType("");
+              setCommitSha("");
+              setCommits([]);
+            }}
+            disabled={loadingRefs || loadingCommits || loadingPrediction}
+          >
+            {usePersonalAccessToken
+              ? "Use normal repository input"
+              : "I want to use Personal Token for online cloning"}
+          </button>
+        </div>
+
         <label>GitHub Repository URL</label>
         <input
           type="text"
@@ -393,6 +461,29 @@ function RepositoryInputPage() {
           Use a public GitHub repository URL, for example
           https://github.com/owner/repository.
         </p>
+
+        {usePersonalAccessToken && (
+          <>
+            <label>GitHub Personal Access Token</label>
+            <input
+              type="password"
+              value={githubToken}
+              onChange={(event) => {
+                setGithubToken(event.target.value);
+                setErrorMessage("");
+                setRefErrorMessage("");
+                setCommitErrorMessage("");
+              }}
+              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+              autoComplete="off"
+            />
+            <p className="input-hint">
+              Use this for private repositories or when you do not want the app
+              to create the reusable repository cache. The token is not saved in
+              prediction history or shown in backend responses.
+            </p>
+          </>
+        )}
 
         <div className="button-row two-columns">
           <button

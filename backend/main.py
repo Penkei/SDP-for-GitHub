@@ -54,7 +54,9 @@ def predict_defect(request: PredictionRequest):
         result = pipeline.run(
             repo_url=request.repo_url,
             commit_sha=request.commit_sha,
-            prediction_threshold=request.prediction_threshold
+            prediction_threshold=request.prediction_threshold,
+            use_personal_access_token=request.use_personal_access_token,
+            github_token=request.github_token
         )
 
         response = {
@@ -63,6 +65,9 @@ def predict_defect(request: PredictionRequest):
             "prediction_threshold": _effective_prediction_threshold(
                 request.prediction_threshold
             ),
+            "clone_mode": "pat_temporary"
+            if request.use_personal_access_token
+            else "local_cache",
             "total_files_scanned": len(result),
             "results": result
         }
@@ -80,7 +85,9 @@ def start_prediction_job(request: PredictionRequest):
         return prediction_jobs.start_job(
             repo_url=request.repo_url,
             commit_sha=request.commit_sha,
-            prediction_threshold=request.prediction_threshold
+            prediction_threshold=request.prediction_threshold,
+            use_personal_access_token=request.use_personal_access_token,
+            github_token=request.github_token
         )
 
     except Exception as e:
@@ -268,7 +275,9 @@ def get_commits(request: CommitListRequest):
             repo_url=request.repo_url,
             git_ref=request.git_ref,
             max_commits=request.max_commits,
-            skip=request.skip
+            skip=request.skip,
+            use_personal_access_token=request.use_personal_access_token,
+            github_token=request.github_token
         )
 
         return {
@@ -287,7 +296,9 @@ def get_commits(request: CommitListRequest):
 def get_branches(request: GitRefListRequest):
     try:
         branches = pipeline.github_service.get_branch_list(
-            repo_url=request.repo_url
+            repo_url=request.repo_url,
+            use_personal_access_token=request.use_personal_access_token,
+            github_token=request.github_token
         )
 
         return {
@@ -304,7 +315,9 @@ def get_branches(request: GitRefListRequest):
 def get_tags(request: GitRefListRequest):
     try:
         tags = pipeline.github_service.get_tag_list(
-            repo_url=request.repo_url
+            repo_url=request.repo_url,
+            use_personal_access_token=request.use_personal_access_token,
+            github_token=request.github_token
         )
 
         return {

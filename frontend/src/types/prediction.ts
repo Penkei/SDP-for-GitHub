@@ -2,6 +2,8 @@ export interface PredictionRequest {
   repo_url: string;
   commit_sha: string;
   prediction_threshold?: number | null;
+  use_personal_access_token?: boolean;
+  github_token?: string | null;
 }
 
 export interface PredictionResult {
@@ -25,6 +27,7 @@ export interface PredictionResponse {
   repo_url: string;
   commit_sha: string;
   prediction_threshold?: number | null;
+  clone_mode?: string;
   total_files_scanned: number;
   results: PredictionResult[];
 }
@@ -38,6 +41,7 @@ export interface PredictionJobStatus {
   repo_url: string;
   commit_sha: string;
   prediction_threshold?: number | null;
+  clone_mode?: string;
   created_at: string;
   updated_at: string;
   result: PredictionResponse | null;
