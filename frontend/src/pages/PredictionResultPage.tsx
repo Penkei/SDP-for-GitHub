@@ -8,8 +8,17 @@ import { exportPredictionReport } from "../services/api";
 export type ProbabilitySortDirection = "desc" | "asc";
 type RiskFilter = "All" | "High" | "Medium" | "Low";
 type PredictionFilter = "All" | "Defective" | "Non-defective";
+type ExportFormat = "csv" | "pdf";
 
 const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
+
+const getResultKey = (result: PredictionResult) =>
+  [
+    result.file_path,
+    result.language,
+    result.prediction_label,
+    result.defect_risk_probability,
+  ].join("|");
 
 const getTopLevelFolder = (filePath: string) => {
   const normalizedPath = filePath.replaceAll("\\", "/");
@@ -40,7 +49,10 @@ function PredictionResultPage() {
     useState<PredictionFilter>("All");
   const [minProbability, setMinProbability] = useState("");
   const [maxProbability, setMaxProbability] = useState("");
-  const [exportingReport, setExportingReport] = useState(false);
+  const [exportingFormat, setExportingFormat] = useState<ExportFormat | "">("");
+  const [selectedResultKeys, setSelectedResultKeys] = useState<Set<string>>(
+    () => new Set()
+  );
 
   const availableLanguages = useMemo(() => {
     if (!predictionResponse) {
@@ -268,6 +280,20 @@ function PredictionResultPage() {
     return copiedResults;
   }, [filteredResults, probabilitySortDirection]);
 
+  const selectedResults = useMemo(() => {
+    if (!predictionResponse) {
+      return [];
+    }
+
+    return predictionResponse.results.filter((result) =>
+      selectedResultKeys.has(getResultKey(result))
+    );
+  }, [predictionResponse, selectedResultKeys]);
+
+  const allShownSelected =
+    sortedResults.length > 0 &&
+    sortedResults.every((result) => selectedResultKeys.has(getResultKey(result)));
+
   const hasActiveFilters =
     fileSearch.trim() !== "" ||
     languageFilter !== "All" ||
@@ -285,15 +311,58 @@ function PredictionResultPage() {
     setMaxProbability("");
   };
 
-  const handleExportReport = async () => {
+  const handleToggleResultSelection = (resultKey: string) => {
+    setSelectedResultKeys((currentKeys) => {
+      const nextKeys = new Set(currentKeys);
+
+      if (nextKeys.has(resultKey)) {
+        nextKeys.delete(resultKey);
+      } else {
+        nextKeys.add(resultKey);
+      }
+
+      return nextKeys;
+    });
+  };
+
+  const handleToggleAllShown = () => {
+    setSelectedResultKeys((currentKeys) => {
+      const nextKeys = new Set(currentKeys);
+
+      if (allShownSelected) {
+        sortedResults.forEach((result) => nextKeys.delete(getResultKey(result)));
+      } else {
+        sortedResults.forEach((result) => nextKeys.add(getResultKey(result)));
+      }
+
+      return nextKeys;
+    });
+  };
+
+  const handleClearSelection = () => {
+    setSelectedResultKeys(new Set());
+  };
+
+  const handleExportReport = async (format: ExportFormat) => {
     if (!predictionResponse) {
       return;
     }
 
-    setExportingReport(true);
+    const exportResults = selectedResults;
+
+    if (exportResults.length === 0) {
+      return;
+    }
+
+    setExportingFormat(format);
 
     try {
-      const reportBlob = await exportPredictionReport(predictionResponse);
+      const exportPayload: PredictionResponse = {
+        ...predictionResponse,
+        total_files_scanned: exportResults.length,
+        results: exportResults,
+      };
+      const reportBlob = await exportPredictionReport(exportPayload, format);
       const downloadUrl = URL.createObjectURL(reportBlob);
       const link = document.createElement("a");
 
@@ -301,13 +370,13 @@ function PredictionResultPage() {
       link.download = `defect_prediction_report_${predictionResponse.commit_sha.slice(
         0,
         8
-      )}.csv`;
+      )}.${format}`;
       document.body.appendChild(link);
       link.click();
       link.remove();
       URL.revokeObjectURL(downloadUrl);
     } finally {
-      setExportingReport(false);
+      setExportingFormat("");
     }
   };
 
@@ -357,14 +426,6 @@ function PredictionResultPage() {
           </div>
 
           <div className="result-header-actions">
-            <button
-              className="export-report-button"
-              onClick={handleExportReport}
-              disabled={exportingReport}
-            >
-              {exportingReport ? "Exporting..." : "Export Report"}
-            </button>
-
             <button
               className="metric-guide-open-button"
               onClick={() => setIsMetricGuideOpen(true)}
@@ -532,6 +593,9 @@ function PredictionResultPage() {
         <div className="filter-summary">
           <strong>{sortedResults.length}</strong> of{" "}
           <strong>{predictionResponse.results.length}</strong> files shown
+          <span className="selection-summary">
+            <strong>{selectedResults.length}</strong> selected
+          </span>
         </div>
 
         <div className="filter-grid">
@@ -621,11 +685,54 @@ function PredictionResultPage() {
         >
           Reset Filters
         </button>
+
+        <div className="export-selection-panel">
+          <div>
+            <strong>Export Selection</strong>
+            <span>Select rows in the table, then export them as CSV or PDF.</span>
+          </div>
+
+          <div className="export-selection-actions">
+            <button
+              className="secondary-export-button"
+              onClick={handleToggleAllShown}
+              disabled={sortedResults.length === 0}
+            >
+              {allShownSelected ? "Unselect Shown" : "Select Shown"}
+            </button>
+            <button
+              className="secondary-export-button"
+              onClick={handleClearSelection}
+              disabled={selectedResults.length === 0}
+            >
+              Clear
+            </button>
+            <button
+              className="export-report-button"
+              onClick={() => handleExportReport("csv")}
+              disabled={selectedResults.length === 0 || exportingFormat !== ""}
+            >
+              {exportingFormat === "csv" ? "Exporting CSV..." : "Export CSV"}
+            </button>
+            <button
+              className="export-report-button"
+              onClick={() => handleExportReport("pdf")}
+              disabled={selectedResults.length === 0 || exportingFormat !== ""}
+            >
+              {exportingFormat === "pdf" ? "Exporting PDF..." : "Export PDF"}
+            </button>
+          </div>
+        </div>
       </div>
 
       <PredictionTable
         results={sortedResults}
         probabilitySortDirection={probabilitySortDirection}
+        selectedResultKeys={selectedResultKeys}
+        getResultKey={getResultKey}
+        onToggleResultSelection={handleToggleResultSelection}
+        onToggleAllShown={handleToggleAllShown}
+        allShownSelected={allShownSelected}
         onToggleProbabilitySort={() =>
           setProbabilitySortDirection((current) =>
             current === "desc" ? "asc" : "desc"

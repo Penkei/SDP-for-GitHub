@@ -82,10 +82,12 @@ export const fetchPredictionJob = async (
 };
 
 export const exportPredictionReport = async (
-  predictionResponse: PredictionResponse
+  predictionResponse: PredictionResponse,
+  format: "csv" | "pdf" = "csv"
 ): Promise<Blob> => {
+  const endpoint = format === "pdf" ? "export-report/pdf" : "export-report";
   const response = await axios.post(
-    `${API_BASE_URL}/export-report`,
+    `${API_BASE_URL}/${endpoint}`,
     predictionResponse,
     {
       responseType: "blob",

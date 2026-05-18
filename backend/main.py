@@ -1,7 +1,7 @@
 import csv
 import json
 import os
-from io import StringIO
+from io import BytesIO, StringIO
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
@@ -196,6 +196,20 @@ def export_report(request: ExportReportRequest):
     )
 
 
+@app.post("/export-report/pdf")
+def export_report_pdf(request: ExportReportRequest):
+    pdf_bytes = _build_prediction_pdf(request)
+    filename = f"defect_prediction_report_{request.commit_sha[:8]}.pdf"
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"'
+        }
+    )
+
+
 @app.get("/model-transparency")
 def get_model_transparency():
     comparison_path = os.path.join(
@@ -345,6 +359,178 @@ def _effective_prediction_threshold(prediction_threshold: float = None) -> float
         return float(prediction_threshold)
 
     return float(pipeline.prediction_service.prediction_threshold)
+
+
+def _build_prediction_pdf(request: ExportReportRequest) -> bytes:
+    lines = []
+    lines.append("SDP for GitHub - Prediction Report")
+    lines.append("")
+    lines.append(f"Repository: {request.repo_url}")
+    lines.append(f"Commit: {request.commit_sha}")
+    threshold = (
+        f"{request.prediction_threshold:.2f}"
+        if request.prediction_threshold is not None
+        else "Model default"
+    )
+    lines.append(f"Prediction Threshold: {threshold}")
+    lines.append(f"Exported Files: {len(request.results)}")
+    lines.append("")
+
+    for index, result in enumerate(request.results, start=1):
+        probability = f"{result.defect_risk_probability * 100:.2f}%"
+        lines.append(f"{index}. {result.file_path}")
+        lines.append(
+            f"   Language: {result.language or 'Unknown'} | "
+            f"Prediction: {result.prediction_label} | "
+            f"Risk: {result.risk_level} | Probability: {probability}"
+        )
+        lines.append(f"   Recommendation: {result.recommendation}")
+
+        if result.readable_explanation:
+            lines.append(f"   Explanation: {result.readable_explanation}")
+
+        if result.top_contributing_metrics:
+            lines.append(f"   Contributing Metrics: {result.top_contributing_metrics}")
+
+        lines.append("")
+
+    return _render_simple_pdf(lines)
+
+
+def _render_simple_pdf(lines: list[str]) -> bytes:
+    page_width = 595
+    page_height = 842
+    margin_left = 44
+    margin_top = 52
+    line_height = 14
+    max_chars = 96
+    max_lines_per_page = 52
+
+    wrapped_lines = []
+
+    for line in lines:
+        wrapped_lines.extend(_wrap_pdf_line(line, max_chars))
+
+    pages = [
+        wrapped_lines[index:index + max_lines_per_page]
+        for index in range(0, len(wrapped_lines), max_lines_per_page)
+    ] or [[]]
+
+    objects = []
+
+    def add_object(content: bytes) -> int:
+        objects.append(content)
+        return len(objects)
+
+    font_object_id = add_object(b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+    page_object_ids = []
+
+    for page_index, page_lines in enumerate(pages, start=1):
+        text_commands = ["BT", "/F1 10 Tf", "12 TL"]
+        current_y = page_height - margin_top
+        text_commands.append(f"1 0 0 1 {margin_left} {current_y} Tm")
+
+        for line_index, line in enumerate(page_lines):
+            if line_index > 0:
+                text_commands.append("T*")
+
+            if page_index == 1 and line_index == 0:
+                text_commands.append("/F1 16 Tf")
+                text_commands.append(f"({_escape_pdf_text(line)}) Tj")
+                text_commands.append("/F1 10 Tf")
+            else:
+                text_commands.append(f"({_escape_pdf_text(line)}) Tj")
+
+        text_commands.append("ET")
+        stream = "\n".join(text_commands).encode("latin-1", errors="replace")
+        content_object_id = add_object(
+            b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\n"
+            b"stream\n" + stream + b"\nendstream"
+        )
+        page_object_id = add_object(
+            (
+                f"<< /Type /Page /Parent 0 0 R /MediaBox [0 0 {page_width} {page_height}] "
+                f"/Resources << /Font << /F1 {font_object_id} 0 R >> >> "
+                f"/Contents {content_object_id} 0 R >>"
+            ).encode("ascii")
+        )
+        page_object_ids.append(page_object_id)
+
+    kids = " ".join(f"{page_id} 0 R" for page_id in page_object_ids)
+    pages_object_id = add_object(
+        f"<< /Type /Pages /Kids [{kids}] /Count {len(page_object_ids)} >>".encode("ascii")
+    )
+
+    for page_object_id in page_object_ids:
+        objects[page_object_id - 1] = objects[page_object_id - 1].replace(
+            b"/Parent 0 0 R",
+            f"/Parent {pages_object_id} 0 R".encode("ascii")
+        )
+
+    catalog_object_id = add_object(
+        f"<< /Type /Catalog /Pages {pages_object_id} 0 R >>".encode("ascii")
+    )
+
+    output = BytesIO()
+    output.write(b"%PDF-1.4\n")
+    offsets = [0]
+
+    for object_id, content in enumerate(objects, start=1):
+        offsets.append(output.tell())
+        output.write(f"{object_id} 0 obj\n".encode("ascii"))
+        output.write(content)
+        output.write(b"\nendobj\n")
+
+    xref_offset = output.tell()
+    output.write(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+    output.write(b"0000000000 65535 f \n")
+
+    for offset in offsets[1:]:
+        output.write(f"{offset:010d} 00000 n \n".encode("ascii"))
+
+    output.write(
+        (
+            f"trailer\n<< /Size {len(objects) + 1} /Root {catalog_object_id} 0 R >>\n"
+            f"startxref\n{xref_offset}\n%%EOF"
+        ).encode("ascii")
+    )
+
+    return output.getvalue()
+
+
+def _wrap_pdf_line(line: str, max_chars: int) -> list[str]:
+    if not line:
+        return [""]
+
+    words = line.split()
+    wrapped = []
+    current = ""
+
+    for word in words:
+        candidate = f"{current} {word}".strip()
+
+        if len(candidate) <= max_chars:
+            current = candidate
+            continue
+
+        if current:
+            wrapped.append(current)
+
+        current = word
+
+    if current:
+        wrapped.append(current)
+
+    return wrapped or [""]
+
+
+def _escape_pdf_text(text: str) -> str:
+    return (
+        str(text)
+        .replace("\\", "\\\\")
+        .replace("(", "\\(")
+        .replace(")", "\\)")
+    )
 
 
 def _build_dataset_summary(path: str) -> dict:

@@ -14,7 +14,7 @@
 
 .prediction-table {
   width: 100%;
-  min-width: 1360px;
+  min-width: 1410px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -46,6 +46,17 @@
 
 .col-no {
   width: 48px;
+}
+
+.col-select {
+  width: 48px;
+  text-align: center !important;
+}
+
+.col-select input {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
 }
 
 .col-file {
