@@ -57,6 +57,7 @@ function PredictionTable({
               <th className="col-probability">
                 <div className="probability-header">
                   <span>Risk Probability</span>
+                  <small>Model confidence score</small>
 
                   <button
                     className="sort-icon-button"
@@ -79,8 +80,14 @@ function PredictionTable({
 
               <th className="col-risk">Risk Level</th>
               <th className="col-recommendation">Recommendation</th>
-              <th className="col-metrics">Metric Values</th>
-              <th className="col-readable-explanation">Explanation</th>
+              <th className="col-metrics">
+                <span>Metric Values</span>
+                <small>Important SHAP factors</small>
+              </th>
+              <th className="col-readable-explanation">
+                <span>Explanation</span>
+                <small>Plain-language reason</small>
+              </th>
             </tr>
           </thead>
 

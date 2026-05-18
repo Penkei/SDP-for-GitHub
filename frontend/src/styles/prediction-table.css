@@ -40,6 +40,22 @@
   border-bottom: 2px solid #111827;
 }
 
+.prediction-table thead th > span,
+.probability-header > span {
+  display: block;
+}
+
+.prediction-table thead th small,
+.probability-header small {
+  color: #64748b;
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 4px;
+  white-space: normal;
+}
+
 .prediction-table tbody tr:hover {
   background: #f8fafc;
 }

@@ -850,6 +850,11 @@ function PredictionResultPage() {
         <div className="result-header-top">
           <div>
             <h1>Prediction Result</h1>
+            <p className="result-header-description">
+              This page summarizes the model output for the selected commit.
+              Use it to identify files that may need earlier review, then check
+              the metric values and explanation before making a decision.
+            </p>
 
             <p>
               Repository: <strong>{predictionResponse.repo_url}</strong>
@@ -867,6 +872,11 @@ function PredictionResultPage() {
                   ? formatPercent(predictionResponse.prediction_threshold)
                   : "Model default"}
               </strong>
+            </p>
+            <p className="result-helper-text">
+              Threshold means the cut-off for marking a file as defective. A
+              file with risk probability equal to or above this value is labelled
+              defective by the app.
             </p>
 
             <p>
@@ -886,24 +896,64 @@ function PredictionResultPage() {
         </div>
       </div>
 
+      <section className="result-explainer-grid" aria-label="Result explanation">
+        <div className="result-explainer-card">
+          <span>Risk probability</span>
+          <p>
+            The percentage score for a file. Higher means the file looks more
+            similar to files that were defective in the training data.
+          </p>
+        </div>
+
+        <div className="result-explainer-card">
+          <span>Risk level</span>
+          <p>
+            A simpler grouping of the probability into high, medium, or low so
+            the result can be scanned quickly.
+          </p>
+        </div>
+
+        <div className="result-explainer-card">
+          <span>SHAP / metric values</span>
+          <p>
+            SHAP is used to explain the model decision. The metric values show
+            which code or commit-history measurements pushed the prediction.
+          </p>
+        </div>
+
+        <div className="result-explainer-card">
+          <span>Recommendation</span>
+          <p>
+            A review priority suggestion based on the predicted risk. It should
+            support code review, not replace developer judgement.
+          </p>
+        </div>
+      </section>
+
       <section className="risk-dashboard" aria-label="Risk dashboard">
         <div className="dashboard-summary-grid">
           <div className="dashboard-stat high-risk-stat">
             <span>High Risk</span>
             <strong>{dashboardStats.highRiskCount}</strong>
-            <small>{formatPercent(dashboardStats.riskDistribution[0]?.percent || 0)}</small>
+            <small>
+              {formatPercent(dashboardStats.riskDistribution[0]?.percent || 0)} of files
+            </small>
           </div>
 
           <div className="dashboard-stat medium-risk-stat">
             <span>Medium Risk</span>
             <strong>{dashboardStats.mediumRiskCount}</strong>
-            <small>{formatPercent(dashboardStats.riskDistribution[1]?.percent || 0)}</small>
+            <small>
+              {formatPercent(dashboardStats.riskDistribution[1]?.percent || 0)} of files
+            </small>
           </div>
 
           <div className="dashboard-stat low-risk-stat">
             <span>Low Risk</span>
             <strong>{dashboardStats.lowRiskCount}</strong>
-            <small>{formatPercent(dashboardStats.riskDistribution[2]?.percent || 0)}</small>
+            <small>
+              {formatPercent(dashboardStats.riskDistribution[2]?.percent || 0)} of files
+            </small>
           </div>
 
           <div className="dashboard-stat defective-stat">
@@ -914,14 +964,14 @@ function PredictionResultPage() {
                 dashboardStats.totalFiles
                   ? dashboardStats.defectiveCount / dashboardStats.totalFiles
                   : 0
-              )}
+              )} labelled defective
             </small>
           </div>
 
           <div className="dashboard-stat average-risk-stat">
             <span>Average Risk</span>
             <strong>{formatPercent(dashboardStats.averageProbability)}</strong>
-            <small>Mean probability</small>
+            <small>Mean probability across files</small>
           </div>
         </div>
 
@@ -931,6 +981,10 @@ function PredictionResultPage() {
               <h2>Risk Distribution</h2>
               <span>{dashboardStats.totalFiles} files</span>
             </div>
+            <p className="risk-panel-note">
+              This chart shows how the scanned files are split across high,
+              medium, and low risk categories.
+            </p>
 
             <div className="risk-chart-layout">
               <div
@@ -978,6 +1032,9 @@ function PredictionResultPage() {
               {dashboardStats.highestRiskFile?.language || "No language"} |{" "}
               {dashboardStats.highestRiskFile?.risk_level || "No risk"}
             </p>
+            <p className="dashboard-muted">
+              Start here if you only have time to inspect one file.
+            </p>
           </div>
 
           <div className="risk-panel">
@@ -987,7 +1044,10 @@ function PredictionResultPage() {
             </div>
 
             <p className="dashboard-file-path">{dashboardStats.riskiestFolder}</p>
-            <p className="dashboard-muted">Average defect probability</p>
+            <p className="dashboard-muted">
+              Folder with the highest average defect probability among scanned
+              files.
+            </p>
           </div>
         </div>
 
@@ -997,6 +1057,10 @@ function PredictionResultPage() {
               <h2>Language Risk Overview</h2>
               <span>Count and average risk</span>
             </div>
+            <p className="risk-panel-note">
+              Blue bars show how many files were scanned for each language. Red
+              bars show the average risk score for that language.
+            </p>
 
             <div className="language-column-chart">
               {dashboardStats.languageBreakdown.map((item) => (
@@ -1040,6 +1104,17 @@ function PredictionResultPage() {
       </section>
 
       <div className="result-filters">
+        <div className="result-section-heading">
+          <div>
+            <h2>File-Level Results</h2>
+            <p>
+              Filter, sort, select, and export the files that matter for your
+              review. The table shows the model score and a plain-language
+              explanation for each file.
+            </p>
+          </div>
+        </div>
+
         <div className="filter-summary">
           <strong>{sortedResults.length}</strong> of{" "}
           <strong>{predictionResponse.results.length}</strong> files shown
