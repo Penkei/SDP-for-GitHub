@@ -11,7 +11,6 @@ import tempfile
 import gc
 >>>>>>> Refinement
 from threading import RLock
-from urllib.parse import quote, urlparse, urlunparse
 from git import Git, Repo
 
 
@@ -43,37 +42,6 @@ class GitHubService:
 
     def _cache_key(self, *parts) -> tuple:
         return tuple(str(part).strip().lower() for part in parts)
-
-    def _build_authenticated_url(self, repo_url: str, github_token: str = None) -> str:
-        if not github_token:
-            return repo_url
-
-        parsed_url = urlparse(repo_url)
-        token = quote(github_token, safe="")
-        netloc = f"x-access-token:{token}@{parsed_url.netloc}"
-
-        return urlunparse((
-            parsed_url.scheme,
-            netloc,
-            parsed_url.path,
-            parsed_url.params,
-            parsed_url.query,
-            parsed_url.fragment
-        ))
-
-    def _sanitize_error(self, error: Exception, repo_url: str, github_token: str = None) -> Exception:
-        if not github_token:
-            return error
-
-        message = str(error).replace(github_token, "***")
-        message = re.sub(
-            r"https://x-access-token:[^@\s]+@github\.com/",
-            "https://github.com/",
-            message
-        )
-        message = message.replace(self._build_authenticated_url(repo_url, github_token), repo_url)
-
-        return Exception(message)
 
     def _get_cached_metadata(self, key: tuple):
         cached_item = self._metadata_cache.get(key)
@@ -143,32 +111,18 @@ class GitHubService:
             func(path)
 >>>>>>> Refinement
 
-    def clone_and_checkout(
-        self,
-        repo_url: str,
-        commit_sha: str,
-        use_personal_access_token: bool = False,
-        github_token: str = None
-    ) -> str:
+    def clone_and_checkout(self, repo_url: str, commit_sha: str) -> str:
         repo_name = self._safe_repo_name(repo_url)
         request_id = str(uuid.uuid4())[:8]
+        cache_path = self._ensure_cached_repo(repo_url)
 
         repo_path = os.path.join(
             self.worktree_dir,
             f"{repo_name}_{request_id}"
         )
 
-        if use_personal_access_token:
-            print(f"Cloning repository with PAT into temporary worktree: {repo_url}")
-            clone_url = self._build_authenticated_url(repo_url, github_token)
-            try:
-                repo = Repo.clone_from(clone_url, repo_path)
-            except Exception as error:
-                raise self._sanitize_error(error, repo_url, github_token)
-        else:
-            cache_path = self._ensure_cached_repo(repo_url)
-            print(f"Cloning repository from local cache: {repo_url}")
-            repo = Repo.clone_from(cache_path, repo_path)
+        print(f"Cloning repository from local cache: {repo_url}")
+        repo = Repo.clone_from(cache_path, repo_path)
 
 <<<<<<< HEAD
         print(f"Checking out commit: {commit_sha}")
@@ -239,29 +193,26 @@ class GitHubService:
         repo_url: str,
         git_ref: str,
         max_commits: int = 20,
-        skip: int = 0,
-        use_personal_access_token: bool = False,
-        github_token: str = None
+        skip: int = 0
     ) -> list:
         cache_key = self._cache_key(
             "commits",
             repo_url,
             git_ref,
             max_commits,
-            skip,
-            "pat" if use_personal_access_token else "cache"
+            skip
         )
 
-        if not use_personal_access_token:
-            with self._lock:
-                cached_commits = self._get_cached_metadata(cache_key)
+        with self._lock:
+            cached_commits = self._get_cached_metadata(cache_key)
 
-            if cached_commits is not None:
-                print(f"Using cached commit list: {repo_url} [{git_ref}]")
-                return cached_commits
+        if cached_commits is not None:
+            print(f"Using cached commit list: {repo_url} [{git_ref}]")
+            return cached_commits
 
         repo_name = self._safe_repo_name(repo_url)
         request_id = str(uuid.uuid4())[:8]
+        cache_path = self._ensure_cached_repo(repo_url)
 
         repo_path = os.path.join(
             self.worktree_dir,
@@ -273,17 +224,8 @@ class GitHubService:
 >>>>>>> Refinement
 
         try:
-            if use_personal_access_token:
-                print(f"Cloning repository with PAT for commit list: {repo_url}")
-                clone_url = self._build_authenticated_url(repo_url, github_token)
-                try:
-                    repo = Repo.clone_from(clone_url, repo_path)
-                except Exception as error:
-                    raise self._sanitize_error(error, repo_url, github_token)
-            else:
-                cache_path = self._ensure_cached_repo(repo_url)
-                print(f"Cloning repository from local cache for commit list: {repo_url}")
-                repo = Repo.clone_from(cache_path, repo_path)
+            print(f"Cloning repository from local cache for commit list: {repo_url}")
+            repo = Repo.clone_from(cache_path, repo_path)
 
             print(f"Checking out reference for commit list: {git_ref}")
             repo.git.checkout(git_ref)
@@ -304,9 +246,8 @@ class GitHubService:
                     "date": commit.committed_datetime.isoformat()
                 })
 
-            if not use_personal_access_token:
-                with self._lock:
-                    self._set_cached_metadata(cache_key, commit_list)
+            with self._lock:
+                self._set_cached_metadata(cache_key, commit_list)
 
             return commit_list
 
@@ -317,33 +258,18 @@ class GitHubService:
 >>>>>>> Refinement
             self.cleanup_repo(repo_path)
 
-    def get_branch_list(
-        self,
-        repo_url: str,
-        use_personal_access_token: bool = False,
-        github_token: str = None
-    ) -> list:
-        cache_key = self._cache_key(
-            "branches",
-            repo_url,
-            "pat" if use_personal_access_token else "cache"
-        )
+    def get_branch_list(self, repo_url: str) -> list:
+        cache_key = self._cache_key("branches", repo_url)
 
-        if not use_personal_access_token:
-            with self._lock:
-                cached_branches = self._get_cached_metadata(cache_key)
+        with self._lock:
+            cached_branches = self._get_cached_metadata(cache_key)
 
-            if cached_branches is not None:
-                print(f"Using cached branch list: {repo_url}")
-                return cached_branches
+        if cached_branches is not None:
+            print(f"Using cached branch list: {repo_url}")
+            return cached_branches
 
         branches = []
-        remote_url = self._build_authenticated_url(repo_url, github_token)
-
-        try:
-            branch_output = Git().ls_remote("--heads", remote_url)
-        except Exception as error:
-            raise self._sanitize_error(error, repo_url, github_token)
+        branch_output = Git().ls_remote("--heads", repo_url)
 
         for line in branch_output.splitlines():
             parts = line.split()
@@ -360,40 +286,24 @@ class GitHubService:
 
         branches.sort(key=lambda branch: branch["name"].lower())
 
-        if not use_personal_access_token:
-            with self._lock:
-                self._set_cached_metadata(cache_key, branches)
+        with self._lock:
+            self._set_cached_metadata(cache_key, branches)
 
         return branches
 
 
-    def get_tag_list(
-        self,
-        repo_url: str,
-        use_personal_access_token: bool = False,
-        github_token: str = None
-    ) -> list:
-        cache_key = self._cache_key(
-            "tags",
-            repo_url,
-            "pat" if use_personal_access_token else "cache"
-        )
+    def get_tag_list(self, repo_url: str) -> list:
+        cache_key = self._cache_key("tags", repo_url)
 
-        if not use_personal_access_token:
-            with self._lock:
-                cached_tags = self._get_cached_metadata(cache_key)
+        with self._lock:
+            cached_tags = self._get_cached_metadata(cache_key)
 
-            if cached_tags is not None:
-                print(f"Using cached tag list: {repo_url}")
-                return cached_tags
+        if cached_tags is not None:
+            print(f"Using cached tag list: {repo_url}")
+            return cached_tags
 
         tags = []
-        remote_url = self._build_authenticated_url(repo_url, github_token)
-
-        try:
-            tag_output = Git().ls_remote("--tags", remote_url)
-        except Exception as error:
-            raise self._sanitize_error(error, repo_url, github_token)
+        tag_output = Git().ls_remote("--tags", repo_url)
 
         for line in tag_output.splitlines():
             parts = line.split()
@@ -413,9 +323,8 @@ class GitHubService:
 
         tags.sort(key=lambda tag: tag["name"].lower())
 
-        if not use_personal_access_token:
-            with self._lock:
-                self._set_cached_metadata(cache_key, tags)
+        with self._lock:
+            self._set_cached_metadata(cache_key, tags)
 
         return tags
 <<<<<<< HEAD

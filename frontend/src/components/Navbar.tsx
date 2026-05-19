@@ -15,11 +15,8 @@ function Navbar() {
         <Link to="/prediction-history">Prediction History</Link>
         <Link to="/how-it-works">How It Works</Link>
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
         <Link to="/model-evaluation">Model Evaluation</Link>
->>>>>>> Refinement
-=======
 >>>>>>> Refinement
       </div>
     </nav>

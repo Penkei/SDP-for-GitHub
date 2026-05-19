@@ -7,22 +7,12 @@ interface PredictionTableProps {
   results: PredictionResult[];
   probabilitySortDirection: ProbabilitySortDirection;
   onToggleProbabilitySort: () => void;
-  selectedResultKeys: Set<string>;
-  getResultKey: (result: PredictionResult) => string;
-  onToggleResultSelection: (resultKey: string) => void;
-  onToggleAllShown: () => void;
-  allShownSelected: boolean;
 }
 
 function PredictionTable({
   results,
   probabilitySortDirection,
   onToggleProbabilitySort,
-  selectedResultKeys,
-  getResultKey,
-  onToggleResultSelection,
-  onToggleAllShown,
-  allShownSelected,
 }: PredictionTableProps) {
   if (results.length === 0) {
     return (
@@ -41,14 +31,6 @@ function PredictionTable({
         <table className="prediction-table">
           <thead>
             <tr>
-              <th className="col-select">
-                <input
-                  type="checkbox"
-                  checked={allShownSelected}
-                  onChange={onToggleAllShown}
-                  title="Select all shown results"
-                />
-              </th>
               <th className="col-no">No.</th>
               <th className="col-file">File Path</th>
               <th className="col-language">Language</th>
@@ -57,7 +39,6 @@ function PredictionTable({
               <th className="col-probability">
                 <div className="probability-header">
                   <span>Risk Probability</span>
-                  <small>Model confidence score</small>
 
                   <button
                     className="sort-icon-button"
@@ -80,32 +61,14 @@ function PredictionTable({
 
               <th className="col-risk">Risk Level</th>
               <th className="col-recommendation">Recommendation</th>
-              <th className="col-metrics">
-                <span>Metric Values</span>
-                <small>Important SHAP factors</small>
-              </th>
-              <th className="col-readable-explanation">
-                <span>Explanation</span>
-                <small>Plain-language reason</small>
-              </th>
+              <th className="col-metrics">Metric Values</th>
+              <th className="col-readable-explanation">Explanation</th>
             </tr>
           </thead>
 
           <tbody>
-            {results.map((item, index) => {
-              const resultKey = getResultKey(item);
-
-              return (
-              <tr key={resultKey}>
-                <td className="col-select">
-                  <input
-                    type="checkbox"
-                    checked={selectedResultKeys.has(resultKey)}
-                    onChange={() => onToggleResultSelection(resultKey)}
-                    title={`Select ${item.file_path}`}
-                  />
-                </td>
-
+            {results.map((item, index) => (
+              <tr key={`${item.file_path}-${index}`}>
                 <td className="col-no">{index + 1}</td>
 
                 <td className="col-file file-path-cell">{item.file_path}</td>
@@ -145,8 +108,7 @@ function PredictionTable({
                     "The model detected code patterns that may affect defect risk."}
                 </td>
               </tr>
-              );
-            })}
+            ))}
           </tbody>
         </table>
       </div>

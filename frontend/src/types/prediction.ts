@@ -4,11 +4,6 @@ export interface PredictionRequest {
 <<<<<<< HEAD
 =======
   prediction_threshold?: number | null;
-<<<<<<< HEAD
->>>>>>> Refinement
-=======
-  use_personal_access_token?: boolean;
-  github_token?: string | null;
 >>>>>>> Refinement
 }
 
@@ -38,10 +33,6 @@ export interface PredictionResponse {
 <<<<<<< HEAD
 =======
   prediction_threshold?: number | null;
-<<<<<<< HEAD
->>>>>>> Refinement
-=======
-  clone_mode?: string;
 >>>>>>> Refinement
   total_files_scanned: number;
   results: PredictionResult[];
@@ -58,10 +49,6 @@ export interface PredictionJobStatus {
 <<<<<<< HEAD
 =======
   prediction_threshold?: number | null;
-<<<<<<< HEAD
->>>>>>> Refinement
-=======
-  clone_mode?: string;
 >>>>>>> Refinement
   created_at: string;
   updated_at: string;

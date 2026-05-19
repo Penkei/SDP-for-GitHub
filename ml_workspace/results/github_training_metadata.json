@@ -33,30 +33,5 @@
 >>>>>>> Refinement
   ],
   "random_state": 42,
-  "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning",
-  "feature_groups": {
-    "static_code_metrics": [
-      "nosi",
-      "dit",
-      "cbo",
-      "rfc",
-      "loc",
-      "comparisonsQty",
-      "returnQty",
-      "wmc",
-      "lcom",
-      "totalMethods"
-    ],
-    "process_metrics": [
-      "file_change_count",
-      "file_bug_fix_count",
-      "recent_file_change_count",
-      "days_since_last_change",
-      "last_change_lines_added",
-      "last_change_lines_deleted",
-      "last_change_churn",
-      "last_change_file_count",
-      "author_file_change_count"
-    ]
-  }
+  "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning"
 }

@@ -32,11 +32,3 @@
   min-width: 30px;
   text-align: center;
 }
-
-.compact-explanation-empty {
-  color: #64748b;
-  display: inline-block;
-  font-size: 12px;
-  font-style: italic;
-  line-height: 1.4;
-}

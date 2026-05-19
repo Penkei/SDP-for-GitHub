@@ -7,23 +7,9 @@
 }
 
 .how-hero {
-  align-items: flex-start;
   border-radius: 18px;
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
   margin-bottom: 24px;
   padding: 28px;
-}
-
-.how-kicker {
-  color: #2563eb;
-  display: block;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-  text-transform: uppercase;
 }
 
 .how-hero h1 {
@@ -36,31 +22,6 @@
   color: #4b5563;
   line-height: 1.6;
   margin: 0;
-}
-
-.how-section-switch {
-  background: #f8fafc;
-  border: 1px solid #dbe3ee;
-  border-radius: 12px;
-  display: flex;
-  gap: 6px;
-  padding: 6px;
-}
-
-.how-section-switch button {
-  background: transparent;
-  border: 0;
-  border-radius: 9px;
-  color: #475569;
-  cursor: pointer;
-  font-weight: 800;
-  padding: 10px 14px;
-  white-space: nowrap;
-}
-
-.how-section-switch button.active {
-  background: #2563eb;
-  color: #ffffff;
 }
 
 .section-intro {
@@ -208,10 +169,6 @@
   margin-bottom: 20px;
 }
 
-.evidence-header.compact {
-  margin-bottom: 16px;
-}
-
 .evidence-header strong {
   background: #eff6ff;
   border: 1px solid #bfdbfe;
@@ -324,149 +281,6 @@
   font-weight: 800;
 }
 
-.evidence-table .best-row td {
-  background: #f0fdf4;
-  color: #14532d;
-}
-
-.evaluation-grid {
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
-}
-
-.confusion-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.confusion-cell {
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  min-height: 118px;
-  padding: 15px;
-}
-
-.confusion-cell span,
-.confusion-cell small {
-  color: #64748b;
-  display: block;
-}
-
-.confusion-cell strong {
-  color: #111827;
-  display: block;
-  font-size: 28px;
-  margin: 8px 0;
-}
-
-.confusion-cell.correct {
-  background: #ecfdf5;
-}
-
-.confusion-cell.warning {
-  background: #fffbeb;
-}
-
-.confusion-cell.danger {
-  background: #fff1f2;
-}
-
-.missing-evidence {
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  border-radius: 14px;
-  color: #475569;
-  padding: 15px;
-}
-
-.balance-chart {
-  border: 1px solid #dbe3ee;
-  border-radius: 999px;
-  display: flex;
-  height: 24px;
-  margin: 18px 0 12px;
-  overflow: hidden;
-}
-
-.balance-segment.safe {
-  background: #16a34a;
-}
-
-.balance-segment.risky {
-  background: #dc2626;
-}
-
-.balance-legend {
-  color: #475569;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 14px;
-}
-
-.feature-rank-list {
-  display: grid;
-  gap: 13px;
-}
-
-.feature-rank {
-  align-items: center;
-  display: grid;
-  grid-template-columns: minmax(170px, 0.8fr) minmax(160px, 1fr) 64px;
-  gap: 14px;
-}
-
-.feature-rank strong,
-.feature-rank span {
-  display: block;
-}
-
-.feature-rank strong {
-  color: #111827;
-}
-
-.feature-rank span,
-.feature-rank small {
-  color: #64748b;
-  font-size: 13px;
-}
-
-.feature-rank small {
-  text-align: right;
-}
-
-.feature-rank-bar {
-  background: #e5e7eb;
-  border-radius: 999px;
-  height: 10px;
-  overflow: hidden;
-}
-
-.feature-rank-bar span {
-  background: linear-gradient(90deg, #2563eb, #16a34a);
-  display: block;
-  height: 100%;
-}
-
-.interpretation-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.interpretation-grid div {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 16px;
-}
-
-.interpretation-grid strong {
-  color: #111827;
-  display: block;
-  margin-bottom: 8px;
-}
-
 .importance-list {
   display: flex;
   flex-direction: column;
@@ -532,34 +346,13 @@
 }
 
 @media (max-width: 1000px) {
-  .how-hero {
-    flex-direction: column;
-  }
-
-  .how-section-switch {
-    width: 100%;
-  }
-
-  .how-section-switch button {
-    flex: 1;
-  }
-
   .developer-flow,
   .how-grid,
-  .evidence-summary-grid,
-  .interpretation-grid {
+  .evidence-summary-grid {
     grid-template-columns: 1fr;
   }
 
   .evidence-header {
     flex-direction: column;
-  }
-
-  .feature-rank {
-    grid-template-columns: 1fr;
-  }
-
-  .feature-rank small {
-    text-align: left;
   }
 }

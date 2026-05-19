@@ -104,11 +104,6 @@ function RepositoryInputPage() {
 =======
   const [thresholdMode, setThresholdMode] = useState<ThresholdMode>("balanced");
   const [customThreshold, setCustomThreshold] = useState("0.50");
-<<<<<<< HEAD
->>>>>>> Refinement
-=======
-  const [usePersonalAccessToken, setUsePersonalAccessToken] = useState(false);
-  const [githubToken, setGithubToken] = useState("");
 >>>>>>> Refinement
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
@@ -157,25 +152,7 @@ function RepositoryInputPage() {
   };
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
-  const validatePersonalAccessToken = () => {
-    if (!usePersonalAccessToken) {
-      return true;
-    }
-
-    if (!githubToken.trim()) {
-      setErrorMessage(
-        "Please enter a GitHub Personal Access Token, or switch back to normal repository input."
-      );
-      return false;
-    }
-
-    return true;
-  };
-
->>>>>>> Refinement
   const getPredictionThreshold = () => {
     if (thresholdMode === "balanced") {
       return null;
@@ -205,7 +182,7 @@ function RepositoryInputPage() {
 
 >>>>>>> Refinement
   const handleLoadBranches = async () => {
-    if (!validateRepoUrl() || !validatePersonalAccessToken()) {
+    if (!validateRepoUrl()) {
       return;
     }
 
@@ -217,11 +194,7 @@ function RepositoryInputPage() {
     setLoadingRefs(true);
 
     try {
-      const response = await fetchBranches(
-        repoUrl.trim(),
-        usePersonalAccessToken,
-        githubToken.trim()
-      );
+      const response = await fetchBranches(repoUrl.trim());
       setRefs(response.branches);
     } catch (error) {
       setRefErrorMessage(
@@ -236,7 +209,7 @@ function RepositoryInputPage() {
   };
 
   const handleLoadTags = async () => {
-    if (!validateRepoUrl() || !validatePersonalAccessToken()) {
+    if (!validateRepoUrl()) {
       return;
     }
 
@@ -248,11 +221,7 @@ function RepositoryInputPage() {
     setLoadingRefs(true);
 
     try {
-      const response = await fetchTags(
-        repoUrl.trim(),
-        usePersonalAccessToken,
-        githubToken.trim()
-      );
+      const response = await fetchTags(repoUrl.trim());
       setRefs(response.tags);
     } catch (error) {
       setRefErrorMessage(
@@ -277,7 +246,7 @@ function RepositoryInputPage() {
   };
 
   const loadCommitPage = async (page: number) => {
-    if (!validateRepoUrl() || !validateGitRef() || !validatePersonalAccessToken()) {
+    if (!validateRepoUrl() || !validateGitRef()) {
       return;
     }
 
@@ -294,9 +263,7 @@ function RepositoryInputPage() {
         repoUrl.trim(),
         selectedGitRef.trim(),
         commitPageSize,
-        skip,
-        usePersonalAccessToken,
-        githubToken.trim()
+        skip
       );
 
       setCommits(response.commits);
@@ -342,14 +309,7 @@ function RepositoryInputPage() {
     }
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
-    if (!validatePersonalAccessToken()) {
-      return;
-    }
-
->>>>>>> Refinement
     const predictionThreshold = getPredictionThreshold();
 
     if (predictionThreshold === undefined) {
@@ -372,11 +332,6 @@ function RepositoryInputPage() {
 <<<<<<< HEAD
 =======
         prediction_threshold: predictionThreshold,
-<<<<<<< HEAD
->>>>>>> Refinement
-=======
-        use_personal_access_token: usePersonalAccessToken,
-        github_token: usePersonalAccessToken ? githubToken.trim() : null,
 >>>>>>> Refinement
       });
 
@@ -433,95 +388,7 @@ function RepositoryInputPage() {
           select a commit for defect prediction.
         </p>
 
-        <div
-          className={
-            usePersonalAccessToken
-              ? "clone-mode-panel pat-mode"
-              : "clone-mode-panel"
-          }
-        >
-          <div className="clone-mode-content">
-            <div className="clone-mode-heading">
-              <strong>
-                {usePersonalAccessToken
-                  ? "Personal Token online cloning"
-                  : "Normal Repository Input"}
-              </strong>
-              <span>
-                {usePersonalAccessToken ? "No mirror cache" : "Cached clone"}
-              </span>
-            </div>
-
-            <p>
-              {usePersonalAccessToken
-                ? "Use this when you do not want the backend to keep a reusable mirror cache for the repository."
-                : "Use this for public repositories when faster repeated loading is more important than avoiding a reusable local cache."}
-            </p>
-
-            <div className="clone-storage-list">
-              {!usePersonalAccessToken && (
-                <div>
-                  <span>Reusable cache</span>
-                  <code>%TEMP%\sdp_github_temp_repos\repo_cache</code>
-                </div>
-              )}
-              <div>
-                <span>Temporary worktree</span>
-                <code>%TEMP%\sdp_github_temp_repos\worktrees</code>
-              </div>
-              <div>
-                <span>Cleanup behavior</span>
-                <code>
-                  {usePersonalAccessToken
-                    ? "Cleaned after use; PAT is not saved"
-                    : "Worktree cleaned after prediction"}
-                </code>
-              </div>
-            </div>
-          </div>
-
-          <div className="clone-mode-action">
-            <span>
-              {usePersonalAccessToken
-                ? "Switch back to cached public repository loading."
-                : "Prefer request-only cloning with no reusable cache?"}
-            </span>
-            <button
-              type="button"
-              className="clone-mode-toggle"
-              onClick={() => {
-                setUsePersonalAccessToken((current) => !current);
-                setErrorMessage("");
-                setRefErrorMessage("");
-                setCommitErrorMessage("");
-                setSelectedGitRef("");
-                setSelectedGitRefType("");
-                setCommitSha("");
-                setCommits([]);
-              }}
-              disabled={loadingRefs || loadingCommits || loadingPrediction}
-            >
-              {usePersonalAccessToken
-                ? "Use normal input"
-                : "Use Personal Token"}
-            </button>
-          </div>
-        </div>
-
-        <div className="field-label-row">
-          <label>GitHub Repository URL</label>
-          <span className="help-tooltip">
-            <button type="button" aria-label="GitHub repository URL guide">
-              ?
-            </button>
-            <span className="help-tooltip-content">
-              Open the repository on GitHub, click the green Code button, choose
-              HTTPS, then copy the URL. The app accepts URLs like
-              https://github.com/owner/repository or
-              https://github.com/owner/repository.git.
-            </span>
-          </span>
-        </div>
+        <label>GitHub Repository URL</label>
         <input
           type="text"
           value={repoUrl}
@@ -541,42 +408,6 @@ function RepositoryInputPage() {
           Use a public GitHub repository URL, for example
           https://github.com/owner/repository.
         </p>
-
-        {usePersonalAccessToken && (
-          <>
-            <div className="field-label-row">
-              <label>GitHub Personal Access Token</label>
-              <span className="help-tooltip">
-                <button type="button" aria-label="GitHub PAT guide">
-                  ?
-                </button>
-                <span className="help-tooltip-content">
-                  In GitHub, open Settings, Developer settings, Personal access
-                  tokens, then create a fine-grained token for the repository.
-                  Give it read access to repository contents and metadata, then
-                  paste the token here.
-                </span>
-              </span>
-            </div>
-            <input
-              type="password"
-              value={githubToken}
-              onChange={(event) => {
-                setGithubToken(event.target.value);
-                setErrorMessage("");
-                setRefErrorMessage("");
-                setCommitErrorMessage("");
-              }}
-              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-              autoComplete="off"
-            />
-            <p className="input-hint">
-              Use this when you do not want the app to create the reusable
-              repository cache. The token is not saved in prediction history or
-              shown in backend responses.
-            </p>
-          </>
-        )}
 
         <div className="button-row two-columns">
           <button
@@ -630,25 +461,8 @@ function RepositoryInputPage() {
         />
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
         <label>Prediction Sensitivity</label>
-=======
-        <div className="field-label-row">
-          <label>Prediction Sensitivity</label>
-          <span className="help-tooltip">
-            <button type="button" aria-label="Prediction sensitivity guide">
-              ?
-            </button>
-            <span className="help-tooltip-content">
-              This controls the cutoff for labelling a file as defective. A
-              lower cutoff marks more files as defective, which is more cautious
-              but may include more false alarms. A higher cutoff marks fewer
-              files, but may miss some risky files.
-            </span>
-          </span>
-        </div>
->>>>>>> Refinement
         <div className="threshold-control">
           {thresholdOptions.map((option) => (
             <button

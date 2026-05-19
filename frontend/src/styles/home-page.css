@@ -8,20 +8,6 @@
   text-align: center;
 }
 
-.home-hero {
-  max-width: 980px;
-}
-
-.home-eyebrow {
-  color: #1d4ed8;
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-
 .hero h1 {
   font-size: 40px;
   margin-bottom: 16px;
@@ -34,65 +20,7 @@
 }
 
 .hero-actions {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  justify-content: center;
   margin-top: 28px;
-}
-
-.secondary-home-link {
-  border: 1px solid #cbd5e1;
-  border-radius: 999px;
-  color: #334155;
-  font-weight: 800;
-  padding: 12px 18px;
-  text-decoration: none;
-}
-
-.secondary-home-link:hover {
-  background: #f8fafc;
-  border-color: #94a3b8;
-}
-
-.home-intro-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: 1.1fr 0.9fr;
-  margin: 32px auto 0;
-  max-width: 1000px;
-}
-
-.home-intro-panel,
-.home-concept {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  padding: 24px;
-}
-
-.home-intro-panel h2 {
-  color: #111827;
-  font-size: 22px;
-  margin: 0 0 12px;
-}
-
-.home-intro-panel p,
-.home-intro-panel li,
-.home-concept p {
-  color: #4b5563;
-  line-height: 1.6;
-}
-
-.home-intro-panel ul {
-  margin: 0;
-  padding-left: 20px;
-}
-
-.home-intro-panel li + li {
-  margin-top: 8px;
 }
 
 .card-grid {
@@ -103,33 +31,11 @@
   gap: 24px;
 }
 
-.home-card-grid {
-  gap: 18px;
-}
-
 .card {
   background: white;
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
   padding: 24px;
-}
-
-.home-step-card {
-  border: 1px solid #e5e7eb;
-}
-
-.home-step-card > span {
-  align-items: center;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 999px;
-  color: #1d4ed8;
-  display: inline-flex;
-  font-weight: 800;
-  height: 34px;
-  justify-content: center;
-  margin-bottom: 14px;
-  width: 34px;
 }
 
 .card h3 {
@@ -139,31 +45,6 @@
 .card p {
   color: #4b5563;
   line-height: 1.5;
-}
-
-.home-concept-grid {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 24px auto 0;
-  max-width: 1000px;
-}
-
-.home-concept {
-  border-top: 4px solid #2563eb;
-}
-
-.home-concept:nth-child(2) {
-  border-top-color: #7c3aed;
-}
-
-.home-concept:nth-child(3) {
-  border-top-color: #16a34a;
-}
-
-.home-concept h3 {
-  color: #111827;
-  margin: 0 0 10px;
 }
 
 @media (max-width: 900px) {
@@ -176,11 +57,6 @@
   }
 
   .card-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .home-intro-grid,
-  .home-concept-grid {
     grid-template-columns: 1fr;
   }
 }
