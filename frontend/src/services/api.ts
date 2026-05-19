@@ -130,12 +130,16 @@ export const deletePredictionHistoryItem = async (
 };
 
 export const fetchBranches = async (
-  repoUrl: string
+  repoUrl: string,
+  usePersonalAccessToken: boolean = false,
+  githubToken: string = ""
 ): Promise<BranchListResponse> => {
   const response = await axios.post<BranchListResponse>(
     `${API_BASE_URL}/branches`,
     {
       repo_url: repoUrl,
+      use_personal_access_token: usePersonalAccessToken,
+      github_token: githubToken || null,
     }
   );
 
@@ -144,12 +148,16 @@ export const fetchBranches = async (
 
 
 export const fetchTags = async (
-  repoUrl: string
+  repoUrl: string,
+  usePersonalAccessToken: boolean = false,
+  githubToken: string = ""
 ): Promise<TagListResponse> => {
   const response = await axios.post<TagListResponse>(
     `${API_BASE_URL}/tags`,
     {
       repo_url: repoUrl,
+      use_personal_access_token: usePersonalAccessToken,
+      github_token: githubToken || null,
     }
   );
 
@@ -160,7 +168,9 @@ export const fetchCommits = async (
   repoUrl: string,
   gitRef: string,
   maxCommits: number = 20,
-  skip: number = 0
+  skip: number = 0,
+  usePersonalAccessToken: boolean = false,
+  githubToken: string = ""
 ): Promise<CommitListResponse> => {
   const response = await axios.post<CommitListResponse>(
     `${API_BASE_URL}/commits`,
@@ -169,6 +179,8 @@ export const fetchCommits = async (
       git_ref: gitRef,
       max_commits: maxCommits,
       skip: skip,
+      use_personal_access_token: usePersonalAccessToken,
+      github_token: githubToken || null,
     }
   );
 

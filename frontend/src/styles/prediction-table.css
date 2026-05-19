@@ -14,7 +14,7 @@
 
 .prediction-table {
   width: 100%;
-  min-width: 1360px;
+  min-width: 1410px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -40,12 +40,39 @@
   border-bottom: 2px solid #111827;
 }
 
+.prediction-table thead th > span,
+.probability-header > span {
+  display: block;
+}
+
+.prediction-table thead th small,
+.probability-header small {
+  color: #64748b;
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 4px;
+  white-space: normal;
+}
+
 .prediction-table tbody tr:hover {
   background: #f8fafc;
 }
 
 .col-no {
   width: 48px;
+}
+
+.col-select {
+  width: 48px;
+  text-align: center !important;
+}
+
+.col-select input {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
 }
 
 .col-file {

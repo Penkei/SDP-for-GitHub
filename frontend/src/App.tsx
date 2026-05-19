@@ -5,8 +5,11 @@ import RepositoryInputPage from "./pages/RepositoryInputPage";
 import PredictionResultPage from "./pages/PredictionResultPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import ModelEvaluationPage from "./pages/ModelEvaluationPage";
+>>>>>>> Refinement
+=======
 >>>>>>> Refinement
 import PredictionHistoryPage from "./pages/PredictionHistoryPage";
 
@@ -21,8 +24,11 @@ function App() {
         <Route path="/prediction-result" element={<PredictionResultPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <Route path="/model-evaluation" element={<ModelEvaluationPage />} />
+>>>>>>> Refinement
+=======
 >>>>>>> Refinement
         <Route path="/prediction-history" element={<PredictionHistoryPage />} />
       </Routes>

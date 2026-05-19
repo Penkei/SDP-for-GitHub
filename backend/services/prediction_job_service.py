@@ -22,7 +22,9 @@ class PredictionJobService:
         self,
         repo_url: str,
         commit_sha: str,
-        prediction_threshold: float = None
+        prediction_threshold: float = None,
+        use_personal_access_token: bool = False,
+        github_token: str = None
     ) -> dict:
         job_id = str(uuid.uuid4())
         now = self._now()
@@ -42,6 +44,10 @@ class PredictionJobService:
 <<<<<<< HEAD
 =======
                 "prediction_threshold": effective_threshold,
+<<<<<<< HEAD
+>>>>>>> Refinement
+=======
+                "clone_mode": "pat_temporary" if use_personal_access_token else "local_cache",
 >>>>>>> Refinement
                 "created_at": now,
                 "updated_at": now,
@@ -57,7 +63,9 @@ class PredictionJobService:
             job_id,
             repo_url,
             commit_sha,
-            prediction_threshold
+            prediction_threshold,
+            use_personal_access_token,
+            github_token
         )
 >>>>>>> Refinement
 
@@ -80,7 +88,9 @@ class PredictionJobService:
         job_id: str,
         repo_url: str,
         commit_sha: str,
-        prediction_threshold: float = None
+        prediction_threshold: float = None,
+        use_personal_access_token: bool = False,
+        github_token: str = None
     ):
 >>>>>>> Refinement
         try:
@@ -107,6 +117,11 @@ class PredictionJobService:
 <<<<<<< HEAD
 =======
                 prediction_threshold=prediction_threshold,
+<<<<<<< HEAD
+>>>>>>> Refinement
+=======
+                use_personal_access_token=use_personal_access_token,
+                github_token=github_token,
 >>>>>>> Refinement
                 progress_callback=progress_callback
             )
@@ -117,6 +132,10 @@ class PredictionJobService:
 <<<<<<< HEAD
 =======
                 "prediction_threshold": self._effective_threshold(prediction_threshold),
+<<<<<<< HEAD
+>>>>>>> Refinement
+=======
+                "clone_mode": "pat_temporary" if use_personal_access_token else "local_cache",
 >>>>>>> Refinement
                 "total_files_scanned": len(result),
                 "results": result

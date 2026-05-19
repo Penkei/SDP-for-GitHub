@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 frontend/dist/
 backend/data/*.db
+__pycache__/
+*.pyc

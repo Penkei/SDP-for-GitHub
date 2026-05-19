@@ -14,26 +14,73 @@ The system combines GitHub repository inspection, static code metric extraction,
 a trained machine learning model, prediction history, report export, and a
 developer-friendly explanation page.
 
-## Application Preview
+## Application Showcase
 
-### Home Page
+The application is designed as a complete defect prediction workflow: introduce
+the system, select a repository commit, run prediction, review the risk
+dashboard, inspect file-level explanations, and revisit previous prediction
+runs.
 
-![SDP for GitHub home page](readme-assets/HomePage.png)
+### 1. Home Page
 
-### Repository Input Page
+The home page introduces the purpose of SDP for GitHub in student-friendly
+language. It explains risk probability, prediction threshold, and SHAP-style
+explanation before the user starts.
 
-![Repository input page](readme-assets/InputPage.png)
+<p align="center">
+  <img src="readme-assets/HomePage.png" alt="SDP for GitHub home page" width="900" />
+</p>
+
+### 2. Repository Input
+
+The repository input page lets the user enter a GitHub repository URL, choose a
+branch or tag, select a commit, and configure prediction sensitivity. It also
+explains the normal cached clone mode and the request-only PAT clone mode.
+
+<p align="center">
+  <img src="readme-assets/InputPage.png" alt="Repository input page" width="900" />
+</p>
+
+### 3. Prediction Dashboard
+
+After prediction completes, the dashboard summarizes the result with high,
+medium, and low risk counts, average risk, highest-risk file, riskiest folder,
+and language-level risk charts.
+
+<p align="center">
+  <img src="readme-assets/PredictionDashboard.png" alt="Prediction dashboard" width="900" />
+</p>
+
+### 4. File-Level Prediction Results
+
+The result table supports sorting, filtering, row selection, metric value review,
+plain-language explanations, and export selection. This helps the user move from
+an overall dashboard into specific files that may need review.
+
+<p align="center">
+  <img src="readme-assets/PredictionResult.png" alt="Prediction result table" width="900" />
+</p>
+
+### 5. Prediction History
+
+Completed prediction runs are saved into SQLite so users can revisit earlier
+results without immediately rerunning the same analysis.
+
+<p align="center">
+  <img src="readme-assets/History.png" alt="Prediction history page" width="900" />
+</p>
 
 ## What The Application Does
 
-1. Accepts a public GitHub repository URL.
-2. Loads repository branches, tags, and commits.
-3. Lets the user select a commit for analysis.
-4. Extracts static code metrics from supported source files.
-5. Predicts whether each file is likely to be defect-prone.
-6. Displays a risk dashboard, detailed file results, and model explanations.
-7. Saves completed predictions to SQLite for long-term history.
-8. Exports prediction results as a CSV report.
+| Step | Description |
+| --- | --- |
+| 1. Repository input | Accepts a GitHub repository URL and loads branches, tags, and commits. |
+| 2. Commit selection | Lets the user choose the exact commit to analyze. |
+| 3. Metric extraction | Extracts static code metrics and commit-history process metrics from supported files. |
+| 4. ML prediction | Predicts file-level defect risk using the trained model. |
+| 5. Explanation | Shows important metric values and plain-language reasoning for each file. |
+| 6. Dashboard review | Summarizes risk distribution, highest-risk files, folders, and language-level trends. |
+| 7. History and export | Saves completed runs to SQLite and exports selected results as CSV or PDF. |
 
 This project is suitable for a Final Year Project demonstration because it shows
 the full workflow from repository input to model-backed decision support.
@@ -43,11 +90,14 @@ the full workflow from repository input to model-backed decision support.
 - GitHub repository, branch, tag, and commit selection.
 - File-level defect prediction for Java, Python, and C++.
 - Prediction progress status while the backend is analyzing a commit.
+- Configurable prediction sensitivity for adjusting the defect cutoff.
+- Optional PAT request mode for users who do not want a reusable repository
+  mirror cache.
 - Risk dashboard with summary cards, charts, high-risk files, and language
   breakdowns.
 - Search and filtering by file path, language, risk level, prediction label, and
   probability range.
-- CSV report export.
+- CSV and PDF report export for selected prediction rows.
 - Prediction history stored in SQLite.
 - "How It Works" page for non-ML developers and project evaluators.
 - Backend repository caching to reduce repeated GitHub operations.
