@@ -14,7 +14,8 @@ class DefectPredictionPipeline:
         self.prediction_service = PredictionService()
         self.explanation_service = ExplanationService(
             self.prediction_service.model,
-            self.prediction_service.feature_names
+            self.prediction_service.feature_names,
+            self.prediction_service.feature_transform_stats
         )
         self.report_service = ReportService()
 

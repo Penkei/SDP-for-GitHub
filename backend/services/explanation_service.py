@@ -4,9 +4,10 @@ from services.feature_transform_service import transform_model_features
 
 
 class ExplanationService:
-    def __init__(self, model, feature_names):
+    def __init__(self, model, feature_names, feature_transform_stats=None):
         self.model = model
         self.feature_names = feature_names
+        self.feature_transform_stats = feature_transform_stats or {}
         try:
             self.explainer = shap.TreeExplainer(self.model)
             self.explainer_type = "tree"
@@ -43,7 +44,10 @@ class ExplanationService:
         if prediction_df.empty:
             return prediction_df
 
-        X = transform_model_features(prediction_df[self.feature_names])
+        X = transform_model_features(
+            prediction_df[self.feature_names],
+            self.feature_transform_stats
+        )
 
         if self.explainer_type == "tree":
             shap_values = self.explainer.shap_values(X)

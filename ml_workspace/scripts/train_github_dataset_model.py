@@ -50,7 +50,10 @@ PROCESS_FEATURE_CAPS = {
 }
 
 
-def transform_model_features(features_df: pd.DataFrame) -> pd.DataFrame:
+def transform_model_features(
+    features_df: pd.DataFrame,
+    transform_stats: dict = None
+) -> pd.DataFrame:
     transformed_df = features_df.copy()
 
     for feature in PROCESS_FEATURES_TO_COMPRESS:
@@ -65,6 +68,44 @@ def transform_model_features(features_df: pd.DataFrame) -> pd.DataFrame:
             numeric_values = numeric_values.clip(upper=cap_value)
 
         transformed_df[feature] = np.log1p(numeric_values)
+
+    if transform_stats:
+        transformed_df = scale_process_features(transformed_df, transform_stats)
+
+    return transformed_df
+
+
+def fit_process_scaling_stats(features_df: pd.DataFrame) -> dict:
+    process_scaling = {}
+
+    for feature in PROCESS_FEATURES_TO_COMPRESS:
+        if feature not in features_df.columns:
+            continue
+
+        mean_value = float(features_df[feature].mean())
+        std_value = float(features_df[feature].std(ddof=0))
+
+        process_scaling[feature] = {
+            "mean": mean_value,
+            "std": std_value if std_value > 0 else 1.0,
+        }
+
+    return {
+        "process_metric_scaling": process_scaling
+    }
+
+
+def scale_process_features(features_df: pd.DataFrame, transform_stats: dict) -> pd.DataFrame:
+    transformed_df = features_df.copy()
+    process_scaling = transform_stats.get("process_metric_scaling", {})
+
+    for feature, stats in process_scaling.items():
+        if feature not in transformed_df.columns:
+            continue
+
+        transformed_df[feature] = (
+            transformed_df[feature] - float(stats.get("mean", 0))
+        ) / (float(stats.get("std", 1)) or 1)
 
     return transformed_df
 
@@ -132,12 +173,12 @@ missing_features = [feature for feature in selected_features if feature not in d
 if missing_features:
     raise ValueError(f"Missing features in GitHub dataset: {missing_features}")
 
-X = transform_model_features(df[selected_features])
+X_raw = df[selected_features]
 y = df["defect"]
 
 print("\nApplied process metric compression:")
 for feature in PROCESS_FEATURES_TO_COMPRESS:
-    print(f"- {feature}: cap at {PROCESS_FEATURE_CAPS[feature]}, then log1p")
+    print(f"- {feature}: cap at {PROCESS_FEATURE_CAPS[feature]}, log1p, then train-set standard scaling")
 
 
 # =========================
@@ -154,21 +195,29 @@ if y.nunique() < 2:
 # 5. Train-Test Split
 # =========================
 
-X_train_full, X_test, y_train_full, y_test = train_test_split(
-    X,
+X_train_full_raw, X_test_raw, y_train_full, y_test = train_test_split(
+    X_raw,
     y,
     test_size=0.2,
     random_state=RANDOM_STATE,
     stratify=y
 )
 
-X_train, X_valid, y_train, y_valid = train_test_split(
-    X_train_full,
+X_train_raw, X_valid_raw, y_train, y_valid = train_test_split(
+    X_train_full_raw,
     y_train_full,
     test_size=0.2,
     random_state=RANDOM_STATE,
     stratify=y_train_full
 )
+
+X_train_full_compressed = transform_model_features(X_train_full_raw)
+feature_transform_stats = fit_process_scaling_stats(X_train_full_compressed)
+
+X_train_full = transform_model_features(X_train_full_raw, feature_transform_stats)
+X_test = transform_model_features(X_test_raw, feature_transform_stats)
+X_train = transform_model_features(X_train_raw, feature_transform_stats)
+X_valid = transform_model_features(X_valid_raw, feature_transform_stats)
 
 
 # =========================
@@ -411,6 +460,7 @@ if best_evaluation is not None:
 joblib.dump(best_model, "models/github_defect_prediction_model.pkl")
 joblib.dump(selected_features, "models/github_model_features.pkl")
 joblib.dump(best_prediction_threshold, "models/github_prediction_threshold.pkl")
+joblib.dump(feature_transform_stats, "models/github_feature_transform_stats.pkl")
 
 metadata = {
     "best_model_name": best_model_name,
@@ -421,9 +471,14 @@ metadata = {
     "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning",
     "feature_transformations": {
         "process_metric_compression": {
-            "method": "clip raw value to configured cap, then apply log1p",
-            "reason": "Reduce dominance of large process-history counts such as files changed together",
+            "method": "clip raw value to configured cap, apply log1p, then standard-scale process metrics using training-set mean/std",
+            "reason": "Reduce dominance of large process-history counts such as files changed together and place process metrics on a more comparable scale",
             "caps": PROCESS_FEATURE_CAPS
+        },
+        "process_metric_scaling": {
+            "method": "standard scaling after compression",
+            "stats_source": "training split only",
+            "stats": feature_transform_stats["process_metric_scaling"]
         }
     },
     "feature_groups": {
@@ -450,6 +505,7 @@ print("Best F1-score:", round(best_f1, 4))
 print("Saved model to: models/github_defect_prediction_model.pkl")
 print("Saved features to: models/github_model_features.pkl")
 print("Saved threshold to: models/github_prediction_threshold.pkl")
+print("Saved feature transform stats to: models/github_feature_transform_stats.pkl")
 print("Saved comparison to: results/github_model_comparison.csv")
 print("Saved feature importance to: results/github_feature_importance.csv")
 print("Saved metadata to: results/github_training_metadata.json")

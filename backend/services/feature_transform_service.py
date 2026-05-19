@@ -27,7 +27,10 @@ PROCESS_FEATURE_CAPS = {
 }
 
 
-def transform_model_features(features_df: pd.DataFrame) -> pd.DataFrame:
+def transform_model_features(
+    features_df: pd.DataFrame,
+    transform_stats: dict = None
+) -> pd.DataFrame:
     transformed_df = features_df.copy()
 
     for feature in PROCESS_FEATURES_TO_COMPRESS:
@@ -42,5 +45,26 @@ def transform_model_features(features_df: pd.DataFrame) -> pd.DataFrame:
             numeric_values = numeric_values.clip(upper=cap_value)
 
         transformed_df[feature] = np.log1p(numeric_values)
+
+    if transform_stats:
+        transformed_df = scale_process_features(transformed_df, transform_stats)
+
+    return transformed_df
+
+
+def scale_process_features(
+    features_df: pd.DataFrame,
+    transform_stats: dict
+) -> pd.DataFrame:
+    transformed_df = features_df.copy()
+    process_scaling = transform_stats.get("process_metric_scaling", {})
+
+    for feature, stats in process_scaling.items():
+        if feature not in transformed_df.columns:
+            continue
+
+        center = float(stats.get("mean", 0))
+        scale = float(stats.get("std", 1)) or 1
+        transformed_df[feature] = (transformed_df[feature] - center) / scale
 
     return transformed_df
