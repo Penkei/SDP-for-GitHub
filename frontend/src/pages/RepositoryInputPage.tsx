@@ -406,42 +406,95 @@ function RepositoryInputPage() {
           select a commit for defect prediction.
         </p>
 
-        <div className="clone-mode-panel">
-          <div>
-            <strong>
-              {usePersonalAccessToken
-                ? "Personal Token online cloning"
-                : "Normal Repository Input"}
-            </strong>
+        <div
+          className={
+            usePersonalAccessToken
+              ? "clone-mode-panel pat-mode"
+              : "clone-mode-panel"
+          }
+        >
+          <div className="clone-mode-content">
+            <div className="clone-mode-heading">
+              <strong>
+                {usePersonalAccessToken
+                  ? "Personal Token online cloning"
+                  : "Normal Repository Input"}
+              </strong>
+              <span>
+                {usePersonalAccessToken ? "No mirror cache" : "Cached clone"}
+              </span>
+            </div>
+
             <p>
               {usePersonalAccessToken
-                ? "The PAT is sent to the backend for this request only. The repository is cloned into a temporary worktree under %TEMP%\\sdp_github_temp_repos\\worktrees and cleaned after use. The app will not create the persistent mirror cache for this mode."
-                : "The backend clones and stores a reusable mirror cache under %TEMP%\\sdp_github_temp_repos\\repo_cache. Temporary worktrees are created under %TEMP%\\sdp_github_temp_repos\\worktrees and cleaned after prediction."}
+                ? "Use this when you do not want the backend to keep a reusable mirror cache for the repository."
+                : "Use this for public repositories when faster repeated loading is more important than avoiding a reusable local cache."}
             </p>
+
+            <div className="clone-storage-list">
+              {!usePersonalAccessToken && (
+                <div>
+                  <span>Reusable cache</span>
+                  <code>%TEMP%\sdp_github_temp_repos\repo_cache</code>
+                </div>
+              )}
+              <div>
+                <span>Temporary worktree</span>
+                <code>%TEMP%\sdp_github_temp_repos\worktrees</code>
+              </div>
+              <div>
+                <span>Cleanup behavior</span>
+                <code>
+                  {usePersonalAccessToken
+                    ? "Cleaned after use; PAT is not saved"
+                    : "Worktree cleaned after prediction"}
+                </code>
+              </div>
+            </div>
           </div>
 
-          <button
-            type="button"
-            className="clone-mode-toggle"
-            onClick={() => {
-              setUsePersonalAccessToken((current) => !current);
-              setErrorMessage("");
-              setRefErrorMessage("");
-              setCommitErrorMessage("");
-              setSelectedGitRef("");
-              setSelectedGitRefType("");
-              setCommitSha("");
-              setCommits([]);
-            }}
-            disabled={loadingRefs || loadingCommits || loadingPrediction}
-          >
-            {usePersonalAccessToken
-              ? "Use normal repository input"
-              : "I want to use Personal Token for online cloning"}
-          </button>
+          <div className="clone-mode-action">
+            <span>
+              {usePersonalAccessToken
+                ? "Switch back to cached public repository loading."
+                : "Prefer request-only cloning with no reusable cache?"}
+            </span>
+            <button
+              type="button"
+              className="clone-mode-toggle"
+              onClick={() => {
+                setUsePersonalAccessToken((current) => !current);
+                setErrorMessage("");
+                setRefErrorMessage("");
+                setCommitErrorMessage("");
+                setSelectedGitRef("");
+                setSelectedGitRefType("");
+                setCommitSha("");
+                setCommits([]);
+              }}
+              disabled={loadingRefs || loadingCommits || loadingPrediction}
+            >
+              {usePersonalAccessToken
+                ? "Use normal input"
+                : "Use Personal Token"}
+            </button>
+          </div>
         </div>
 
-        <label>GitHub Repository URL</label>
+        <div className="field-label-row">
+          <label>GitHub Repository URL</label>
+          <span className="help-tooltip">
+            <button type="button" aria-label="GitHub repository URL guide">
+              ?
+            </button>
+            <span className="help-tooltip-content">
+              Open the repository on GitHub, click the green Code button, choose
+              HTTPS, then copy the URL. The app accepts URLs like
+              https://github.com/owner/repository or
+              https://github.com/owner/repository.git.
+            </span>
+          </span>
+        </div>
         <input
           type="text"
           value={repoUrl}
@@ -464,7 +517,20 @@ function RepositoryInputPage() {
 
         {usePersonalAccessToken && (
           <>
-            <label>GitHub Personal Access Token</label>
+            <div className="field-label-row">
+              <label>GitHub Personal Access Token</label>
+              <span className="help-tooltip">
+                <button type="button" aria-label="GitHub PAT guide">
+                  ?
+                </button>
+                <span className="help-tooltip-content">
+                  In GitHub, open Settings, Developer settings, Personal access
+                  tokens, then create a fine-grained token for the repository.
+                  Give it read access to repository contents and metadata, then
+                  paste the token here.
+                </span>
+              </span>
+            </div>
             <input
               type="password"
               value={githubToken}
@@ -478,9 +544,9 @@ function RepositoryInputPage() {
               autoComplete="off"
             />
             <p className="input-hint">
-              Use this for private repositories or when you do not want the app
-              to create the reusable repository cache. The token is not saved in
-              prediction history or shown in backend responses.
+              Use this when you do not want the app to create the reusable
+              repository cache. The token is not saved in prediction history or
+              shown in backend responses.
             </p>
           </>
         )}
@@ -536,7 +602,20 @@ function RepositoryInputPage() {
           placeholder="Select commit from the right-side panel"
         />
 
-        <label>Prediction Sensitivity</label>
+        <div className="field-label-row">
+          <label>Prediction Sensitivity</label>
+          <span className="help-tooltip">
+            <button type="button" aria-label="Prediction sensitivity guide">
+              ?
+            </button>
+            <span className="help-tooltip-content">
+              This controls the cutoff for labelling a file as defective. A
+              lower cutoff marks more files as defective, which is more cautious
+              but may include more false alarms. A higher cutoff marks fewer
+              files, but may miss some risky files.
+            </span>
+          </span>
+        </div>
         <div className="threshold-control">
           {thresholdOptions.map((option) => (
             <button
