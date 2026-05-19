@@ -1,5 +1,6 @@
 import shap
 import pandas as pd
+from services.feature_transform_service import transform_model_features
 
 
 class ExplanationService:
@@ -42,7 +43,7 @@ class ExplanationService:
         if prediction_df.empty:
             return prediction_df
 
-        X = prediction_df[self.feature_names]
+        X = transform_model_features(prediction_df[self.feature_names])
 
         if self.explainer_type == "tree":
             shap_values = self.explainer.shap_values(X)
@@ -80,7 +81,7 @@ class ExplanationService:
 
             for _, row in top_features.iterrows():
                 feature = row["feature"]
-                value = row["feature_value"]
+                value = prediction_df.iloc[i][feature]
                 direction = row["shap_value"]
 
                 meaning = self._get_feature_meaning(feature)

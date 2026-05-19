@@ -1,6 +1,7 @@
 import os
 import joblib
 import pandas as pd
+from services.feature_transform_service import transform_model_features
 
 
 class PredictionService:
@@ -25,7 +26,7 @@ class PredictionService:
         if missing_features:
             raise ValueError(f"Missing required features: {missing_features}")
 
-        X = metrics_df[self.feature_names]
+        X = transform_model_features(metrics_df[self.feature_names])
         threshold = self._resolve_prediction_threshold(prediction_threshold)
 
         metrics_df["defect_risk_probability"] = self.model.predict_proba(X)[:, 1]
