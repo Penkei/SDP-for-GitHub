@@ -10,10 +10,16 @@ function Navbar() {
       </div>
 
       <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/repository-input">Repository Input</Link>
-        <Link to="/prediction-history">Prediction History</Link>
-        <Link to="/how-it-works">How It Works</Link>
+        <Link to="/" className="nav-link home-link">Home</Link>
+        <Link to="/repository-input" className="nav-link scan-link">
+          Scan a Repository
+        </Link>
+        <Link to="/prediction-history" className="nav-link history-link">
+          Prediction History
+        </Link>
+        <Link to="/how-it-works" className="nav-link works-link">
+          How It Works
+        </Link>
       </div>
     </nav>
   );
