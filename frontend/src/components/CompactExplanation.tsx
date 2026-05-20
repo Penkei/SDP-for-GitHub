@@ -38,23 +38,41 @@ function formatMetricValue(value: string): string {
 
 function extractMetricItems(explanation: string) {
   const metricPattern = /\(([A-Za-z_][A-Za-z0-9_]*)=([^)]+)\)/g;
-  const items: { keyword: string; value: string; rawMetric: string }[] = [];
+  const items: {
+    keyword: string;
+    value: string;
+    rawMetric: string;
+    direction: "higher" | "lower" | "neutral";
+  }[] = [];
   const seenMetrics = new Set<string>();
+  const sentences = explanation
+    .split(".")
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
 
-  for (const match of explanation.matchAll(metricPattern)) {
-    const rawMetric = match[1];
+  sentences.forEach((sentence) => {
+    const sentenceDirection = sentence.toLowerCase().includes("score higher")
+      ? "higher"
+      : sentence.toLowerCase().includes("score lower")
+        ? "lower"
+        : "neutral";
 
-    if (seenMetrics.has(rawMetric)) {
-      continue;
+    for (const match of sentence.matchAll(metricPattern)) {
+      const rawMetric = match[1];
+
+      if (seenMetrics.has(rawMetric)) {
+        continue;
+      }
+
+      seenMetrics.add(rawMetric);
+      items.push({
+        keyword: metricLabelMap[rawMetric] || rawMetric,
+        value: formatMetricValue(match[2]),
+        rawMetric,
+        direction: sentenceDirection,
+      });
     }
-
-    seenMetrics.add(rawMetric);
-    items.push({
-      keyword: metricLabelMap[rawMetric] || rawMetric,
-      value: formatMetricValue(match[2]),
-      rawMetric,
-    });
-  }
+  });
 
   return items;
 }
@@ -74,11 +92,20 @@ function CompactExplanation({ explanation }: CompactExplanationProps) {
     <div className="compact-explanation-list">
       {items.map((item) => (
         <div
-          className="compact-explanation-item"
+          className={`compact-explanation-item ${item.direction}`}
           key={item.rawMetric}
           title={item.rawMetric}
         >
-          <span className="compact-explanation-keyword">{item.keyword}</span>
+          <span className="compact-explanation-keyword">
+            <span className="compact-explanation-direction">
+              {item.direction === "higher"
+                ? "Increases score"
+                : item.direction === "lower"
+                  ? "Lowers score"
+                  : "Model signal"}
+            </span>
+            {item.keyword}
+          </span>
           <span className="compact-explanation-value">{item.value}</span>
         </div>
       ))}

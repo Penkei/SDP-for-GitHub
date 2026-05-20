@@ -7,7 +7,7 @@
 .compact-explanation-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   background: #f3f4f6;
   border-left: 3px solid #111827;
@@ -15,10 +15,43 @@
   padding: 6px 8px;
 }
 
+.compact-explanation-item.higher {
+  background: #fef2f2;
+  border-left-color: #dc2626;
+}
+
+.compact-explanation-item.lower {
+  background: #ecfdf5;
+  border-left-color: #16a34a;
+}
+
+.compact-explanation-item.neutral {
+  background: #f8fafc;
+  border-left-color: #64748b;
+}
+
 .compact-explanation-keyword {
   color: #111827;
   font-weight: 700;
   font-size: 12px;
+  line-height: 1.25;
+}
+
+.compact-explanation-direction {
+  color: #64748b;
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.compact-explanation-item.higher .compact-explanation-direction {
+  color: #b91c1c;
+}
+
+.compact-explanation-item.lower .compact-explanation-direction {
+  color: #15803d;
 }
 
 .compact-explanation-value {
@@ -31,6 +64,15 @@
   padding: 2px 8px;
   min-width: 30px;
   text-align: center;
+  margin-top: 2px;
+}
+
+.compact-explanation-item.higher .compact-explanation-value {
+  background: #991b1b;
+}
+
+.compact-explanation-item.lower .compact-explanation-value {
+  background: #166534;
 }
 
 .compact-explanation-empty {
