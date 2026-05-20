@@ -22,6 +22,8 @@ export interface PredictionResult {
   top_contributing_metrics: string;
   readable_explanation?: string;
   confidence_warning?: string;
+  is_potential_test_file?: boolean | number | string;
+  test_file_reason?: string;
 }
 
 export interface PredictionResponse {
@@ -141,6 +143,7 @@ export interface CommitListResponse {
 export interface GitRefItem {
   name: string;
   type: "branch" | "tag";
+  is_default?: boolean;
 }
 
 export interface BranchListResponse {

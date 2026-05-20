@@ -172,7 +172,9 @@ def export_report(request: ExportReportRequest):
         "Author File Change Count",
         "Top Contributing Metrics",
         "Readable Explanation",
-        "Confidence Warning"
+        "Confidence Warning",
+        "Potential Test File",
+        "Test File Reason"
     ])
 
     for result in request.results:
@@ -191,7 +193,9 @@ def export_report(request: ExportReportRequest):
             result.author_file_change_count,
             result.top_contributing_metrics,
             result.readable_explanation,
-            result.confidence_warning
+            result.confidence_warning,
+            result.is_potential_test_file,
+            result.test_file_reason
         ])
 
     filename = f"defect_prediction_report_{request.commit_sha[:8]}.csv"

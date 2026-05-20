@@ -91,6 +91,8 @@ class PredictionResultForExport(BaseModel):
     top_contributing_metrics: str
     readable_explanation: Optional[str] = ""
     confidence_warning: Optional[str] = ""
+    is_potential_test_file: Optional[bool] = False
+    test_file_reason: Optional[str] = ""
 
 
 class ExportReportRequest(GitHubRepoRequest):

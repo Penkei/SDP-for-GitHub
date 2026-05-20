@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 from services.readable_explanation_service import ReadableExplanationService
 
@@ -33,6 +34,12 @@ class ReportService:
             ),
             axis=1
         )
+        prediction_df["is_potential_test_file"] = prediction_df["file_path"].apply(
+            self._is_potential_test_file
+        )
+        prediction_df["test_file_reason"] = prediction_df["file_path"].apply(
+            self._get_test_file_reason
+        )
 
         output_columns = [
             "file_path",
@@ -49,7 +56,9 @@ class ReportService:
             "author_file_change_count",
             "top_contributing_metrics",
             "readable_explanation",
-            "confidence_warning"
+            "confidence_warning",
+            "is_potential_test_file",
+            "test_file_reason"
         ]
 
         for column in output_columns:
@@ -61,6 +70,9 @@ class ReportService:
         result_df["defect_risk_probability"] = result_df[
             "defect_risk_probability"
         ].round(4)
+        result_df["is_potential_test_file"] = result_df[
+            "is_potential_test_file"
+        ].apply(lambda value: bool(value))
 
         return result_df.to_dict(orient="records")
 
@@ -80,3 +92,41 @@ class ReportService:
             return "Review key logic when time permits"
 
         return "Low priority, monitor if modified later"
+
+    def _is_potential_test_file(self, file_path: str) -> bool:
+        return bool(self._get_test_file_reason(file_path))
+
+    def _get_test_file_reason(self, file_path: str) -> str:
+        normalized_path = str(file_path or "").replace("\\", "/").lower()
+        path_parts = [part for part in normalized_path.split("/") if part]
+        file_name = path_parts[-1] if path_parts else normalized_path
+
+        test_directories = {
+            "test",
+            "tests",
+            "__tests__",
+            "spec",
+            "specs",
+            "testing",
+        }
+
+        for part in path_parts[:-1]:
+            if part in test_directories:
+                return f"Path contains a common test folder: {part}"
+
+        filename_patterns = [
+            (r"(^|[_\-.])test[_\-.]", "Filename contains a test prefix"),
+            (r"[_\-.]test\.", "Filename contains .test pattern"),
+            (r"[_\-.]spec\.", "Filename contains .spec pattern"),
+            (r"test\.(py|js|jsx|ts|tsx|java|cpp|cc|cxx|h|hpp)$", "Filename ends with a test pattern"),
+            (r"spec\.(py|js|jsx|ts|tsx|java|cpp|cc|cxx|h|hpp)$", "Filename ends with a spec pattern"),
+            (r"test(case)?\.(py|cpp|cc|cxx|h|hpp)$", "Filename uses a common test file name"),
+            (r".+test\.(java|cpp|cc|cxx|h|hpp)$", "Filename ends with Test"),
+            (r".+tests\.(py|cpp|cc|cxx|h|hpp)$", "Filename ends with tests"),
+        ]
+
+        for pattern, reason in filename_patterns:
+            if re.search(pattern, file_name):
+                return reason
+
+        return ""

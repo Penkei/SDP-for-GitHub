@@ -7,8 +7,11 @@ import time
 import hashlib
 import tempfile
 import gc
+import json
 from threading import RLock
 from urllib.parse import quote, urlparse, urlunparse
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 from git import Git, Repo
 
 
@@ -38,6 +41,18 @@ class GitHubService:
         repo_hash = hashlib.sha1(repo_url.strip().lower().encode("utf-8")).hexdigest()[:12]
         return os.path.join(self.cache_dir, f"{repo_name}_{repo_hash}.git")
 
+    def _repo_owner_name(self, repo_url: str) -> tuple:
+        parsed_url = urlparse(repo_url)
+        path_parts = [part for part in parsed_url.path.strip("/").split("/") if part]
+
+        if len(path_parts) < 2:
+            raise ValueError("Repository URL must include both owner and repository name.")
+
+        owner = path_parts[0]
+        repo_name = path_parts[1].removesuffix(".git")
+
+        return owner, repo_name
+
     def _cache_key(self, *parts) -> tuple:
         return tuple(str(part).strip().lower() for part in parts)
 
@@ -59,18 +74,57 @@ class GitHubService:
         ))
 
     def _sanitize_error(self, error: Exception, repo_url: str, github_token: str = None) -> Exception:
-        if not github_token:
-            return error
+        message = str(error)
 
-        message = str(error).replace(github_token, "***")
-        message = re.sub(
-            r"https://x-access-token:[^@\s]+@github\.com/",
-            "https://github.com/",
-            message
-        )
-        message = message.replace(self._build_authenticated_url(repo_url, github_token), repo_url)
+        if github_token:
+            message = message.replace(github_token, "***")
+            message = re.sub(
+                r"https://x-access-token:[^@\s]+@github\.com/",
+                "https://github.com/",
+                message
+            )
+            message = message.replace(
+                self._build_authenticated_url(repo_url, github_token),
+                repo_url
+            )
+
+        message = re.sub(r"POST git-upload-pack[^\n\r]*", "", message)
+        message = re.sub(r"Updating files:\s*\d+%[^\n\r]*", "", message)
+        message = re.sub(r"\s+", " ", message).strip()
+
+        if "unable to create file" in message and "Filename too long" in message:
+            return Exception(
+                "Git checkout failed because this repository contains file paths "
+                "that are too long for the current Windows Git configuration. "
+                "The backend requests Git long-path support, but Windows may "
+                "still need long paths enabled system-wide."
+            )
 
         return Exception(message)
+
+    def _github_api_get(self, repo_url: str, api_path: str, github_token: str = None):
+        request_url = f"https://api.github.com{api_path}"
+        headers = {
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "SDP-for-GitHub",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+
+        if github_token:
+            headers["Authorization"] = f"Bearer {github_token}"
+
+        request = Request(request_url, headers=headers)
+
+        try:
+            with urlopen(request, timeout=20) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except HTTPError as error:
+            detail = error.read().decode("utf-8", errors="ignore")
+            raise Exception(
+                f"GitHub API request failed with status {error.code}. {detail}"
+            )
+        except URLError as error:
+            raise Exception(f"GitHub API request failed: {error.reason}")
 
     def _get_cached_metadata(self, key: tuple):
         cached_item = self._metadata_cache.get(key)
@@ -99,7 +153,12 @@ class GitHubService:
 
             if not cache_exists:
                 print(f"Creating repository cache: {repo_url}")
-                Repo.clone_from(repo_url, cache_path, multi_options=["--mirror"])
+                Repo.clone_from(
+                    repo_url,
+                    cache_path,
+                    multi_options=["--mirror", "-c", "core.longpaths=true"],
+                    allow_unsafe_options=True
+                )
                 self._repo_fetch_times[cache_path] = time.time()
                 return cache_path
 
@@ -148,13 +207,26 @@ class GitHubService:
             print(f"Cloning repository with PAT into temporary worktree: {repo_url}")
             clone_url = self._build_authenticated_url(repo_url, github_token)
             try:
-                repo = Repo.clone_from(clone_url, repo_path)
+                repo = Repo.clone_from(
+                    clone_url,
+                    repo_path,
+                    multi_options=["-c", "core.longpaths=true"],
+                    allow_unsafe_options=True
+                )
             except Exception as error:
                 raise self._sanitize_error(error, repo_url, github_token)
         else:
             cache_path = self._ensure_cached_repo(repo_url)
             print(f"Cloning repository from local cache: {repo_url}")
-            repo = Repo.clone_from(cache_path, repo_path)
+            try:
+                repo = Repo.clone_from(
+                    cache_path,
+                    repo_path,
+                    multi_options=["-c", "core.longpaths=true"],
+                    allow_unsafe_options=True
+                )
+            except Exception as error:
+                raise self._sanitize_error(error, repo_url, github_token)
 
         try:
             print(f"Checking out commit: {commit_sha}")
@@ -232,45 +304,29 @@ class GitHubService:
                 print(f"Using cached commit list: {repo_url} [{git_ref}]")
                 return cached_commits
 
-        repo_name = self._safe_repo_name(repo_url)
-        request_id = str(uuid.uuid4())[:8]
-
-        repo_path = os.path.join(
-            self.worktree_dir,
-            f"{repo_name}_commits_{request_id}"
-        )
-        repo = None
-
         try:
-            if use_personal_access_token:
-                print(f"Cloning repository with PAT for commit list: {repo_url}")
-                clone_url = self._build_authenticated_url(repo_url, github_token)
-                try:
-                    repo = Repo.clone_from(clone_url, repo_path)
-                except Exception as error:
-                    raise self._sanitize_error(error, repo_url, github_token)
-            else:
-                cache_path = self._ensure_cached_repo(repo_url)
-                print(f"Cloning repository from local cache for commit list: {repo_url}")
-                repo = Repo.clone_from(cache_path, repo_path)
-
-            print(f"Checking out reference for commit list: {git_ref}")
-            repo.git.checkout(git_ref)
-
-            total_to_fetch = skip + max_commits
-            commits = list(repo.iter_commits("HEAD", max_count=total_to_fetch))
-
-            page_commits = commits[skip:skip + max_commits]
+            owner, repo_name = self._repo_owner_name(repo_url)
+            page = (skip // max_commits) + 1 if max_commits > 0 else 1
+            encoded_ref = quote(git_ref, safe="")
+            api_path = (
+                f"/repos/{quote(owner)}/{quote(repo_name)}/commits"
+                f"?sha={encoded_ref}&per_page={max_commits}&page={page}"
+            )
+            print(f"Loading commit list from GitHub API: {repo_url} [{git_ref}] page {page}")
+            api_commits = self._github_api_get(repo_url, api_path, github_token)
 
             commit_list = []
 
-            for commit in page_commits:
+            for item in api_commits:
+                commit = item.get("commit", {})
+                author = commit.get("author") or {}
+
                 commit_list.append({
-                    "sha": commit.hexsha,
-                    "short_sha": commit.hexsha[:8],
-                    "message": commit.message.strip().replace("\n", " "),
-                    "author": commit.author.name,
-                    "date": commit.committed_datetime.isoformat()
+                    "sha": item.get("sha", ""),
+                    "short_sha": item.get("sha", "")[:8],
+                    "message": (commit.get("message") or "").strip().replace("\n", " "),
+                    "author": author.get("name") or "Unknown",
+                    "date": author.get("date") or ""
                 })
 
             if not use_personal_access_token:
@@ -279,9 +335,8 @@ class GitHubService:
 
             return commit_list
 
-        finally:
-            self._close_repo(repo)
-            self.cleanup_repo(repo_path)
+        except Exception as error:
+            raise self._sanitize_error(error, repo_url, github_token)
 
     def get_branch_list(
         self,
@@ -305,6 +360,7 @@ class GitHubService:
 
         branches = []
         remote_url = self._build_authenticated_url(repo_url, github_token)
+        default_branch = self._get_default_branch_name(remote_url, repo_url, github_token)
 
         try:
             branch_output = Git().ls_remote("--heads", remote_url)
@@ -321,16 +377,43 @@ class GitHubService:
 
             branches.append({
                 "name": branch_name,
-                "type": "branch"
+                "type": "branch",
+                "is_default": branch_name == default_branch
             })
 
-        branches.sort(key=lambda branch: branch["name"].lower())
+        branches.sort(key=lambda branch: (
+            not branch.get("is_default", False),
+            branch["name"].lower()
+        ))
 
         if not use_personal_access_token:
             with self._lock:
                 self._set_cached_metadata(cache_key, branches)
 
         return branches
+
+    def _get_default_branch_name(
+        self,
+        remote_url: str,
+        repo_url: str,
+        github_token: str = None
+    ) -> str:
+        try:
+            head_output = Git().ls_remote("--symref", remote_url, "HEAD")
+        except Exception as error:
+            print(
+                "Warning: failed to detect default branch for "
+                f"{repo_url}: {self._sanitize_error(error, repo_url, github_token)}"
+            )
+            return ""
+
+        for line in head_output.splitlines():
+            parts = line.split()
+
+            if len(parts) >= 3 and parts[0] == "ref:" and parts[1].startswith("refs/heads/"):
+                return parts[1].replace("refs/heads/", "", 1)
+
+        return ""
 
 
     def get_tag_list(

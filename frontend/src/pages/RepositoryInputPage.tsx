@@ -99,7 +99,7 @@ function RepositoryInputPage() {
   const [commitSha, setCommitSha] = useState("");
   const [thresholdMode, setThresholdMode] = useState<ThresholdMode>("balanced");
   const [customThreshold, setCustomThreshold] = useState("0.50");
-  const [usePersonalAccessToken, setUsePersonalAccessToken] = useState(false);
+  const [usePersonalAccessToken, setUsePersonalAccessToken] = useState(true);
   const [githubToken, setGithubToken] = useState("");
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
@@ -154,7 +154,7 @@ function RepositoryInputPage() {
 
     if (!githubToken.trim()) {
       setErrorMessage(
-        "Please enter a GitHub Personal Access Token, or switch back to normal repository input."
+        "Please enter a GitHub Personal Access Token, or switch to local cache mode."
       );
       return false;
     }
@@ -418,17 +418,17 @@ function RepositoryInputPage() {
               <strong>
                 {usePersonalAccessToken
                   ? "Personal Token online cloning"
-                  : "Normal Repository Input"}
+                  : "Local Cache Repository Input"}
               </strong>
               <span>
-                {usePersonalAccessToken ? "No mirror cache" : "Cached clone"}
+                {usePersonalAccessToken ? "No mirror cache" : "Reusable cache"}
               </span>
             </div>
 
             <p>
               {usePersonalAccessToken
                 ? "Use this when you do not want the backend to keep a reusable mirror cache for the repository."
-                : "Use this for public repositories when faster repeated loading is more important than avoiding a reusable local cache."}
+                : "Use this when you want the backend to keep a reusable local mirror cache for faster repeated repository operations."}
             </p>
 
             <div className="clone-storage-list">
@@ -456,8 +456,8 @@ function RepositoryInputPage() {
           <div className="clone-mode-action">
             <span>
               {usePersonalAccessToken
-                ? "Switch back to cached public repository loading."
-                : "Prefer request-only cloning with no reusable cache?"}
+                ? "Prefer faster repeated runs with a reusable local cache?"
+                : "Switch back to request-only cloning with no reusable cache."}
             </span>
             <button
               type="button"
@@ -475,7 +475,7 @@ function RepositoryInputPage() {
               disabled={loadingRefs || loadingCommits || loadingPrediction}
             >
               {usePersonalAccessToken
-                ? "Use normal input"
+                ? "Use local cache"
                 : "Use Personal Token"}
             </button>
           </div>
@@ -545,8 +545,9 @@ function RepositoryInputPage() {
             />
             <p className="input-hint">
               Use this when you do not want the app to create the reusable
-              repository cache. The token is not saved in prediction history or
-              shown in backend responses.
+              repository cache. It is also used for faster GitHub API commit
+              loading. The token is not saved in prediction history or shown in
+              backend responses.
             </p>
           </>
         )}
@@ -594,13 +595,30 @@ function RepositoryInputPage() {
           {loadingCommits ? "Loading Commits..." : "Load Commits from Selected Branch/Tag"}
         </button>
 
-        <label>Selected Commit SHA</label>
+        <div className="field-label-row">
+          <label>Selected Commit SHA</label>
+          <span className="help-tooltip">
+            <button type="button" aria-label="Commit SHA guide">
+              ?
+            </button>
+            <span className="help-tooltip-content">
+              You can select a commit from the commit panel, or copy a commit
+              SHA from GitHub and paste it here. On GitHub, open the repository,
+              go to Commits, click a commit, then copy the long SHA from the
+              commit page URL or copy button.
+            </span>
+          </span>
+        </div>
         <input
           type="text"
           value={commitSha}
           onChange={(e) => setCommitSha(e.target.value)}
-          placeholder="Select commit from the right-side panel"
+          placeholder="Select from commit panel or paste commit SHA from GitHub"
         />
+        <p className="input-hint">
+          Or copy from GitHub and paste a commit SHA manually. A full 40-character
+          SHA is recommended for the most accurate checkout.
+        </p>
 
         <div className="field-label-row">
           <label>Prediction Sensitivity</label>

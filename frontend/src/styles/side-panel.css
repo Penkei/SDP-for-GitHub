@@ -112,6 +112,32 @@
   margin-bottom: 16px;
 }
 
+.default-branch-caption {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #16a34a;
+  border-radius: 14px;
+  color: #14532d;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+}
+
+.default-branch-caption strong,
+.default-branch-caption span {
+  display: block;
+}
+
+.default-branch-caption strong {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.default-branch-caption span {
+  color: #166534;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .commit-list {
   display: flex;
   flex-direction: column;
@@ -151,6 +177,17 @@
 .commit-date {
   color: #6b7280;
   font-size: 13px;
+}
+
+.default-branch-badge {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 9px;
+  white-space: nowrap;
 }
 
 .commit-message {

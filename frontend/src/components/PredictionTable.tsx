@@ -14,6 +14,12 @@ interface PredictionTableProps {
   allShownSelected: boolean;
 }
 
+const isPotentialTestFile = (result: PredictionResult) =>
+  result.is_potential_test_file === true ||
+  result.is_potential_test_file === 1 ||
+  result.is_potential_test_file === "true" ||
+  result.is_potential_test_file === "1";
+
 function PredictionTable({
   results,
   probabilitySortDirection,
@@ -108,7 +114,15 @@ function PredictionTable({
 
                 <td className="col-no">{index + 1}</td>
 
-                <td className="col-file file-path-cell">{item.file_path}</td>
+                <td className="col-file file-path-cell">
+                  <span>{item.file_path}</span>
+                  {isPotentialTestFile(item) && (
+                    <div className="test-file-badge">
+                      <strong>Potential test file</strong>
+                      <small>{item.test_file_reason || "Matched a common test-file naming pattern."}</small>
+                    </div>
+                  )}
+                </td>
 
                 <td className="col-language">{item.language || "Unknown"}</td>
 

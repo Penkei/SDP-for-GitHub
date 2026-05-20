@@ -20,6 +20,12 @@ const getResultKey = (result: PredictionResult) =>
     result.defect_risk_probability,
   ].join("|");
 
+const isPotentialTestFile = (result: PredictionResult) =>
+  result.is_potential_test_file === true ||
+  result.is_potential_test_file === 1 ||
+  result.is_potential_test_file === "true" ||
+  result.is_potential_test_file === "1";
+
 const escapeHtml = (value: unknown) =>
   String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -237,6 +243,7 @@ const buildPdfReportHtml = (
         <tr>
           <td>${index + 1}</td>
           <td class="file-path">${escapeHtml(result.file_path)}</td>
+          <td>${isPotentialTestFile(result) ? "Potential test file" : "Normal code"}</td>
           <td>${escapeHtml(result.language || "Unknown")}</td>
           <td>${escapeHtml(result.prediction_label)}</td>
           <td>${formatPercent(result.defect_risk_probability)}</td>
@@ -245,8 +252,13 @@ const buildPdfReportHtml = (
         </tr>
         <tr class="explanation-row">
           <td></td>
-          <td colspan="6">
+          <td colspan="7">
             ${escapeHtml(result.readable_explanation || result.top_contributing_metrics || "No explanation available.")}
+            ${
+              isPotentialTestFile(result)
+                ? `<div class="pdf-test-note"><strong>Potential test file</strong>${escapeHtml(result.test_file_reason || "Matched a common test-file naming pattern.")}</div>`
+                : ""
+            }
             ${
               result.confidence_warning
                 ? `<div class="pdf-confidence-warning"><strong>Confidence note</strong>${escapeHtml(result.confidence_warning)}</div>`
@@ -369,6 +381,8 @@ const buildPdfReportHtml = (
         .explanation-row td { background: #f8fafc; color: #475569; line-height: 1.45; }
         .pdf-confidence-warning { background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #d97706; border-radius: 8px; color: #78350f; margin-top: 8px; padding: 8px; }
         .pdf-confidence-warning strong { display: block; font-size: 11px; margin-bottom: 3px; text-transform: uppercase; }
+        .pdf-test-note { background: #fefce8; border: 1px solid #fde68a; border-left: 4px solid #ca8a04; border-radius: 8px; color: #713f12; margin-top: 8px; padding: 8px; }
+        .pdf-test-note strong { display: block; font-size: 11px; margin-bottom: 3px; text-transform: uppercase; }
         @media print {
           body { background: #ffffff; padding: 0; }
           .hero, .panel, .stat-card { box-shadow: none; }
@@ -442,6 +456,7 @@ const buildPdfReportHtml = (
               <tr>
                 <th>No.</th>
                 <th>File</th>
+                <th>Code Type</th>
                 <th>Language</th>
                 <th>Prediction</th>
                 <th>Probability</th>
@@ -724,6 +739,24 @@ function PredictionResultPage() {
   const allShownSelected =
     sortedResults.length > 0 &&
     sortedResults.every((result) => selectedResultKeys.has(getResultKey(result)));
+  const normalCodeResults = useMemo(
+    () => sortedResults.filter((result) => !isPotentialTestFile(result)),
+    [sortedResults]
+  );
+  const potentialTestResults = useMemo(
+    () => sortedResults.filter(isPotentialTestFile),
+    [sortedResults]
+  );
+  const allNormalCodeSelected =
+    normalCodeResults.length > 0 &&
+    normalCodeResults.every((result) =>
+      selectedResultKeys.has(getResultKey(result))
+    );
+  const allPotentialTestSelected =
+    potentialTestResults.length > 0 &&
+    potentialTestResults.every((result) =>
+      selectedResultKeys.has(getResultKey(result))
+    );
 
   const hasActiveFilters =
     fileSearch.trim() !== "" ||
@@ -757,13 +790,20 @@ function PredictionResultPage() {
   };
 
   const handleToggleAllShown = () => {
+    handleToggleResultGroup(sortedResults, allShownSelected);
+  };
+
+  const handleToggleResultGroup = (
+    targetResults: PredictionResult[],
+    areAllSelected: boolean
+  ) => {
     setSelectedResultKeys((currentKeys) => {
       const nextKeys = new Set(currentKeys);
 
-      if (allShownSelected) {
-        sortedResults.forEach((result) => nextKeys.delete(getResultKey(result)));
+      if (areAllSelected) {
+        targetResults.forEach((result) => nextKeys.delete(getResultKey(result)));
       } else {
-        sortedResults.forEach((result) => nextKeys.add(getResultKey(result)));
+        targetResults.forEach((result) => nextKeys.add(getResultKey(result)));
       }
 
       return nextKeys;
@@ -1118,8 +1158,8 @@ function PredictionResultPage() {
             <h2>File-Level Results</h2>
             <p>
               Filter, sort, select, and export the files that matter for your
-              review. The table shows the model score and a plain-language
-              explanation for each file.
+              review. The backend scans all supported source files in the
+              selected commit, then separates potential test files below.
             </p>
           </div>
         </div>
@@ -1259,20 +1299,76 @@ function PredictionResultPage() {
         </div>
       </div>
 
-      <PredictionTable
-        results={sortedResults}
-        probabilitySortDirection={probabilitySortDirection}
-        selectedResultKeys={selectedResultKeys}
-        getResultKey={getResultKey}
-        onToggleResultSelection={handleToggleResultSelection}
-        onToggleAllShown={handleToggleAllShown}
-        allShownSelected={allShownSelected}
-        onToggleProbabilitySort={() =>
-          setProbabilitySortDirection((current) =>
-            current === "desc" ? "asc" : "desc"
-          )
-        }
-      />
+      <section className="result-group-section">
+        <div className="result-group-heading">
+          <div>
+            <h2>Normal Code Files</h2>
+            <p>
+              Supported source files that did not match common test-folder or
+              test-file naming patterns.
+            </p>
+          </div>
+          <span>{normalCodeResults.length} files</span>
+        </div>
+        {normalCodeResults.length > 0 ? (
+          <PredictionTable
+            results={normalCodeResults}
+            probabilitySortDirection={probabilitySortDirection}
+            selectedResultKeys={selectedResultKeys}
+            getResultKey={getResultKey}
+            onToggleResultSelection={handleToggleResultSelection}
+            onToggleAllShown={() =>
+              handleToggleResultGroup(normalCodeResults, allNormalCodeSelected)
+            }
+            allShownSelected={allNormalCodeSelected}
+            onToggleProbabilitySort={() =>
+              setProbabilitySortDirection((current) =>
+                current === "desc" ? "asc" : "desc"
+              )
+            }
+          />
+        ) : (
+          <div className="empty-result-group">
+            No normal code files match the current filters.
+          </div>
+        )}
+      </section>
+
+      {potentialTestResults.length > 0 && (
+        <section className="result-group-section potential-test-section">
+          <div className="result-group-heading">
+            <div>
+              <h2>Potential Test Files</h2>
+              <p>
+                These files are still scanned and predicted. They are separated
+                because their path or filename matched conservative test hints
+                such as test folders, spec names, or common test filename
+                patterns.
+              </p>
+            </div>
+            <span>{potentialTestResults.length} files</span>
+          </div>
+          <PredictionTable
+            results={potentialTestResults}
+            probabilitySortDirection={probabilitySortDirection}
+            selectedResultKeys={selectedResultKeys}
+            getResultKey={getResultKey}
+            onToggleResultSelection={handleToggleResultSelection}
+            onToggleAllShown={() =>
+              handleToggleResultGroup(
+                potentialTestResults,
+                allPotentialTestSelected
+              )
+            }
+            allShownSelected={allPotentialTestSelected}
+            onToggleProbabilitySort={() =>
+              setProbabilitySortDirection((current) =>
+                current === "desc" ? "asc" : "desc"
+              )
+            }
+          />
+        </section>
+      )}
 
       <MetricGuide
         isOpen={isMetricGuideOpen}

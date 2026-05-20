@@ -52,21 +52,37 @@ function GitRefSidePanel({
           {errorMessage && <div className="error-box">{errorMessage}</div>}
 
           {!loading && refs.length > 0 && (
-            <div className="commit-list">
-              {refs.map((ref) => (
-                <button
-                  key={`${ref.type}-${ref.name}`}
-                  className="commit-item"
-                  onClick={() => onSelectRef(ref)}
-                >
-                  <div className="commit-top-row">
-                    <span className="commit-sha">{ref.type}</span>
-                  </div>
+            <>
+              {refs.some((ref) => ref.is_default) && (
+                <div className="default-branch-caption">
+                  <strong>Default branch shown first</strong>
+                  <span>
+                    The default branch is the repository's main working branch
+                    on GitHub. Choose it if you are unsure which branch to
+                    analyze.
+                  </span>
+                </div>
+              )}
 
-                  <div className="commit-message">{ref.name}</div>
-                </button>
-              ))}
-            </div>
+              <div className="commit-list">
+                {refs.map((ref) => (
+                  <button
+                    key={`${ref.type}-${ref.name}`}
+                    className="commit-item"
+                    onClick={() => onSelectRef(ref)}
+                  >
+                    <div className="commit-top-row">
+                      <span className="commit-sha">{ref.type}</span>
+                      {ref.is_default && (
+                        <span className="default-branch-badge">Default</span>
+                      )}
+                    </div>
+
+                    <div className="commit-message">{ref.name}</div>
+                  </button>
+                ))}
+              </div>
+            </>
           )}
 
           {!loading && refs.length === 0 && !errorMessage && (

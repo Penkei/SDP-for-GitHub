@@ -70,9 +70,12 @@ class PredictionHistoryService:
                     last_change_churn,
                     author_file_change_count,
                     top_contributing_metrics,
-                    readable_explanation
+                    readable_explanation,
+                    confidence_warning,
+                    is_potential_test_file,
+                    test_file_reason
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 [
                     (
@@ -92,6 +95,9 @@ class PredictionHistoryService:
                         result.get("author_file_change_count", 0),
                         result.get("top_contributing_metrics", ""),
                         result.get("readable_explanation", ""),
+                        result.get("confidence_warning", ""),
+                        1 if result.get("is_potential_test_file", False) else 0,
+                        result.get("test_file_reason", ""),
                     )
                     for result in results
                 ],
@@ -158,7 +164,10 @@ class PredictionHistoryService:
                     last_change_churn,
                     author_file_change_count,
                     top_contributing_metrics,
-                    readable_explanation
+                    readable_explanation,
+                    confidence_warning,
+                    is_potential_test_file,
+                    test_file_reason
                 FROM prediction_results
                 WHERE run_id = ?
                 ORDER BY defect_risk_probability DESC
@@ -232,6 +241,9 @@ class PredictionHistoryService:
                     author_file_change_count INTEGER DEFAULT 0,
                     top_contributing_metrics TEXT,
                     readable_explanation TEXT,
+                    confidence_warning TEXT,
+                    is_potential_test_file INTEGER DEFAULT 0,
+                    test_file_reason TEXT,
                     FOREIGN KEY (run_id)
                         REFERENCES prediction_runs (id)
                         ON DELETE CASCADE
@@ -253,12 +265,27 @@ class PredictionHistoryService:
                 "days_since_last_change",
                 "last_change_churn",
                 "author_file_change_count",
+                "confidence_warning",
+                "is_potential_test_file",
+                "test_file_reason",
             ]:
+                column_type = "INTEGER DEFAULT 0" if column_name == "is_potential_test_file" else "TEXT"
+
+                if column_name in {
+                    "file_change_count",
+                    "file_bug_fix_count",
+                    "recent_file_change_count",
+                    "days_since_last_change",
+                    "last_change_churn",
+                    "author_file_change_count",
+                }:
+                    column_type = "INTEGER DEFAULT 0"
+
                 self._ensure_column(
                     connection,
                     "prediction_results",
                     column_name,
-                    "INTEGER DEFAULT 0"
+                    column_type
                 )
 
             connection.execute(

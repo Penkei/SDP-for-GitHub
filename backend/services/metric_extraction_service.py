@@ -4,7 +4,7 @@ import pandas as pd
 
 
 class MetricExtractionService:
-    MAX_FULL_REPOSITORY_FILES = 300
+    MAX_FULL_REPOSITORY_FILES = None
 
     LANGUAGE_BY_EXTENSION = {
         ".java": "Java",
@@ -19,8 +19,6 @@ class MetricExtractionService:
 
     EXCLUDE_PATH_KEYWORDS = [
         "/.git/",
-        "/test/",
-        "/tests/",
         "/target/",
         "/build/",
         "/generated/",
@@ -47,7 +45,10 @@ class MetricExtractionService:
             ]
 
             for file in files:
-                if len(metrics) >= self.MAX_FULL_REPOSITORY_FILES:
+                if (
+                    self.MAX_FULL_REPOSITORY_FILES is not None
+                    and len(metrics) >= self.MAX_FULL_REPOSITORY_FILES
+                ):
                     return pd.DataFrame(metrics)
 
                 extension = os.path.splitext(file)[1].lower()
