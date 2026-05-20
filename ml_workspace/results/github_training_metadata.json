@@ -1,7 +1,7 @@
 {
   "best_model_name": "XGBoost",
-  "best_f1": 0.8375558867362146,
-  "prediction_threshold": 0.36,
+  "best_f1": 0.8205882352941176,
+  "prediction_threshold": 0.34,
   "selected_features": [
     "nosi",
     "dit",
@@ -25,6 +25,65 @@
   ],
   "random_state": 42,
   "optimization": "RandomizedSearchCV with 5-fold StratifiedKFold and validation threshold tuning",
+  "feature_transformations": {
+    "process_metric_compression": {
+      "method": "clip raw value to configured cap, apply log1p, then standard-scale process metrics using training-set mean/std",
+      "reason": "Reduce dominance of large process-history counts such as files changed together and place process metrics on a more comparable scale",
+      "caps": {
+        "file_change_count": 50,
+        "file_bug_fix_count": 20,
+        "recent_file_change_count": 20,
+        "days_since_last_change": 3650,
+        "last_change_lines_added": 1000,
+        "last_change_lines_deleted": 1000,
+        "last_change_churn": 1500,
+        "last_change_file_count": 30,
+        "author_file_change_count": 30
+      }
+    },
+    "process_metric_scaling": {
+      "method": "standard scaling after compression",
+      "stats_source": "training split only",
+      "stats": {
+        "file_change_count": {
+          "mean": 2.9748078439319587,
+          "std": 1.184089738374939
+        },
+        "file_bug_fix_count": {
+          "mean": 1.9566743268376143,
+          "std": 1.1194506930719277
+        },
+        "recent_file_change_count": {
+          "mean": 0.9696403455139021,
+          "std": 0.9739963414142386
+        },
+        "days_since_last_change": {
+          "mean": 3.7072712521177644,
+          "std": 2.2684227017761054
+        },
+        "last_change_lines_added": {
+          "mean": 1.7435946889538307,
+          "std": 1.3110637819640591
+        },
+        "last_change_lines_deleted": {
+          "mean": 1.0933273863587485,
+          "std": 1.0458951239462864
+        },
+        "last_change_churn": {
+          "mean": 2.1383057929683607,
+          "std": 1.2876871497714726
+        },
+        "last_change_file_count": {
+          "mean": 2.219499560854476,
+          "std": 1.076006009170415
+        },
+        "author_file_change_count": {
+          "mean": 0.8428269718711768,
+          "std": 1.0723961259952601
+        }
+      }
+    }
+  },
   "feature_groups": {
     "static_code_metrics": [
       "nosi",
