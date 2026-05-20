@@ -48,7 +48,8 @@ class ReportService:
             "last_change_churn",
             "author_file_change_count",
             "top_contributing_metrics",
-            "readable_explanation"
+            "readable_explanation",
+            "confidence_warning"
         ]
 
         for column in output_columns:

@@ -90,6 +90,7 @@ class PredictionResultForExport(BaseModel):
     author_file_change_count: Optional[int] = 0
     top_contributing_metrics: str
     readable_explanation: Optional[str] = ""
+    confidence_warning: Optional[str] = ""
 
 
 class ExportReportRequest(GitHubRepoRequest):

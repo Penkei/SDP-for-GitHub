@@ -141,8 +141,16 @@ function PredictionTable({
                 </td>
 
                 <td className="col-readable-explanation readable-explanation-cell">
-                  {item.readable_explanation ||
-                    "The model detected code patterns that may affect defect risk."}
+                  <p>
+                    {item.readable_explanation ||
+                      "The model detected code patterns that may affect defect risk."}
+                  </p>
+                  {item.confidence_warning && (
+                    <div className="confidence-warning">
+                      <strong>Confidence note</strong>
+                      <span>{item.confidence_warning}</span>
+                    </div>
+                  )}
                 </td>
               </tr>
               );

@@ -21,6 +21,7 @@ export interface PredictionResult {
   author_file_change_count?: number;
   top_contributing_metrics: string;
   readable_explanation?: string;
+  confidence_warning?: string;
 }
 
 export interface PredictionResponse {

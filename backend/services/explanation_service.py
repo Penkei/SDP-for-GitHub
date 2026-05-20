@@ -4,6 +4,19 @@ from services.feature_transform_service import transform_model_features
 
 
 class ExplanationService:
+    DOMINANT_CONTRIBUTION_RATIO = 0.6
+    PROCESS_FEATURES = {
+        "file_change_count",
+        "file_bug_fix_count",
+        "recent_file_change_count",
+        "days_since_last_change",
+        "last_change_lines_added",
+        "last_change_lines_deleted",
+        "last_change_churn",
+        "last_change_file_count",
+        "author_file_change_count",
+    }
+
     def __init__(self, model, feature_names, feature_transform_stats=None):
         self.model = model
         self.feature_names = feature_names
@@ -66,6 +79,7 @@ class ExplanationService:
             )
 
         explanation_summaries = []
+        confidence_warnings = []
 
         for i in range(len(X)):
             feature_contributions = pd.DataFrame({
@@ -80,6 +94,14 @@ class ExplanationService:
                 by="absolute_impact",
                 ascending=False
             ).head(5)
+            top_impact_sum = top_features["absolute_impact"].sum()
+            strongest_feature = top_features.iloc[0]
+            strongest_feature_name = strongest_feature["feature"]
+            strongest_ratio = (
+                strongest_feature["absolute_impact"] / top_impact_sum
+                if top_impact_sum > 0
+                else 0
+            )
 
             summary_points = []
 
@@ -102,7 +124,38 @@ class ExplanationService:
             summary = ". ".join(summary_points) + "."
 
             explanation_summaries.append(summary)
+            confidence_warnings.append(
+                self._build_confidence_warning(
+                    strongest_feature_name,
+                    strongest_ratio
+                )
+            )
 
         prediction_df["top_contributing_metrics"] = explanation_summaries
+        prediction_df["confidence_warning"] = confidence_warnings
 
         return prediction_df
+
+    def _build_confidence_warning(
+        self,
+        strongest_feature: str,
+        strongest_ratio: float
+    ) -> str:
+        if strongest_ratio < self.DOMINANT_CONTRIBUTION_RATIO:
+            return ""
+
+        feature_meaning = self._get_feature_meaning(strongest_feature)
+        contribution_percent = round(strongest_ratio * 100)
+
+        if strongest_feature in self.PROCESS_FEATURES:
+            return (
+                f"Confidence note: {contribution_percent}% of the top explanation impact "
+                f"comes from one commit-history signal ({feature_meaning}). "
+                "Use this as a review hint and also inspect the source code metrics before deciding."
+            )
+
+        return (
+            f"Confidence note: {contribution_percent}% of the top explanation impact "
+            f"comes from one metric ({feature_meaning}). "
+            "The prediction may be sensitive to this single signal, so review the file context as well."
+        )

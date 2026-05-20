@@ -245,7 +245,14 @@ const buildPdfReportHtml = (
         </tr>
         <tr class="explanation-row">
           <td></td>
-          <td colspan="6">${escapeHtml(result.readable_explanation || result.top_contributing_metrics || "No explanation available.")}</td>
+          <td colspan="6">
+            ${escapeHtml(result.readable_explanation || result.top_contributing_metrics || "No explanation available.")}
+            ${
+              result.confidence_warning
+                ? `<div class="pdf-confidence-warning"><strong>Confidence note</strong>${escapeHtml(result.confidence_warning)}</div>`
+                : ""
+            }
+          </td>
         </tr>
       `
     )
@@ -360,6 +367,8 @@ const buildPdfReportHtml = (
         .risk-badge.medium { background: #fef3c7; color: #92400e; }
         .risk-badge.low { background: #dcfce7; color: #166534; }
         .explanation-row td { background: #f8fafc; color: #475569; line-height: 1.45; }
+        .pdf-confidence-warning { background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #d97706; border-radius: 8px; color: #78350f; margin-top: 8px; padding: 8px; }
+        .pdf-confidence-warning strong { display: block; font-size: 11px; margin-bottom: 3px; text-transform: uppercase; }
         @media print {
           body { background: #ffffff; padding: 0; }
           .hero, .panel, .stat-card { box-shadow: none; }
