@@ -16,65 +16,92 @@ class ReadableExplanationService:
         return self._low_risk_explanation(probability_percent, reason_text)
 
     def _extract_reasons(self, explanation_lower: str) -> list:
-        reasons = []
+        signals = []
 
         if "method interaction complexity" in explanation_lower:
-            reasons.append("many method interactions")
+            signals.append("method interaction complexity")
 
         if "number of conditional checks" in explanation_lower:
-            reasons.append("many if/else or comparison checks")
+            signals.append("conditional checks")
 
         if "static method usage" in explanation_lower:
-            reasons.append("frequent static method usage")
+            signals.append("static method usage")
 
         if "class cohesion complexity" in explanation_lower:
-            reasons.append("weaker class cohesion")
+            signals.append("class cohesion complexity")
 
         if "number of methods" in explanation_lower:
-            reasons.append("many methods in one file")
+            signals.append("number of methods")
 
         if "file size" in explanation_lower:
-            reasons.append("large file size")
+            signals.append("file size")
 
         if "dependency between classes" in explanation_lower:
-            reasons.append("many dependencies between classes")
+            signals.append("class dependency level")
 
         if "overall method complexity" in explanation_lower:
-            reasons.append("complex method logic")
+            signals.append("method complexity")
 
         if "number of return paths" in explanation_lower:
-            reasons.append("many return paths")
+            signals.append("return paths")
 
         if "inheritance depth" in explanation_lower:
-            reasons.append("deeper inheritance structure")
+            signals.append("inheritance depth")
 
-        if not reasons:
-            reasons.append("several code metric patterns")
+        if "historical file change frequency" in explanation_lower:
+            signals.append("file change history")
 
-        return reasons
+        if "previous bug-fix activity" in explanation_lower:
+            signals.append("previous bug-fix history")
+
+        if "recent file change activity" in explanation_lower:
+            signals.append("recent file changes")
+
+        if "time since the file was last changed" in explanation_lower:
+            signals.append("time since last change")
+
+        if "lines added in the previous file change" in explanation_lower:
+            signals.append("lines added in the previous change")
+
+        if "lines deleted in the previous file change" in explanation_lower:
+            signals.append("lines deleted in the previous change")
+
+        if "code churn in the previous file change" in explanation_lower:
+            signals.append("previous change churn")
+
+        if "files changed together in the previous commit" in explanation_lower:
+            signals.append("files changed together")
+
+        if "selected commit author's prior changes" in explanation_lower:
+            signals.append("author's previous changes to this file")
+
+        if not signals:
+            signals.append("several metric patterns")
+
+        return signals
 
     def _high_risk_explanation(self, probability_percent: float, reason_text: str) -> str:
         return (
-            f"This file has a high defect risk ({probability_percent}%). "
-            f"The main reasons are {reason_text}. "
-            "These patterns suggest the file may be complex, harder to test, "
-            "and more likely to introduce defects if changed. It should be reviewed first."
+            f"The model gives this file a high defect risk score ({probability_percent}%). "
+            f"The strongest signals are {reason_text}. "
+            "This does not prove the file contains a bug, but it means the file looks similar "
+            "to higher-risk examples seen during training. Review it before lower-risk files."
         )
 
     def _medium_risk_explanation(self, probability_percent: float, reason_text: str) -> str:
         return (
-            f"This file has a medium defect risk ({probability_percent}%). "
-            f"The model noticed {reason_text}. "
-            "The file is not marked as highly risky, but the highlighted areas should be checked "
-            "if this file is part of an active change."
+            f"The model gives this file a medium defect risk score ({probability_percent}%). "
+            f"The main signals are {reason_text}. "
+            "The result is not an urgent warning, but these areas are worth checking if the file "
+            "is part of the current change."
         )
 
     def _low_risk_explanation(self, probability_percent: float, reason_text: str) -> str:
         return (
-            f"This file has a low defect risk ({probability_percent}%). "
-            f"Some patterns were still detected, such as {reason_text}, "
-            "but they are not strong enough for the model to classify the file as high risk. "
-            "No urgent review is needed unless this file is being modified."
+            f"The model gives this file a low defect risk score ({probability_percent}%). "
+            f"It still considered signals such as {reason_text}, "
+            "but they did not strongly push the prediction toward higher risk. "
+            "Review is optional unless this file is important to the current change."
         )
 
     def _format_reason_text(self, reasons: list) -> str:

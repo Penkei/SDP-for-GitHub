@@ -92,11 +92,11 @@ class ExplanationService:
 
                 if direction > 0:
                     summary_points.append(
-                        f"{meaning} is relatively high ({feature}={value}), which may increase defect risk"
+                        f"{meaning} ({feature}={value}) pushed the model score higher for this file"
                     )
                 else:
                     summary_points.append(
-                        f"{meaning} appears less risky ({feature}={value}), which may reduce defect risk"
+                        f"{meaning} ({feature}={value}) pushed the model score lower for this file"
                     )
 
             summary = ". ".join(summary_points) + "."
