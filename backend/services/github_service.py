@@ -100,6 +100,20 @@ class GitHubService:
                 "still need long paths enabled system-wide."
             )
 
+        lower_message = message.lower()
+
+        if any(token in lower_message for token in ["authentication failed", "could not read username", "repository not found"]):
+            if github_token:
+                return Exception(
+                    "GitHub authentication failed. Your Personal Access Token may be invalid, "
+                    "expired, or missing access to this repository. Check the token and try again."
+                )
+
+            return Exception(
+                "GitHub authentication failed or the repository is not accessible. "
+                "Use a valid Personal Access Token or check the repository URL."
+            )
+
         return Exception(message)
 
     def _github_api_get(self, repo_url: str, api_path: str, github_token: str = None):
@@ -120,6 +134,23 @@ class GitHubService:
                 return json.loads(response.read().decode("utf-8"))
         except HTTPError as error:
             detail = error.read().decode("utf-8", errors="ignore")
+
+            if error.code in {401, 403}:
+                token_hint = (
+                    "Your GitHub Personal Access Token may be invalid, expired, "
+                    "or missing access to this repository. Check the token and "
+                    "make sure it has read access to repository contents and metadata."
+                    if github_token
+                    else "GitHub denied the request. Add a valid Personal Access Token or try again later."
+                )
+                raise Exception(token_hint)
+
+            if error.code == 404:
+                raise Exception(
+                    "GitHub could not find this repository, branch, tag, or commit. "
+                    "Check the repository URL and selected reference."
+                )
+
             raise Exception(
                 f"GitHub API request failed with status {error.code}. {detail}"
             )

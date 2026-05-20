@@ -27,6 +27,13 @@ export const getApiErrorMessage = (
     const detail = error.response?.data?.detail;
 
     if (typeof detail === "string" && detail.trim()) {
+      if (
+        detail.toLowerCase().includes("personal access token") ||
+        detail.toLowerCase().includes("github authentication failed")
+      ) {
+        return detail;
+      }
+
       return detail;
     }
 

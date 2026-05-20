@@ -427,14 +427,14 @@ function RepositoryInputPage() {
 
             <p>
               {usePersonalAccessToken
-                ? "Use this when you do not want the backend to keep a reusable mirror cache for the repository."
-                : "Use this when you want the backend to keep a reusable local mirror cache for faster repeated repository operations."}
+                ? "Use this when you do not want a reusable mirror cache stored in your local machine."
+                : "Use this when you want a reusable repository mirror stored in your local machine for faster repeated repository operations."}
             </p>
 
             <div className="clone-storage-list">
               {!usePersonalAccessToken && (
                 <div>
-                  <span>Reusable cache</span>
+                  <span>Stored in your local machine</span>
                   <code>%TEMP%\sdp_github_temp_repos\repo_cache</code>
                 </div>
               )}
@@ -544,10 +544,10 @@ function RepositoryInputPage() {
               autoComplete="off"
             />
             <p className="input-hint">
-              Use this when you do not want the app to create the reusable
-              repository cache. It is also used for faster GitHub API commit
-              loading. The token is not saved in prediction history or shown in
-              backend responses.
+              Use this when you do not want the app to create a reusable cache
+              in your local machine. It is also used for faster GitHub API
+              commit loading. The token is not saved in prediction history or
+              shown in backend responses.
             </p>
           </>
         )}

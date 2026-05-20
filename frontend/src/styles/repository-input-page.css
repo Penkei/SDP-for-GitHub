@@ -286,10 +286,56 @@ input[readonly] {
 }
 
 .progress-bar-fill.determinate {
+  background: linear-gradient(
+    90deg,
+    #2563eb 0%,
+    #06b6d4 32%,
+    #16a34a 64%,
+    #f59e0b 100%
+  );
+  background-size: 220% 100%;
   min-width: 6px;
   transform: none;
-  animation: none;
+  animation: progressBreathing 1.8s ease-in-out infinite,
+    progressGradientFlow 2.6s linear infinite;
   transition: width 0.25s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill.determinate::after {
+  animation: progressShimmer 1.25s linear infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 45%,
+    transparent 100%
+  );
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateX(-100%);
+}
+
+@keyframes progressShimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes progressBreathing {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.12);
+  }
 }
 
 .progress-steps {
