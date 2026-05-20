@@ -35,7 +35,8 @@ explanation before the user starts.
 
 The repository input page lets the user enter a GitHub repository URL, choose a
 branch or tag, select a commit, and configure prediction sensitivity. It also
-explains the normal cached clone mode and the request-only PAT clone mode.
+explains the default Personal Access Token request mode and the optional local
+cache mode.
 
 <p align="center">
   <img src="readme-assets/InputPage.png" alt="Repository input page" width="900" />
@@ -74,11 +75,11 @@ results without immediately rerunning the same analysis.
 
 | Step | Description |
 | --- | --- |
-| 1. Repository input | Accepts a GitHub repository URL and loads branches, tags, and commits. |
+| 1. Repository input | Accepts a GitHub repository URL and loads branches, tags, and commits. Branches and tags use Git remote lookup, while commit pages are loaded through the GitHub API for faster pagination. |
 | 2. Commit selection | Lets the user choose the exact commit to analyze. |
-| 3. Metric extraction | Extracts static code metrics and commit-history process metrics from supported files. |
+| 3. Metric extraction | Scans all supported Java, Python, and C++ files in the selected commit, including potential test files. |
 | 4. ML prediction | Predicts file-level defect risk using the trained model. |
-| 5. Explanation | Shows important metric values and plain-language reasoning for each file. |
+| 5. Explanation | Shows SHAP-based metric signals, positive/negative contribution direction, confidence notes, and plain-language reasoning for each file. |
 | 6. Dashboard review | Summarizes risk distribution, highest-risk files, folders, and language-level trends. |
 | 7. History and export | Saves completed runs to SQLite and exports selected results as CSV or PDF. |
 
@@ -89,18 +90,26 @@ the full workflow from repository input to model-backed decision support.
 
 - GitHub repository, branch, tag, and commit selection.
 - File-level defect prediction for Java, Python, and C++.
+- GitHub API commit pagination so large repositories do not need to be cloned
+  just to list commits.
 - Prediction progress status while the backend is analyzing a commit.
 - Configurable prediction sensitivity for adjusting the defect cutoff.
-- Optional PAT request mode for users who do not want a reusable repository
-  mirror cache.
+- Default Personal Access Token request mode for GitHub API requests and
+  temporary public repository cloning without keeping a reusable mirror cache in
+  the user's local machine.
+- Optional local cache mode that stores a reusable mirror cache in the user's
+  local machine for faster repeated repository operations.
 - Risk dashboard with summary cards, charts, high-risk files, and language
   breakdowns.
+- Normal code files and potential test files are separated in the prediction
+  result page. Potential test files are still predicted, but displayed in their
+  own section for clearer review.
 - Search and filtering by file path, language, risk level, prediction label, and
   probability range.
 - CSV and PDF report export for selected prediction rows.
 - Prediction history stored in SQLite.
 - "How It Works" page for non-ML developers and project evaluators.
-- Backend repository caching to reduce repeated GitHub operations.
+- Confidence warnings when one SHAP signal dominates a prediction explanation.
 - Training scripts for building, appending, analyzing, and retraining the model.
 
 ## Tech Stack
@@ -238,6 +247,19 @@ https://github.com/owner/repository.git
 The application also accepts common GitHub HTTPS repository URLs without `.git`
 and normalizes them internally.
 
+## Repository Access Modes
+
+The repository input page supports two access modes.
+
+| Mode | Description | Local storage behavior |
+| --- | --- | --- |
+| Personal Token request mode | Default mode. The user provides a GitHub Personal Access Token for GitHub API commit loading and temporary public repository cloning. This version does not provide private repository prediction. | The repository is cloned into a temporary worktree for prediction, then cleaned after use. The token is not saved in prediction history or returned in API responses. |
+| Local cache mode | Optional mode for repeated runs on the same repository. | A reusable mirror cache is stored in the user's local machine under `%TEMP%\sdp_github_temp_repos\repo_cache`. Temporary prediction worktrees are stored under `%TEMP%\sdp_github_temp_repos\worktrees` and cleaned after prediction. |
+
+Branches and tags are loaded with Git remote lookup. Commit lists are loaded
+through the GitHub API with pagination, so large repositories do not need to be
+cloned just to display commit pages.
+
 ## Supported Languages
 
 The live prediction extractor scans these source files:
@@ -266,6 +288,28 @@ The model uses a shared static metric feature set:
 Python and C++ metrics are approximated into the same feature structure so that
 the trained model can score multiple languages consistently.
 
+## Prediction Result Interpretation
+
+The result page separates files into two review groups:
+
+| Section | Meaning |
+| --- | --- |
+| Normal Code Files | Supported source files that do not match common test-folder or test-file naming patterns. |
+| Potential Test Files | Files that are still scanned and predicted, but matched conservative hints such as `test`, `tests`, `.spec`, `.test`, or common test filename patterns. |
+
+Potential test files are not removed because automatic test detection can be
+wrong. They are separated so reviewers can interpret their risk scores with more
+context.
+
+The metric explanation uses SHAP-style contribution signals:
+
+- **Increases score** means the metric pushed the model toward a higher defect
+  risk score for that file.
+- **Lowers score** means the metric pushed the model toward a lower defect risk
+  score for that file.
+- **Confidence note** appears when one metric dominates the explanation, which
+  means the prediction may depend heavily on a single signal.
+
 ## Machine Learning Setup
 
 The app expects trained model artifacts inside:
@@ -280,6 +324,7 @@ Important files:
 github_defect_prediction_model.pkl
 github_model_features.pkl
 github_prediction_threshold.pkl
+github_feature_transform_stats.pkl
 ```
 
 If these files already exist, you can run the application without retraining.
@@ -372,6 +417,11 @@ The training script compares Logistic Regression, Random Forest, and XGBoost. It
 uses hyperparameter search and threshold tuning, then saves the best model and
 evaluation outputs.
 
+Process-history features are capped, transformed with `log1p`, and scaled using
+training-set statistics before model training. This reduces the chance that one
+large process metric, such as files changed together in a previous commit,
+dominates the prediction.
+
 ### Analyze Feature Importance
 
 ```powershell
@@ -393,6 +443,10 @@ ml_workspace/results/github_feature_importance.csv
 ml_workspace/results/github_top_10_features.csv
 ml_workspace/results/github_training_metadata.json
 ```
+
+After training, review `github_feature_importance.csv` and
+`github_top_10_features.csv`. If one feature dominates the model importance, the
+model may be relying too strongly on a single signal and should be reviewed.
 
 After retraining, restart the backend so it loads the latest model files.
 
