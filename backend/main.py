@@ -15,8 +15,10 @@ from models.request_models import (
     CommitListRequest,
     GitRefListRequest,
     ExportReportRequest,
+    FeedbackRequest,
 )
 from services.defect_prediction_pipeline import DefectPredictionPipeline
+from services.feedback_service import FeedbackService
 from services.prediction_job_service import PredictionJobService
 from services.prediction_history_service import PredictionHistoryService
 
@@ -36,6 +38,7 @@ app.add_middleware(
 )
 
 prediction_history = PredictionHistoryService()
+feedback_service = FeedbackService(prediction_history.db_path)
 pipeline = DefectPredictionPipeline()
 prediction_jobs = PredictionJobService(pipeline, prediction_history)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -163,6 +166,29 @@ def delete_prediction_history_item(history_id: str):
         "history_id": history_id
     }
 
+
+@app.get("/feedback")
+def list_feedback():
+    return {
+        "feedback": feedback_service.list_feedback()
+    }
+
+
+@app.post("/feedback")
+def create_feedback(request: FeedbackRequest):
+    try:
+        feedback = feedback_service.create_feedback(
+            name=request.name,
+            role=request.role,
+            rating=request.rating,
+            message=request.message
+        )
+
+        return {
+            "feedback": feedback
+        }
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
 
 @app.post("/export-report")
 def export_report(request: ExportReportRequest):

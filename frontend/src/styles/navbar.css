@@ -112,3 +112,13 @@
     justify-content: flex-start;
   }
 }
+
+.feedback-link::before {
+  background: #f472b6;
+}
+
+.feedback-link:hover {
+  background: rgba(244, 114, 182, 0.16);
+  border-color: rgba(244, 114, 182, 0.35);
+  color: #fbcfe8;
+}

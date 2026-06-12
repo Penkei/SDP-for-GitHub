@@ -5,6 +5,7 @@ import RepositoryInputPage from "./pages/RepositoryInputPage";
 import PredictionResultPage from "./pages/PredictionResultPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import PredictionHistoryPage from "./pages/PredictionHistoryPage";
+import FeedbackPage from "./pages/FeedbackPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/prediction-result" element={<PredictionResultPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/prediction-history" element={<PredictionHistoryPage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
       </Routes>
     </BrowserRouter>
   );

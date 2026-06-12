@@ -9,6 +9,9 @@ import type {
   ModelTransparencyResponse,
   PredictionHistoryListResponse,
   PredictionHistoryDetail,
+  FeedbackRequest,
+  FeedbackListResponse,
+  FeedbackCreateResponse,
 } from "../types/prediction";
 
 
@@ -112,6 +115,25 @@ export const fetchModelTransparency =
     return response.data;
   };
 
+
+export const fetchFeedback = async (): Promise<FeedbackListResponse> => {
+  const response = await axios.get<FeedbackListResponse>(
+    `${API_BASE_URL}/feedback`
+  );
+
+  return response.data;
+};
+
+export const submitFeedback = async (
+  request: FeedbackRequest
+): Promise<FeedbackCreateResponse> => {
+  const response = await axios.post<FeedbackCreateResponse>(
+    `${API_BASE_URL}/feedback`,
+    request
+  );
+
+  return response.data;
+};
 export const fetchPredictionHistory =
   async (): Promise<PredictionHistoryListResponse> => {
     const response = await axios.get<PredictionHistoryListResponse>(

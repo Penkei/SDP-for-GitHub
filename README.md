@@ -108,6 +108,7 @@ the full workflow from repository input to model-backed decision support.
   probability range.
 - CSV and PDF report export for selected prediction rows.
 - Prediction history stored in SQLite.
+- Public feedback page stored in SQLite so users can submit and view feedback.
 - "How It Works" page for non-ML developers and project evaluators.
 - Confidence warnings when one SHAP signal dominates a prediction explanation.
 - Training scripts for building, appending, analyzing, and retraining the model.

@@ -75,6 +75,32 @@ class GitRefListRequest(GitHubRepoRequest):
     pass
 
 
+
+class FeedbackRequest(BaseModel):
+    name: Optional[str] = ""
+    role: Optional[str] = ""
+    rating: int
+    message: str
+
+    @validator("rating")
+    def validate_rating(cls, value: int) -> int:
+        if value < 1 or value > 5:
+            raise ValueError("Rating must be between 1 and 5.")
+
+        return value
+
+    @validator("message")
+    def validate_message(cls, value: str) -> str:
+        cleaned_value = value.strip()
+
+        if not cleaned_value:
+            raise ValueError("Feedback message is required.")
+
+        if len(cleaned_value) > 1200:
+            raise ValueError("Feedback message must be 1200 characters or fewer.")
+
+        return cleaned_value
+
 class PredictionResultForExport(BaseModel):
     file_path: str
     language: Optional[str] = ""

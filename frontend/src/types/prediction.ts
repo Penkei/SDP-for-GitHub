@@ -157,3 +157,27 @@ export interface TagListResponse {
   total_tags: number;
   tags: GitRefItem[];
 }
+
+export interface FeedbackEntry {
+  id: string;
+  name: string;
+  role: string;
+  rating: number;
+  message: string;
+  submitted_at: string;
+}
+
+export interface FeedbackRequest {
+  name?: string;
+  role?: string;
+  rating: number;
+  message: string;
+}
+
+export interface FeedbackListResponse {
+  feedback: FeedbackEntry[];
+}
+
+export interface FeedbackCreateResponse {
+  feedback: FeedbackEntry;
+}
