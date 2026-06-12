@@ -59,12 +59,22 @@ class MetricExtractionService:
                     continue
 
                 file_path = os.path.join(root, file)
-                relative_path = os.path.relpath(file_path, project_path)
+                relative_path = self._to_repo_path(
+                    os.path.relpath(file_path, project_path)
+                )
 
                 if not self.is_supported_source_path(relative_path):
                     continue
 
-                file_metrics = self.extract_from_file(file_path, extension)
+                if not os.path.isfile(file_path):
+                    continue
+
+                try:
+                    file_metrics = self.extract_from_file(file_path, extension)
+                except OSError as error:
+                    print(f"Skipped unreadable file {relative_path}: {error}")
+                    continue
+
                 file_metrics["file_path"] = relative_path
                 file_metrics["language"] = self.LANGUAGE_BY_EXTENSION[extension]
 
@@ -76,21 +86,28 @@ class MetricExtractionService:
         metrics = []
 
         for relative_path in target_files:
+            relative_path = self._to_repo_path(relative_path)
+
             if not self.is_supported_source_path(relative_path):
                 continue
 
-            safe_relative_path = relative_path.replace("/", os.sep)
+            safe_relative_path = relative_path.replace("/", os.sep).lstrip(os.sep)
             file_path = os.path.normpath(os.path.join(project_path, safe_relative_path))
             project_root = os.path.abspath(project_path)
 
             if not os.path.abspath(file_path).startswith(project_root):
                 continue
 
-            if not os.path.exists(file_path):
+            if not os.path.isfile(file_path):
                 continue
 
             extension = os.path.splitext(file_path)[1].lower()
-            file_metrics = self.extract_from_file(file_path, extension)
+
+            try:
+                file_metrics = self.extract_from_file(file_path, extension)
+            except OSError as error:
+                print(f"Skipped unreadable file {relative_path}: {error}")
+                continue
             file_metrics["file_path"] = relative_path
             file_metrics["language"] = self.LANGUAGE_BY_EXTENSION[extension]
             metrics.append(file_metrics)
@@ -112,7 +129,10 @@ class MetricExtractionService:
         return any(keyword in normalized_path for keyword in self.EXCLUDE_PATH_KEYWORDS)
 
     def _normalize_path(self, path: str) -> str:
-        return f"/{str(path).replace(os.sep, '/').lower().strip('/')}"
+        return f"/{self._to_repo_path(path).lower().strip('/')}"
+
+    def _to_repo_path(self, path: str) -> str:
+        return str(path or "").replace("\\", "/").replace(os.sep, "/").strip("/")
 
     def extract_from_file(self, file_path: str, extension: str) -> dict:
         if extension == ".java":
