@@ -148,7 +148,7 @@ function HowItWorksPage() {
         const response = await fetchModelTransparency();
         setModelInfo(response);
       } catch (error) {
-        setErrorMessage("Model evidence could not be loaded from the backend.");
+        setErrorMessage("Model evidence could not be loaded from the backend. This may happen because the application runs on Render's free plan. Please wait approximately 1 minutes and try again.");
       } finally {
         setLoading(false);
       }
@@ -222,7 +222,7 @@ function HowItWorksPage() {
         </div>
       </section>
 
-      {loading && <div className="info-box">Loading model evidence...</div>}
+      {loading && <div className="info-box">Loading model evidence... This may take approximately 1 minute when the Render free-plan server is waking up.</div>}
       {errorMessage && <div className="info-box">{errorMessage}</div>}
 
       {activeSection === "guide" ? (

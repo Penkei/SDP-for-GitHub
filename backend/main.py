@@ -6,7 +6,7 @@ from io import StringIO
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import FileResponse, Response
 
 from config import settings
 
@@ -53,6 +53,15 @@ def root():
     }
 
 
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    favicon_path = os.path.join(BASE_DIR, "static", "favicon.png")
+
+    if os.path.exists(favicon_path):
+        return FileResponse(favicon_path, media_type="image/png")
+
+    return Response(status_code=204)
+
 @app.get("/health")
 def health_check():
     required_model_files = {
@@ -72,6 +81,7 @@ def health_check():
         "history_storage": prediction_history.db_path,
         "feedback_storage": feedback_service.db_path,
         "database_backend": "postgresql" if settings.database_url else "sqlite",
+        "allowed_origins": settings.allowed_origins,
         "local_cache_mode_enabled": settings.allow_local_cache_mode,
         "max_source_files_per_run": settings.max_source_files_per_run,
     }
@@ -469,5 +479,7 @@ def _build_dataset_summary(path: str) -> dict:
         "repositories": repositories,
         "languages": languages
     }
+
+
 
 

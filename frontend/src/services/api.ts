@@ -24,6 +24,9 @@ export const getApiErrorMessage = (
   fallbackMessage: string
 ) => {
   if (axios.isAxiosError(error)) {
+    if (!error.response) {
+      return "Network error. This may happen because the backend runs on Render's free plan and can sleep after about 15 minutes of inactivity. Please wait approximately 1 minute for the server to wake up, then try again.";
+    }
     if (error.response?.status === 404) {
       return "The requested backend resource was not found. If this happened during prediction, the backend may have restarted while the job was running.";
     }
@@ -216,3 +219,4 @@ export const fetchCommits = async (
 
   return response.data;
 };
+

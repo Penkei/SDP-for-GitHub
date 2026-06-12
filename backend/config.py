@@ -10,7 +10,7 @@ class Settings:
 
         self.allowed_origins = self._parse_csv_env(
             "ALLOWED_ORIGINS",
-            ["http://127.0.0.1:5173", "http://localhost:5173"]
+            ["http://127.0.0.1:5173", "http://localhost:5173", "https://sdp-for-git-hub.vercel.app"]
         )
         self.database_url = os.getenv("DATABASE_URL", "").strip()
         self.prediction_history_db_path = os.getenv(
@@ -33,7 +33,7 @@ class Settings:
             return default
 
         items = [
-            item.strip()
+            item.strip().rstrip("/")
             for item in value.split(",")
             if item.strip()
         ]
@@ -58,4 +58,6 @@ class Settings:
 
 
 settings = Settings()
+
+
 

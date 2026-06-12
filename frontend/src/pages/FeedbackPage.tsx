@@ -32,7 +32,7 @@ function FeedbackPage() {
       setFeedbackItems(response.feedback);
     } catch (error) {
       setErrorMessage(
-        getApiErrorMessage(error, "Feedback could not be loaded from the backend.")
+        getApiErrorMessage(error, "Feedback could not be loaded from the backend. This may happen because the application runs on Render's free plan. Please wait approximately 1 minute and try again.")
       );
     } finally {
       setLoading(false);
@@ -71,7 +71,7 @@ function FeedbackPage() {
       setSuccessMessage("Thank you. Your feedback is now visible on this page.");
     } catch (error) {
       setErrorMessage(
-        getApiErrorMessage(error, "Feedback could not be submitted.")
+        getApiErrorMessage(error, "Feedback could not be submitted. This may happen because the application runs on Render's free plan. Please wait approximately 1 minute and try again.")
       );
     } finally {
       setSubmitting(false);
@@ -166,7 +166,7 @@ function FeedbackPage() {
           </div>
 
           {loading ? (
-            <div className="empty-feedback">Loading feedback...</div>
+            <div className="empty-feedback">Loading feedback... This may take approximately 1 minute when the Render free-plan server is waking up.</div>
           ) : feedbackItems.length === 0 ? (
             <div className="empty-feedback">
               No feedback has been submitted yet.
