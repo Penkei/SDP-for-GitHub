@@ -6,7 +6,7 @@
 
 **SDP for GitHub** is a Software Defect Prediction application for GitHub repositories. It analyzes the files changed in a selected commit and estimates which files may need closer review before release.
 
-The application is built as a Final Year Project demonstration with a React frontend, FastAPI backend, SQLite storage, GitHub repository inspection, static metric extraction, machine learning prediction, dashboard visualization, report export, prediction history, and public feedback.
+The application is built as a Final Year Project demonstration with a React frontend, FastAPI backend, PostgreSQL storage for the live demo, SQLite fallback for local development, GitHub repository inspection, static metric extraction, machine learning prediction, dashboard visualization, report export, prediction history, and public feedback.
 
 ## Live Demo
 
@@ -63,7 +63,7 @@ flowchart LR
     B --> D["Code metric extractor"]
     D --> E["Trained prediction model"]
     E --> F["Risk result for each file"]
-    B --> G["SQLite history and feedback storage"]
+    B --> G["Database stores history and feedback"]
     F --> A
     G --> A
 ```
@@ -94,8 +94,8 @@ flowchart TD
 - Separate display for normal code files and potential test files.
 - File path, language, risk level, prediction label, and probability filtering.
 - CSV and PDF export for selected prediction rows.
-- Prediction history stored in SQLite.
-- Public feedback page stored in SQLite.
+- Prediction history stored in PostgreSQL on the live demo and SQLite during local fallback.
+- Public feedback page stored in PostgreSQL on the live demo and SQLite during local fallback.
 - How It Works page for non-ML developers and evaluators.
 - Training scripts and notebooks for model building and evaluation.
 
@@ -107,7 +107,7 @@ flowchart TD
 | Backend | FastAPI, Python |
 | Machine Learning | scikit-learn, XGBoost, pandas, joblib |
 | Repository Access | Git, GitPython, GitHub API |
-| Storage | SQLite |
+| Storage | PostgreSQL for deployment, SQLite fallback for local development |
 | Deployment | Vercel frontend, Render backend |
 
 ## Limitations
@@ -116,7 +116,7 @@ flowchart TD
 - Vercel hosts only the frontend. Prediction requires the Render backend to be running.
 - Large repositories may take longer to clone, scan, and predict.
 - Temporary repository clones are created on the hosted backend server during prediction.
-- SQLite is suitable for an FYP demo, but a production system with heavy multi-user traffic should use a stronger database service.
+- The live demo now uses PostgreSQL for more stable feedback and prediction history. Free database or hosting limits may still apply depending on the provider plan.
 - Private repository prediction is not treated as a full production feature in this version.
 - The model result is a decision-support signal, not a guaranteed defect label.
 
@@ -243,7 +243,19 @@ These files help the hosted backend run on Render. They are included for project
 | --- | --- |
 | `Dockerfile` | Packages the FastAPI backend with Python, Git, backend code, and model files so Render can run the API service. |
 | `.dockerignore` | Keeps unnecessary local files out of the Docker image, such as `.git`, virtual environments, caches, local databases, frontend build output, and `node_modules`. |
-| `render.yaml` | Optional Render blueprint configuration for backend hosting, health checks, environment variables, and persistent disk storage. |
+| `render.yaml` | Optional Render blueprint configuration for backend hosting, health checks, environment variables, and database connection setup. |
+
+## Database Storage
+
+The deployed application should use PostgreSQL so prediction history and public feedback do not disappear when the backend restarts.
+
+Set this environment variable on the backend hosting service:
+
+```text
+DATABASE_URL=<your-postgresql-connection-url>
+```
+
+When `DATABASE_URL` is set, prediction history and feedback are stored in PostgreSQL. When it is not set, the backend falls back to the local SQLite file configured by `PREDICTION_HISTORY_DB_PATH`.
 
 ## Supported Languages
 
@@ -403,5 +415,7 @@ pip install -r requirements.txt
 ## License
 
 This repository is prepared as an academic Final Year Project. Add a formal license file if the project will be published or reused outside the university submission context.
+
+
 
 

@@ -70,6 +70,8 @@ def health_check():
         "status": "ok" if all(model_files.values()) else "degraded",
         "model_files": model_files,
         "history_storage": prediction_history.db_path,
+        "feedback_storage": feedback_service.db_path,
+        "database_backend": "postgresql" if settings.database_url else "sqlite",
         "local_cache_mode_enabled": settings.allow_local_cache_mode,
         "max_source_files_per_run": settings.max_source_files_per_run,
     }
@@ -467,3 +469,5 @@ def _build_dataset_summary(path: str) -> dict:
         "repositories": repositories,
         "languages": languages
     }
+
+

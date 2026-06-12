@@ -1,16 +1,14 @@
-import os
-import sqlite3
 import uuid
 from datetime import datetime, timezone
 
 from config import settings
+from services.database import Database, DatabaseConnection
 
 
 class PredictionHistoryService:
     def __init__(self, db_path=None):
-        self.db_path = db_path or settings.prediction_history_db_path
-        data_dir = os.path.dirname(self.db_path)
-        os.makedirs(data_dir, exist_ok=True)
+        self.database = Database(db_path or settings.prediction_history_db_path)
+        self.db_path = self.database.storage_label
         self._initialize_database()
 
     def save_prediction(self, prediction_response: dict) -> str:
@@ -197,10 +195,7 @@ class PredictionHistoryService:
         return cursor.rowcount > 0
 
     def _connect(self):
-        connection = sqlite3.connect(self.db_path)
-        connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA foreign_keys = ON")
-        return connection
+        return self.database.connect()
 
     def _initialize_database(self):
         with self._connect() as connection:
@@ -297,15 +292,12 @@ class PredictionHistoryService:
 
     def _ensure_column(
         self,
-        connection: sqlite3.Connection,
+        connection: DatabaseConnection,
         table_name: str,
         column_name: str,
         column_definition: str
     ):
-        existing_columns = {
-            row["name"]
-            for row in connection.execute(f"PRAGMA table_info({table_name})")
-        }
+        existing_columns = self.database.get_existing_columns(connection, table_name)
 
         if column_name not in existing_columns:
             connection.execute(

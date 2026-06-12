@@ -1,11 +1,13 @@
-import sqlite3
 import uuid
 from datetime import datetime, timezone
+
+from services.database import Database
 
 
 class FeedbackService:
     def __init__(self, db_path: str):
-        self.db_path = db_path
+        self.database = Database(db_path)
+        self.db_path = self.database.storage_label
         self._initialize_database()
 
     def create_feedback(
@@ -78,9 +80,7 @@ class FeedbackService:
         return [dict(row) for row in rows]
 
     def _connect(self):
-        connection = sqlite3.connect(self.db_path)
-        connection.row_factory = sqlite3.Row
-        return connection
+        return self.database.connect()
 
     def _initialize_database(self):
         with self._connect() as connection:

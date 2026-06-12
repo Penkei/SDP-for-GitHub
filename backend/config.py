@@ -12,6 +12,7 @@ class Settings:
             "ALLOWED_ORIGINS",
             ["http://127.0.0.1:5173", "http://localhost:5173"]
         )
+        self.database_url = os.getenv("DATABASE_URL", "").strip()
         self.prediction_history_db_path = os.getenv(
             "PREDICTION_HISTORY_DB_PATH",
             os.path.join(self.backend_dir, "data", "prediction_history.db")
@@ -57,3 +58,4 @@ class Settings:
 
 
 settings = Settings()
+
