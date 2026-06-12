@@ -428,17 +428,17 @@ function RepositoryInputPage() {
             <div className="clone-mode-heading">
               <strong>
                 {usePersonalAccessToken
-                  ? "Personal Token online cloning"
+                  ? "Hosted Token Cloning"
                   : "Local Cache Repository Input"}
               </strong>
               <span>
-                {usePersonalAccessToken ? "No mirror cache" : "Reusable cache"}
+                {usePersonalAccessToken ? "Temporary server clone" : "Reusable cache"}
               </span>
             </div>
 
             <p>
               {usePersonalAccessToken
-                ? "Use this when you do not want a reusable mirror cache stored in your local machine."
+                ? "The application sends the repository URL to the hosted server. The server creates a temporary clone to read the selected commit and generate the prediction results."
                 : "Use this when you want a reusable repository mirror stored in your local machine for faster repeated repository operations."}
             </p>
 
@@ -450,14 +450,14 @@ function RepositoryInputPage() {
                 </div>
               )}
               <div>
-                <span>Temporary worktree</span>
-                <code>%TEMP%\sdp_github_temp_repos\worktrees</code>
+                <span>Server work area</span>
+                <code>Temporary folder on the hosted server</code>
               </div>
               <div>
                 <span>Cleanup behavior</span>
                 <code>
                   {usePersonalAccessToken
-                    ? "Cleaned after use; PAT is not saved"
+                    ? "Cleaned after use. PAT is not saved"
                     : "Worktree cleaned after prediction"}
                 </code>
               </div>
@@ -551,10 +551,7 @@ function RepositoryInputPage() {
               autoComplete="off"
             />
             <p className="input-hint">
-              Use this when you do not want the app to create a reusable cache
-              in your local machine. It is also used for faster GitHub API
-              commit loading. The token is not saved in prediction history or
-              shown in backend responses.
+              A GitHub Personal Access Token helps the hosted server request repository data from GitHub more reliably. The token is used only during the current request and is not saved in prediction history.
             </p>
           </>
         )}
@@ -874,3 +871,5 @@ function RepositoryInputPage() {
 }
 
 export default RepositoryInputPage;
+
+
