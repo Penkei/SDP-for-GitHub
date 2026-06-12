@@ -136,6 +136,12 @@ Install these before running the project locally.
 During Python installation on Windows, enable **Add python.exe to PATH**. During
 Git installation, the default options are usually fine.
 
+## Deployment Guide
+
+For a real public demo, deploy the frontend to Vercel and the backend to Render. The backend cannot be hosted as a static site because it needs Python, Git, machine learning model files, temporary clone storage, and SQLite history storage.
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the complete production setup guide.
+
 ## Local Setup Guide
 
 The project needs two terminals:
@@ -451,6 +457,24 @@ model may be relying too strongly on a single signal and should be reviewed.
 After retraining, restart the backend so it loads the latest model files.
 
 
+
+## ML Teaching Notebooks
+
+The `ml_workspace/notebooks` folder contains report-friendly notebooks that explain the machine learning workflow step by step:
+
+| Notebook | Purpose |
+| --- | --- |
+| `01_dataset_building.ipynb` | Shows repository collection and dataset overview charts. |
+| `02_process_metric_enrichment.ipynb` | Explains commit-history process metrics and their distributions. |
+| `03_model_training_optimization.ipynb` | Shows model comparison and training outputs. |
+| `04_model_evaluation_feature_importance.ipynb` | Shows confusion matrix and feature importance evidence. |
+
+Install notebook visualization dependencies with:
+
+```powershell
+cd ml_workspace
+pip install -r requirements.txt
+```
 ## Notes For Evaluation
 
 - The model output is a decision-support signal, not a guaranteed defect label.

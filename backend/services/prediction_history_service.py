@@ -3,14 +3,14 @@ import sqlite3
 import uuid
 from datetime import datetime, timezone
 
+from config import settings
+
 
 class PredictionHistoryService:
     def __init__(self, db_path=None):
-        backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        data_dir = os.path.join(backend_dir, "data")
+        self.db_path = db_path or settings.prediction_history_db_path
+        data_dir = os.path.dirname(self.db_path)
         os.makedirs(data_dir, exist_ok=True)
-
-        self.db_path = db_path or os.path.join(data_dir, "prediction_history.db")
         self._initialize_database()
 
     def save_prediction(self, prediction_response: dict) -> str:

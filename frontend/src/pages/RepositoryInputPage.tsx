@@ -17,6 +17,11 @@ import GitRefSidePanel from "../components/GitRefSidePanel";
 
 type ThresholdMode = "balanced" | "aggressive" | "conservative" | "custom";
 
+type ActiveGuide = "repo-url" | "pat" | null;
+
+//This flag keeps public deployments on request based cloning
+const ENABLE_LOCAL_CACHE_MODE = import.meta.env.VITE_ENABLE_LOCAL_CACHE_MODE !== "false";
+
 const thresholdOptions: Array<{
   mode: ThresholdMode;
   label: string;
@@ -101,6 +106,7 @@ function RepositoryInputPage() {
   const [customThreshold, setCustomThreshold] = useState("0.50");
   const [usePersonalAccessToken, setUsePersonalAccessToken] = useState(true);
   const [githubToken, setGithubToken] = useState("");
+  const [activeGuide, setActiveGuide] = useState<ActiveGuide>(null);
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
   const [loadingCommits, setLoadingCommits] = useState(false);
@@ -149,6 +155,11 @@ function RepositoryInputPage() {
 
   const validatePersonalAccessToken = () => {
     if (!usePersonalAccessToken) {
+      if (!ENABLE_LOCAL_CACHE_MODE) {
+        setErrorMessage("Local cache mode is disabled on this deployment. Use Personal Token request mode instead.");
+        return false;
+      }
+
       return true;
     }
 
@@ -453,7 +464,8 @@ function RepositoryInputPage() {
             </div>
           </div>
 
-          <div className="clone-mode-action">
+          {ENABLE_LOCAL_CACHE_MODE && (
+            <div className="clone-mode-action">
             <span>
               {usePersonalAccessToken
                 ? "Prefer faster repeated runs with a reusable local cache?"
@@ -479,21 +491,19 @@ function RepositoryInputPage() {
                 : "Use Personal Token"}
             </button>
           </div>
+          )}
         </div>
 
         <div className="field-label-row">
           <label>GitHub Repository URL</label>
-          <span className="help-tooltip">
-            <button type="button" aria-label="GitHub repository URL guide">
-              ?
-            </button>
-            <span className="help-tooltip-content">
-              Open the repository on GitHub, click the green Code button, choose
-              HTTPS, then copy the URL. The app accepts URLs like
-              https://github.com/owner/repository or
-              https://github.com/owner/repository.git.
-            </span>
-          </span>
+          <button
+            type="button"
+            className="field-help-button"
+            aria-label="Open GitHub repository URL guide"
+            onClick={() => setActiveGuide("repo-url")}
+          >
+            ?
+          </button>
         </div>
         <input
           type="text"
@@ -519,17 +529,14 @@ function RepositoryInputPage() {
           <>
             <div className="field-label-row">
               <label>GitHub Personal Access Token</label>
-              <span className="help-tooltip">
-                <button type="button" aria-label="GitHub PAT guide">
+              <button
+                  type="button"
+                  className="field-help-button"
+                  aria-label="Open GitHub PAT guide"
+                  onClick={() => setActiveGuide("pat")}
+                >
                   ?
                 </button>
-                <span className="help-tooltip-content">
-                  In GitHub, open Settings, Developer settings, Personal access
-                  tokens, then create a fine-grained token for the repository.
-                  Give it read access to repository contents and metadata, then
-                  paste the token here.
-                </span>
-              </span>
             </div>
             <input
               type="password"
@@ -724,6 +731,120 @@ function RepositoryInputPage() {
           </div>
         )}
       </div>
+      {activeGuide && (
+        <div
+          className="guide-modal-backdrop"
+          role="presentation"
+          onClick={() => setActiveGuide(null)}
+        >
+          <section
+            className="guide-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="guide-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="guide-modal-close"
+              aria-label="Close guide"
+              onClick={() => setActiveGuide(null)}
+            >
+              x
+            </button>
+
+            {activeGuide === "repo-url" ? (
+              <>
+                <div className="guide-modal-header">
+                  <span>GitHub Repository URL Guide</span>
+                  <h2 id="guide-modal-title">Copy the repository HTTPS URL</h2>
+                  <p>
+                    Use the repository URL from GitHub so the app can load branches,
+                    commits, and source files for prediction.
+                  </p>
+                </div>
+
+                <div className="guide-step-list">
+                  <article className="guide-step-card">
+                    <div className="guide-step-copy">
+                      <strong>Step 1</strong>
+                      <p>Open the repository page on GitHub and click the green Code button.</p>
+                    </div>
+                    <img
+                      src="/github-url-guide-1.png"
+                      alt="GitHub page with Code button"
+                    />
+                  </article>
+
+                  <div className="guide-down-arrow" aria-hidden="true"></div>
+
+                  <article className="guide-step-card">
+                    <div className="guide-step-copy">
+                      <strong>Step 2</strong>
+                      <p>Select HTTPS and click the copy icon beside the repository URL.</p>
+                    </div>
+                    <img
+                      src="/github-url-guide-2.png"
+                      alt="GitHub HTTPS clone URL copy area"
+                    />
+                  </article>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="guide-modal-header">
+                  <span>GitHub PAT Guide</span>
+                  <h2 id="guide-modal-title">Create a Personal Access Token</h2>
+                  <p>
+                    Create a GitHub token so the app can request repository branches
+                    and commits without hitting public rate limits too quickly.
+                  </p>
+                </div>
+
+                <div className="guide-step-list">
+                  <article className="guide-step-card">
+                    <div className="guide-step-copy">
+                      <strong>Step 1</strong>
+                      <p>Open GitHub Profile settings.</p>
+                    </div>
+                    <img
+                      src="/pat-guide-1.png"
+                      alt="GitHub Developer settings page"
+                    />
+                  </article>
+
+                  <div className="guide-down-arrow" aria-hidden="true"></div>
+
+                  <article className="guide-step-card">
+                    <div className="guide-step-copy">
+                      <strong>Step 2</strong>
+                      <p>Go to Developer settings.</p>
+                    </div>
+                    <img
+                      src="/pat-guide-2.png"
+                      alt="GitHub create Personal Access Token page"
+                    />
+                  </article>
+
+                  <div className="guide-down-arrow" aria-hidden="true"></div>
+
+                  <article className="guide-step-card">
+                    <div className="guide-step-copy">
+                      <strong>Step 3</strong>
+                      <p>Create a new fine grained Personal Access Token and copy the generated token and paste it into the PAT field.</p>
+                    </div>
+                    <img
+                      src="/pat-guide-3.png"
+                      alt="GitHub generated Personal Access Token copy screen"
+                    />
+                  </article>
+                </div>
+              </>
+            )}
+          </section>
+        </div>
+      )}
+
 
       <GitRefSidePanel
         isOpen={isRefPanelOpen}

@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: sdp-for-github-backend
+    env: docker
+    plan: starter
+    healthCheckPath: /health
+    disk:
+      name: sdp-history
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://your-vercel-app.vercel.app
+      - key: ALLOW_LOCAL_CACHE_MODE
+        value: false
+      - key: MAX_SOURCE_FILES_PER_RUN
+        value: 500
+      - key: SDP_TEMP_REPO_DIR
+        value: /tmp/sdp_github_temp_repos
+      - key: PREDICTION_HISTORY_DB_PATH
+        value: /var/data/prediction_history.db

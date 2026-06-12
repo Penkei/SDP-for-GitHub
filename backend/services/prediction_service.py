@@ -1,15 +1,18 @@
 import os
 import joblib
 import pandas as pd
+
+from config import settings
 from services.feature_transform_service import transform_model_features
 
 
 class PredictionService:
     def __init__(self):
-        self.model_path = "../ml_workspace/models/github_defect_prediction_model.pkl"
-        self.features_path = "../ml_workspace/models/github_model_features.pkl"
-        self.threshold_path = "../ml_workspace/models/github_prediction_threshold.pkl"
-        self.transform_stats_path = "../ml_workspace/models/github_feature_transform_stats.pkl"
+        models_dir = os.path.join(settings.ml_workspace_dir, "models")
+        self.model_path = os.path.join(models_dir, "github_defect_prediction_model.pkl")
+        self.features_path = os.path.join(models_dir, "github_model_features.pkl")
+        self.threshold_path = os.path.join(models_dir, "github_prediction_threshold.pkl")
+        self.transform_stats_path = os.path.join(models_dir, "github_feature_transform_stats.pkl")
 
         self.model = joblib.load(self.model_path)
         self.feature_names = joblib.load(self.features_path)

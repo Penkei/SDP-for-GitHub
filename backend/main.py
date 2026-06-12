@@ -8,6 +8,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
+from config import settings
+
 from models.request_models import (
     PredictionRequest,
     CommitListRequest,
@@ -27,7 +29,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -38,7 +40,7 @@ pipeline = DefectPredictionPipeline()
 prediction_jobs = PredictionJobService(pipeline, prediction_history)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
-ML_WORKSPACE_DIR = os.path.join(PROJECT_DIR, "ml_workspace")
+ML_WORKSPACE_DIR = settings.ml_workspace_dir
 
 
 @app.get("/")
@@ -48,9 +50,32 @@ def root():
     }
 
 
+@app.get("/health")
+def health_check():
+    required_model_files = {
+        "model": pipeline.prediction_service.model_path,
+        "features": pipeline.prediction_service.features_path,
+        "threshold": pipeline.prediction_service.threshold_path,
+        "feature_transform_stats": pipeline.prediction_service.transform_stats_path,
+    }
+    model_files = {
+        name: os.path.exists(path)
+        for name, path in required_model_files.items()
+    }
+
+    return {
+        "status": "ok" if all(model_files.values()) else "degraded",
+        "model_files": model_files,
+        "history_storage": prediction_history.db_path,
+        "local_cache_mode_enabled": settings.allow_local_cache_mode,
+        "max_source_files_per_run": settings.max_source_files_per_run,
+    }
+
+
 @app.post("/predict")
 def predict_defect(request: PredictionRequest):
     try:
+        _validate_clone_mode(request.use_personal_access_token)
         result = pipeline.run(
             repo_url=request.repo_url,
             commit_sha=request.commit_sha,
@@ -75,6 +100,8 @@ def predict_defect(request: PredictionRequest):
         prediction_history.save_prediction(response)
         return response
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -82,6 +109,7 @@ def predict_defect(request: PredictionRequest):
 @app.post("/prediction-jobs")
 def start_prediction_job(request: PredictionRequest):
     try:
+        _validate_clone_mode(request.use_personal_access_token)
         return prediction_jobs.start_job(
             repo_url=request.repo_url,
             commit_sha=request.commit_sha,
@@ -90,6 +118,8 @@ def start_prediction_job(request: PredictionRequest):
             github_token=request.github_token
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -277,6 +307,7 @@ def get_model_transparency():
 @app.post("/commits")
 def get_commits(request: CommitListRequest):
     try:
+        _validate_clone_mode(request.use_personal_access_token)
         commits = pipeline.github_service.get_commit_list(
             repo_url=request.repo_url,
             git_ref=request.git_ref,
@@ -295,12 +326,15 @@ def get_commits(request: CommitListRequest):
             "commits": commits
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
 @app.post("/branches")
 def get_branches(request: GitRefListRequest):
     try:
+        _validate_clone_mode(request.use_personal_access_token)
         branches = pipeline.github_service.get_branch_list(
             repo_url=request.repo_url,
             use_personal_access_token=request.use_personal_access_token,
@@ -313,6 +347,8 @@ def get_branches(request: GitRefListRequest):
             "branches": branches
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -320,6 +356,7 @@ def get_branches(request: GitRefListRequest):
 @app.post("/tags")
 def get_tags(request: GitRefListRequest):
     try:
+        _validate_clone_mode(request.use_personal_access_token)
         tags = pipeline.github_service.get_tag_list(
             repo_url=request.repo_url,
             use_personal_access_token=request.use_personal_access_token,
@@ -332,6 +369,8 @@ def get_tags(request: GitRefListRequest):
             "tags": tags
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -364,6 +403,19 @@ def _effective_prediction_threshold(prediction_threshold: float = None) -> float
         return float(prediction_threshold)
 
     return float(pipeline.prediction_service.prediction_threshold)
+
+
+
+
+def _validate_clone_mode(use_personal_access_token: bool):
+    if not use_personal_access_token and not settings.allow_local_cache_mode:
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Local cache mode is disabled on this deployment. "
+                "Use Personal Token request mode instead."
+            )
+        )
 
 
 def _build_dataset_summary(path: str) -> dict:

@@ -14,10 +14,12 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from git import Git, Repo
 
+from config import settings
+
 
 class GitHubService:
     def __init__(self, base_dir=None, cache_ttl_seconds=300):
-        self.base_dir = base_dir or os.path.join(
+        self.base_dir = base_dir or settings.temp_repo_dir or os.path.join(
             tempfile.gettempdir(),
             "sdp_github_temp_repos"
         )

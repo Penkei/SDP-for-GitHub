@@ -1,0 +1,13 @@
+.git
+.gitignore
+frontend/node_modules
+frontend/dist
+backend/data/*.db
+**/__pycache__
+**/*.pyc
+.venv
+venv
+.env
+.env.*
+ml_workspace/temp_repos
+ml_workspace/**/.ipynb_checkpoints

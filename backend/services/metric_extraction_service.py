@@ -2,9 +2,11 @@ import os
 import re
 import pandas as pd
 
+from config import settings
+
 
 class MetricExtractionService:
-    MAX_FULL_REPOSITORY_FILES = None
+    MAX_FULL_REPOSITORY_FILES = settings.max_source_files_per_run
 
     LANGUAGE_BY_EXTENSION = {
         ".java": "Java",
