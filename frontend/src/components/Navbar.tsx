@@ -20,9 +20,14 @@ function Navbar() {
         <Link to="/how-it-works" className="nav-link works-link">
           How It Works
         </Link>
+        <Link to="/feedback" className="nav-link feedback-link">
+          Feedback
+        </Link>
       </div>
     </nav>
   );
 }
 
 export default Navbar;
+
+
