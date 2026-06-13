@@ -115,6 +115,7 @@ flowchart TD
 - The backend is hosted on Render free tier, so it may sleep after inactivity. The first request after sleep can be slow.
 - Vercel hosts only the frontend. Prediction requires the Render backend to be running.
 - Large repositories may take longer to clone, scan, and predict.
+- The public demo uses `MAX_SOURCE_FILES_PER_RUN=500`, which means each prediction scans up to 500 supported Java, Python, and C++ files.
 - Temporary repository clones are created on the hosted backend server during prediction.
 - The live demo now uses PostgreSQL for more stable feedback and prediction history. Free database or hosting limits may still apply depending on the provider plan.
 - Private repository prediction is not treated as a full production feature in this version.
@@ -415,6 +416,7 @@ pip install -r requirements.txt
 ## License
 
 This repository is prepared as an academic Final Year Project. Add a formal license file if the project will be published or reused outside the university submission context.
+
 
 
 

@@ -526,6 +526,16 @@ input[readonly] {
   }
 }
 
+.progress-estimate {
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 10px 0 0;
+}
+
+.progress-estimate strong {
+  color: #1e3a8a;
+}
 .progress-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -609,7 +619,9 @@ input[readonly] {
     grid-template-columns: 1fr;
   }
 
-  .progress-steps {
+
+
+.progress-steps {
     grid-template-columns: 1fr;
   }
 
@@ -649,3 +661,5 @@ input[readonly] {
     max-height: 260px;
   }
 }
+
+

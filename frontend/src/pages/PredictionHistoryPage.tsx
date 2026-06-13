@@ -91,7 +91,7 @@ function PredictionHistoryPage() {
       <section className="history-header">
         <div>
           <h1>Prediction History</h1>
-          <p>Review previous prediction runs stored in SQLite.</p>
+          <p>View everyone's predictions here!</p>
         </div>
         <button className="secondary-button" onClick={loadHistory} disabled={loading}>
           {loading ? "Refreshing..." : "Refresh"}
@@ -102,7 +102,7 @@ function PredictionHistoryPage() {
 
       {loading && (
         <div className="history-card">
-          <p className="history-muted">Loading prediction history...</p>
+          <p className="history-muted">Loading prediction history (may take 1 minute)...</p>
         </div>
       )}
 
