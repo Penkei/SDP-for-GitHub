@@ -9,6 +9,7 @@ import {
 import type { PredictionHistorySummary } from "../types/prediction";
 
 const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
+const ENABLE_HISTORY_DELETE = import.meta.env.VITE_ENABLE_HISTORY_DELETE !== "false";
 
 const getRepoName = (repoUrl: string) => {
   const cleanUrl = repoUrl.replace(/\.git$/, "");
@@ -173,13 +174,15 @@ function PredictionHistoryPage() {
                 >
                   {openingId === item.id ? "Opening..." : "Open Result"}
                 </button>
-                <button
-                  className="history-delete-button"
-                  onClick={() => handleDeleteHistory(item.id)}
-                  disabled={openingId === item.id || deletingId === item.id}
-                >
-                  {deletingId === item.id ? "Deleting..." : "Delete"}
-                </button>
+                {ENABLE_HISTORY_DELETE && (
+                  <button
+                    className="history-delete-button"
+                    onClick={() => handleDeleteHistory(item.id)}
+                    disabled={openingId === item.id || deletingId === item.id}
+                  >
+                    {deletingId === item.id ? "Deleting..." : "Delete"}
+                  </button>
+                )}
               </div>
             </article>
           ))}
@@ -190,3 +193,4 @@ function PredictionHistoryPage() {
 }
 
 export default PredictionHistoryPage;
+

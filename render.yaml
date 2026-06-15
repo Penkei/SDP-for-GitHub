@@ -11,9 +11,12 @@ services:
         value: https://sdp-for-git-hub.vercel.app
       - key: ALLOW_LOCAL_CACHE_MODE
         value: false
+      - key: ALLOW_HISTORY_DELETE
+        value: false
       - key: MAX_SOURCE_FILES_PER_RUN
         value: 500
       - key: SDP_TEMP_REPO_DIR
         value: /tmp/sdp_github_temp_repos
+
 
 
