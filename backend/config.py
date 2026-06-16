@@ -22,6 +22,10 @@ class Settings:
             "ALLOW_LOCAL_CACHE_MODE",
             True
         )
+        self.allow_history_delete = self._parse_bool_env(
+            "ALLOW_HISTORY_DELETE",
+            True
+        )
         self.max_source_files_per_run = self._parse_optional_int_env(
             "MAX_SOURCE_FILES_PER_RUN"
         )
@@ -58,6 +62,7 @@ class Settings:
 
 
 settings = Settings()
+
 
 
 

@@ -21,6 +21,23 @@ type ActiveGuide = "repo-url" | "pat" | null;
 
 //This flag keeps public deployments on request based cloning
 const ENABLE_LOCAL_CACHE_MODE = import.meta.env.VITE_ENABLE_LOCAL_CACHE_MODE !== "false";
+const MAX_SOURCE_FILES_PER_RUN = 500;
+const ESTIMATED_TOTAL_SECONDS = 300;
+
+const formatEstimatedTime = (percent: number) => {
+  if (percent >= 100) {
+    return "less than 1 minute";
+  }
+
+  const remainingPercent = Math.max(0, 100 - percent);
+  const remainingSeconds = Math.max(
+    30,
+    Math.ceil((remainingPercent / 100) * ESTIMATED_TOTAL_SECONDS)
+  );
+  const minutes = Math.max(1, Math.ceil(remainingSeconds / 60));
+
+  return `${minutes} minute${minutes === 1 ? "" : "s"}`;
+};
 
 const thresholdOptions: Array<{
   mode: ThresholdMode;
@@ -702,6 +719,9 @@ function RepositoryInputPage() {
                 style={{ width: `${predictionProgress.percent}%` }}
               ></div>
             </div>
+            <p className="progress-estimate">
+              Estimated time: {formatEstimatedTime(predictionProgress.percent)}. This public demo scans up to {MAX_SOURCE_FILES_PER_RUN} supported source files per prediction.
+            </p>
             <ol className="progress-steps">
               <li className={predictionProgress.percent >= 5 ? "active" : ""}>
                 Starting
@@ -765,7 +785,7 @@ function RepositoryInputPage() {
                   <article className="guide-step-card">
                     <div className="guide-step-copy">
                       <strong>Step 1</strong>
-                      <p>Open the repository page on GitHub and click the green Code button.</p>
+                      <p>Open the desire repository page on GitHub.</p>
                     </div>
                     <img
                       src="/github-url-guide-1.png"
@@ -778,7 +798,7 @@ function RepositoryInputPage() {
                   <article className="guide-step-card">
                     <div className="guide-step-copy">
                       <strong>Step 2</strong>
-                      <p>Select HTTPS and click the copy icon beside the repository URL.</p>
+                      <p>Copy the root HTTPS OR click on the copy icon beside the repository URL after pressing "Code".</p>
                     </div>
                     <img
                       src="/github-url-guide-2.png"
@@ -828,7 +848,7 @@ function RepositoryInputPage() {
                   <article className="guide-step-card">
                     <div className="guide-step-copy">
                       <strong>Step 3</strong>
-                      <p>Create a new fine grained Personal Access Token and copy the generated token and paste it into the PAT field.</p>
+                      <p>Create a new fine grained Personal Access Token (Public access only) and copy the generated token and paste it into the PAT field.</p>
                     </div>
                     <img
                       src="/pat-guide-3.png"
@@ -871,5 +891,6 @@ function RepositoryInputPage() {
 }
 
 export default RepositoryInputPage;
+
 
 

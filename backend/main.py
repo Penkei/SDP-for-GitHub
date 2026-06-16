@@ -83,6 +83,7 @@ def health_check():
         "database_backend": "postgresql" if settings.database_url else "sqlite",
         "allowed_origins": settings.allowed_origins,
         "local_cache_mode_enabled": settings.allow_local_cache_mode,
+        "history_delete_enabled": settings.allow_history_delete,
         "max_source_files_per_run": settings.max_source_files_per_run,
     }
 
@@ -168,6 +169,11 @@ def get_prediction_history_item(history_id: str):
 
 @app.delete("/prediction-history/{history_id}")
 def delete_prediction_history_item(history_id: str):
+    if not settings.allow_history_delete:
+        raise HTTPException(
+            status_code=403,
+            detail="Prediction history deletion is disabled for this deployment."
+        )
     deleted = prediction_history.delete_prediction(history_id)
 
     if not deleted:
@@ -479,6 +485,8 @@ def _build_dataset_summary(path: str) -> dict:
         "repositories": repositories,
         "languages": languages
     }
+
+
 
 
 
