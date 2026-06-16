@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { fetchFeedback, getApiErrorMessage, submitFeedback } from "../services/api";
 import type { FeedbackEntry } from "../types/prediction";
 
@@ -97,8 +97,9 @@ function FeedbackPage() {
             details, or other sensitive information.
           </p>
 
-          <label>Name</label>
+          <label htmlFor="feedback-name">Name</label>
           <input
+            id="feedback-name"
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -106,8 +107,8 @@ function FeedbackPage() {
             maxLength={80}
           />
 
-          <label>Role</label>
-          <select value={role} onChange={(event) => setRole(event.target.value)}>
+          <label htmlFor="feedback-role">Role</label>
+          <select id="feedback-role" value={role} onChange={(event) => setRole(event.target.value)}>
             {roleOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -129,8 +130,9 @@ function FeedbackPage() {
             ))}
           </div>
 
-          <label>Feedback</label>
+          <label htmlFor="feedback-message">Feedback</label>
           <textarea
+            id="feedback-message"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             placeholder="What worked well? What was confusing? What should be improved?"
@@ -197,3 +199,6 @@ function FeedbackPage() {
 }
 
 export default FeedbackPage;
+
+
+

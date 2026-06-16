@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   deletePredictionHistoryItem,
@@ -9,7 +9,7 @@ import {
 import type { PredictionHistorySummary } from "../types/prediction";
 
 const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
-const ENABLE_HISTORY_DELETE = import.meta.env.VITE_ENABLE_HISTORY_DELETE !== "false";
+export const isHistoryDeleteEnabled = () => import.meta.env.VITE_ENABLE_HISTORY_DELETE !== "false";
 
 const getRepoName = (repoUrl: string) => {
   const cleanUrl = repoUrl.replace(/\.git$/, "");
@@ -174,7 +174,7 @@ function PredictionHistoryPage() {
                 >
                   {openingId === item.id ? "Opening..." : "Open Result"}
                 </button>
-                {ENABLE_HISTORY_DELETE && (
+                {isHistoryDeleteEnabled() && (
                   <button
                     className="history-delete-button"
                     onClick={() => handleDeleteHistory(item.id)}
@@ -193,4 +193,5 @@ function PredictionHistoryPage() {
 }
 
 export default PredictionHistoryPage;
+
 
