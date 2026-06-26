@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  cancelPredictionJob,
   fetchBranches,
   fetchCommits,
   fetchPredictionJob,
@@ -14,6 +15,10 @@ import type {
 } from "../types/prediction";
 import CommitSidePanel from "../components/CommitSidePanel";
 import GitRefSidePanel from "../components/GitRefSidePanel";
+import {
+  formatEstimatedTime,
+  MAX_SOURCE_FILES_PER_RUN,
+} from "../utils/predictionProgress";
 
 type ThresholdMode = "balanced" | "aggressive" | "conservative" | "custom";
 
@@ -21,23 +26,6 @@ type ActiveGuide = "repo-url" | "pat" | null;
 
 //This flag keeps public deployments on request based cloning
 const ENABLE_LOCAL_CACHE_MODE = import.meta.env.VITE_ENABLE_LOCAL_CACHE_MODE !== "false";
-const MAX_SOURCE_FILES_PER_RUN = 500;
-const ESTIMATED_TOTAL_SECONDS = 300;
-
-const formatEstimatedTime = (percent: number) => {
-  if (percent >= 100) {
-    return "less than 1 minute";
-  }
-
-  const remainingPercent = Math.max(0, 100 - percent);
-  const remainingSeconds = Math.max(
-    30,
-    Math.ceil((remainingPercent / 100) * ESTIMATED_TOTAL_SECONDS)
-  );
-  const minutes = Math.max(1, Math.ceil(remainingSeconds / 60));
-
-  return `${minutes} minute${minutes === 1 ? "" : "s"}`;
-};
 
 const thresholdOptions: Array<{
   mode: ThresholdMode;
@@ -126,6 +114,7 @@ function RepositoryInputPage() {
   const [activeGuide, setActiveGuide] = useState<ActiveGuide>(null);
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
+  const [currentPredictionJobId, setCurrentPredictionJobId] = useState("");
   const [loadingCommits, setLoadingCommits] = useState(false);
   const [loadingRefs, setLoadingRefs] = useState(false);
   const [predictionProgress, setPredictionProgress] = useState({
@@ -365,6 +354,7 @@ function RepositoryInputPage() {
     }
 
     setLoadingPrediction(true);
+    setCurrentPredictionJobId("");
     setErrorMessage("");
     setPredictionProgress({
       percent: 0,
@@ -381,6 +371,8 @@ function RepositoryInputPage() {
         github_token: usePersonalAccessToken ? githubToken.trim() : null,
       });
 
+      setCurrentPredictionJobId(startedJob.job_id);
+
       setPredictionProgress({
         percent: startedJob.progress_percent,
         stage: startedJob.stage,
@@ -391,7 +383,8 @@ function RepositoryInputPage() {
 
       while (
         currentJob.status !== "completed" &&
-        currentJob.status !== "failed"
+        currentJob.status !== "failed" &&
+        currentJob.status !== "cancelled"
       ) {
         await new Promise((resolve) => setTimeout(resolve, 900));
         currentJob = await fetchPredictionJob(currentJob.job_id);
@@ -401,6 +394,10 @@ function RepositoryInputPage() {
           stage: currentJob.stage,
           message: currentJob.message,
         });
+      }
+
+      if (currentJob.status === "cancelled") {
+        throw new Error("Prediction job was cancelled.");
       }
 
       if (currentJob.status === "failed" || !currentJob.result) {
@@ -421,6 +418,30 @@ function RepositoryInputPage() {
       );
     } finally {
       setLoadingPrediction(false);
+      setCurrentPredictionJobId("");
+    }
+  };
+
+  const handleCancelPrediction = async () => {
+    if (!currentPredictionJobId) {
+      return;
+    }
+
+    try {
+      const cancelledJob = await cancelPredictionJob(currentPredictionJobId);
+      setPredictionProgress({
+        percent: cancelledJob.progress_percent,
+        stage: cancelledJob.stage,
+        message: cancelledJob.message,
+      });
+      setErrorMessage("Prediction job was cancelled.");
+    } catch (error) {
+      setErrorMessage(
+        getApiErrorMessage(error, "Failed to cancel prediction job.")
+      );
+    } finally {
+      setLoadingPrediction(false);
+      setCurrentPredictionJobId("");
     }
   };
 
@@ -722,6 +743,14 @@ function RepositoryInputPage() {
             <p className="progress-estimate">
               Estimated time: {formatEstimatedTime(predictionProgress.percent)}. This public demo scans up to {MAX_SOURCE_FILES_PER_RUN} supported source files per prediction.
             </p>
+            <button
+              type="button"
+              className="cancel-prediction-button"
+              onClick={handleCancelPrediction}
+              disabled={!currentPredictionJobId}
+            >
+              Cancel Prediction
+            </button>
             <ol className="progress-steps">
               <li className={predictionProgress.percent >= 5 ? "active" : ""}>
                 Starting
@@ -891,6 +920,7 @@ function RepositoryInputPage() {
 }
 
 export default RepositoryInputPage;
+
 
 
 

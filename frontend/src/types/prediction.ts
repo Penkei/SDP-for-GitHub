@@ -37,7 +37,7 @@ export interface PredictionResponse {
 
 export interface PredictionJobStatus {
   job_id: string;
-  status: "queued" | "running" | "completed" | "failed";
+  status: "queued" | "running" | "completed" | "failed" | "cancelled";
   stage: string;
   progress_percent: number;
   message: string;
