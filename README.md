@@ -6,7 +6,7 @@
 
 **SDP for GitHub** is a Software Defect Prediction application for GitHub repositories. It analyzes the files changed in a selected commit and estimates which files may need closer review before release.
 
-The application is built as a Final Year Project demonstration with a React frontend, FastAPI backend, PostgreSQL storage for the live demo, SQLite fallback for local development, GitHub repository inspection, static metric extraction, machine learning prediction, dashboard visualization, report export, prediction history, and public feedback.
+The application is built as a Academic Final Year Project demonstration with a React frontend, FastAPI backend, PostgreSQL storage for the live demo, SQLite fallback for local development, GitHub repository inspection, static metric extraction, machine learning prediction, dashboard visualization, report export, prediction history, and public feedback.
 
 ## Live Demo
 
@@ -14,7 +14,7 @@ Try the application here:
 
 [https://sdp-for-git-hub.vercel.app/](https://sdp-for-git-hub.vercel.app/)
 
-Please help through feedback of this application. The feedback page is public, so any feedback submitted there can be viewed by everyone who opens the page. Do not include passwords, GitHub tokens, private repository details, or sensitive information.
+Please help through feedback of this application. The feedback page is public, so any feedback submitted there can be viewed by everyone who opens the page.
 
 ## Application Preview
 
@@ -33,10 +33,10 @@ Please help through feedback of this application. The feedback page is public, s
 | <img src="readme-assets/previews/History.png" alt="Prediction history page" width="420" /> | <img src="readme-assets/previews/HowItWorks.png" alt="How It Works page" width="420" /> |
 | Saves completed prediction runs so users can <br> revisit earlier results. | Explains the model workflow and evaluation evidence in <br> developer-friendly language. |
 
-| Public Feedback | |
-| --- | --- |
-| <img src="readme-assets/previews/Feedback.png" alt="Public feedback page" width="420" /> | |
-| Allows users to submit feedback and view feedback <br> submitted by other users. | |
+| Public Feedback |
+| --- |
+| <img src="readme-assets/previews/Feedback.png" alt="Public feedback page" width="420" /> |
+| Allows users to submit feedback and view feedback <br> submitted by other users. |
 
 ## How The System Works
 
@@ -238,7 +238,7 @@ The application also accepts common GitHub HTTPS repository URLs without `.git` 
 
 ## Deployment Files In This Repository
 
-These files help the hosted backend run on Render. They are included for project completeness, but normal users do not need to edit them.
+These files help the hosted backend run on Render. They are included for deploying live service, but if you are a local user, do not need to edit them.
 
 | File | Purpose |
 | --- | --- |
@@ -248,7 +248,7 @@ These files help the hosted backend run on Render. They are included for project
 
 ## Database Storage
 
-The deployed application should use PostgreSQL so prediction history and public feedback do not disappear when the backend restarts.
+The deployed application use PostgreSQL so prediction history and public feedback do not disappear when the backend restarts. Which happen during SQLite.
 
 Set this environment variable on the backend hosting service:
 

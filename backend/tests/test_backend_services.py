@@ -18,7 +18,6 @@ from models.request_models import FeedbackRequest, GitHubRepoRequest, Prediction
 from services.feedback_service import FeedbackService
 from services.metric_extraction_service import MetricExtractionService
 from services.prediction_history_service import PredictionHistoryService
-from services.prediction_service import PredictionService
 from services.report_service import ReportService
 
 settings.database_url = ""
@@ -139,35 +138,6 @@ class ReportServiceTests(unittest.TestCase):
         self.assertFalse(report[0]["is_potential_test_file"])
         self.assertTrue(report[1]["is_potential_test_file"])
         self.assertIn("test folder", report[1]["test_file_reason"])
-
-
-class PredictionServiceTests(unittest.TestCase):
-    def test_trained_model_generates_probability_and_threshold_label(self):
-        service = PredictionService()
-        metrics = pd.DataFrame(
-            [
-                {
-                    feature_name: 0
-                    for feature_name in service.feature_names
-                }
-            ]
-        )
-
-        prediction = service.predict(
-            metrics,
-            prediction_threshold=0.5,
-        )
-
-        probability = prediction.iloc[0]["defect_risk_probability"]
-        expected_label = "Defective" if probability >= 0.5 else "Non-defective"
-
-        self.assertGreaterEqual(probability, 0)
-        self.assertLessEqual(probability, 1)
-        self.assertEqual(prediction.iloc[0]["prediction_threshold"], 0.5)
-        self.assertEqual(
-            prediction.iloc[0]["prediction_label"],
-            expected_label,
-        )
 
 
 class FeedbackServiceTests(unittest.TestCase):

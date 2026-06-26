@@ -88,7 +88,6 @@ def health_check():
         "allowed_origins": settings.allowed_origins,
         "local_cache_mode_enabled": settings.allow_local_cache_mode,
         "history_delete_enabled": settings.allow_history_delete,
-        "prediction_jobs": prediction_jobs.get_status_summary(),
         "max_source_files_per_run": settings.max_source_files_per_run,
     }
 
@@ -500,8 +499,6 @@ def _build_dataset_summary(path: str) -> dict:
         "repositories": repositories,
         "languages": languages
     }
-
-
 
 
 
