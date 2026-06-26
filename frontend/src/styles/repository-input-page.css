@@ -536,6 +536,27 @@ input[readonly] {
 .progress-estimate strong {
   color: #1e3a8a;
 }
+.cancel-prediction-button {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #991b1b;
+  cursor: pointer;
+  font-weight: 800;
+  margin-top: 12px;
+  padding: 10px 14px;
+  width: 100%;
+}
+
+.cancel-prediction-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.cancel-prediction-button:hover:not(:disabled) {
+  background: #fecaca;
+}
+
 .progress-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -619,9 +640,7 @@ input[readonly] {
     grid-template-columns: 1fr;
   }
 
-
-
-.progress-steps {
+  .progress-steps {
     grid-template-columns: 1fr;
   }
 
@@ -661,5 +680,6 @@ input[readonly] {
     max-height: 260px;
   }
 }
+
 
 
