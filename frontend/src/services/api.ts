@@ -95,6 +95,15 @@ export const fetchPredictionJob = async (
   return response.data;
 };
 
+export const cancelPredictionJob = async (
+  jobId: string
+): Promise<PredictionJobStatus> => {
+  const response = await axios.post<PredictionJobStatus>(
+    `${API_BASE_URL}/prediction-jobs/${jobId}/cancel`
+  );
+
+  return response.data;
+};
 export const exportPredictionReport = async (
   predictionResponse: PredictionResponse
 ): Promise<Blob> => {
@@ -219,4 +228,5 @@ export const fetchCommits = async (
 
   return response.data;
 };
+
 

@@ -6,9 +6,18 @@ import MetricGuide from "../components/MetricGuide";
 import { exportPredictionReport } from "../services/api";
 
 export type ProbabilitySortDirection = "desc" | "asc";
-type RiskFilter = "All" | "High" | "Medium" | "Low";
-type PredictionFilter = "All" | "Defective" | "Non-defective";
+export type RiskFilter = "All" | "High" | "Medium" | "Low";
+export type PredictionFilter = "All" | "Defective" | "Non-defective";
 type ExportFormat = "csv" | "pdf";
+
+export interface PredictionResultFilters {
+  fileSearch: string;
+  languageFilter: string;
+  riskFilter: RiskFilter;
+  predictionFilter: PredictionFilter;
+  minProbability: string;
+  maxProbability: string;
+}
 
 const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
 
@@ -107,7 +116,52 @@ const buildReportStats = (results: PredictionResult[]) => {
   };
 };
 
-const buildPdfReportHtml = (
+export const filterPredictionResults = (
+  results: PredictionResult[],
+  filters: PredictionResultFilters
+) => {
+  const normalizedSearch = filters.fileSearch.trim().toLowerCase();
+  const parsedMinProbability =
+    filters.minProbability.trim() === ""
+      ? null
+      : Number(filters.minProbability) / 100;
+  const parsedMaxProbability =
+    filters.maxProbability.trim() === ""
+      ? null
+      : Number(filters.maxProbability) / 100;
+
+  return results.filter((result) => {
+    const matchesSearch =
+      !normalizedSearch ||
+      result.file_path.toLowerCase().includes(normalizedSearch);
+    const matchesLanguage =
+      filters.languageFilter === "All" ||
+      result.language === filters.languageFilter;
+    const matchesRisk =
+      filters.riskFilter === "All" ||
+      result.risk_level === filters.riskFilter;
+    const matchesPrediction =
+      filters.predictionFilter === "All" ||
+      result.prediction_label === filters.predictionFilter;
+    const matchesMinProbability =
+      parsedMinProbability === null ||
+      result.defect_risk_probability >= parsedMinProbability;
+    const matchesMaxProbability =
+      parsedMaxProbability === null ||
+      result.defect_risk_probability <= parsedMaxProbability;
+
+    return (
+      matchesSearch &&
+      matchesLanguage &&
+      matchesRisk &&
+      matchesPrediction &&
+      matchesMinProbability &&
+      matchesMaxProbability
+    );
+  });
+};
+
+export const buildPdfReportHtml = (
   predictionResponse: PredictionResponse,
   results: PredictionResult[]
 ) => {
@@ -669,38 +723,13 @@ function PredictionResultPage() {
       return [];
     }
 
-    const normalizedSearch = fileSearch.trim().toLowerCase();
-    const parsedMinProbability =
-      minProbability.trim() === "" ? null : Number(minProbability) / 100;
-    const parsedMaxProbability =
-      maxProbability.trim() === "" ? null : Number(maxProbability) / 100;
-
-    return predictionResponse.results.filter((result) => {
-      const matchesSearch =
-        !normalizedSearch ||
-        result.file_path.toLowerCase().includes(normalizedSearch);
-      const matchesLanguage =
-        languageFilter === "All" || result.language === languageFilter;
-      const matchesRisk =
-        riskFilter === "All" || result.risk_level === riskFilter;
-      const matchesPrediction =
-        predictionFilter === "All" ||
-        result.prediction_label === predictionFilter;
-      const matchesMinProbability =
-        parsedMinProbability === null ||
-        result.defect_risk_probability >= parsedMinProbability;
-      const matchesMaxProbability =
-        parsedMaxProbability === null ||
-        result.defect_risk_probability <= parsedMaxProbability;
-
-      return (
-        matchesSearch &&
-        matchesLanguage &&
-        matchesRisk &&
-        matchesPrediction &&
-        matchesMinProbability &&
-        matchesMaxProbability
-      );
+    return filterPredictionResults(predictionResponse.results, {
+      fileSearch,
+      languageFilter,
+      riskFilter,
+      predictionFilter,
+      minProbability,
+      maxProbability,
     });
   }, [
     predictionResponse,

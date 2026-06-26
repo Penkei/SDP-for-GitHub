@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  cancelPredictionJob,
   fetchBranches,
   fetchCommits,
   fetchPredictionJob,
@@ -14,6 +15,10 @@ import type {
 } from "../types/prediction";
 import CommitSidePanel from "../components/CommitSidePanel";
 import GitRefSidePanel from "../components/GitRefSidePanel";
+import {
+  formatEstimatedTime,
+  MAX_SOURCE_FILES_PER_RUN,
+} from "../utils/predictionProgress";
 
 type ThresholdMode = "balanced" | "aggressive" | "conservative" | "custom";
 
@@ -126,6 +131,7 @@ function RepositoryInputPage() {
   const [activeGuide, setActiveGuide] = useState<ActiveGuide>(null);
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
+  const [currentPredictionJobId, setCurrentPredictionJobId] = useState("");
   const [loadingCommits, setLoadingCommits] = useState(false);
   const [loadingRefs, setLoadingRefs] = useState(false);
   const [predictionProgress, setPredictionProgress] = useState({
@@ -365,6 +371,7 @@ function RepositoryInputPage() {
     }
 
     setLoadingPrediction(true);
+    setCurrentPredictionJobId("");
     setErrorMessage("");
     setPredictionProgress({
       percent: 0,
@@ -381,6 +388,8 @@ function RepositoryInputPage() {
         github_token: usePersonalAccessToken ? githubToken.trim() : null,
       });
 
+      setCurrentPredictionJobId(startedJob.job_id);
+
       setPredictionProgress({
         percent: startedJob.progress_percent,
         stage: startedJob.stage,
@@ -391,7 +400,8 @@ function RepositoryInputPage() {
 
       while (
         currentJob.status !== "completed" &&
-        currentJob.status !== "failed"
+        currentJob.status !== "failed" &&
+        currentJob.status !== "cancelled"
       ) {
         await new Promise((resolve) => setTimeout(resolve, 900));
         currentJob = await fetchPredictionJob(currentJob.job_id);
@@ -401,6 +411,10 @@ function RepositoryInputPage() {
           stage: currentJob.stage,
           message: currentJob.message,
         });
+      }
+
+      if (currentJob.status === "cancelled") {
+        throw new Error("Prediction job was cancelled.");
       }
 
       if (currentJob.status === "failed" || !currentJob.result) {
@@ -421,6 +435,30 @@ function RepositoryInputPage() {
       );
     } finally {
       setLoadingPrediction(false);
+      setCurrentPredictionJobId("");
+    }
+  };
+
+  const handleCancelPrediction = async () => {
+    if (!currentPredictionJobId) {
+      return;
+    }
+
+    try {
+      const cancelledJob = await cancelPredictionJob(currentPredictionJobId);
+      setPredictionProgress({
+        percent: cancelledJob.progress_percent,
+        stage: cancelledJob.stage,
+        message: cancelledJob.message,
+      });
+      setErrorMessage("Prediction job was cancelled.");
+    } catch (error) {
+      setErrorMessage(
+        getApiErrorMessage(error, "Failed to cancel prediction job.")
+      );
+    } finally {
+      setLoadingPrediction(false);
+      setCurrentPredictionJobId("");
     }
   };
 

@@ -40,7 +40,11 @@ app.add_middleware(
 prediction_history = PredictionHistoryService()
 feedback_service = FeedbackService(prediction_history.db_path)
 pipeline = DefectPredictionPipeline()
-prediction_jobs = PredictionJobService(pipeline, prediction_history)
+prediction_jobs = PredictionJobService(
+    pipeline,
+    prediction_history,
+    max_workers=settings.max_prediction_workers
+)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 ML_WORKSPACE_DIR = settings.ml_workspace_dir
@@ -149,6 +153,16 @@ def get_prediction_job(job_id: str):
 
     return job
 
+
+
+@app.post("/prediction-jobs/{job_id}/cancel")
+def cancel_prediction_job(job_id: str):
+    job = prediction_jobs.cancel_job(job_id)
+
+    if not job:
+        raise HTTPException(status_code=404, detail="Prediction job not found")
+
+    return job
 
 @app.get("/prediction-history")
 def list_prediction_history():

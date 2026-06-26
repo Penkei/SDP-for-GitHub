@@ -29,6 +29,10 @@ class Settings:
         self.max_source_files_per_run = self._parse_optional_int_env(
             "MAX_SOURCE_FILES_PER_RUN"
         )
+        self.max_prediction_workers = self._parse_int_env(
+            "MAX_PREDICTION_WORKERS",
+            2
+        )
 
     def _parse_csv_env(self, name: str, default: list[str]) -> list[str]:
         value = os.getenv(name)
@@ -52,6 +56,13 @@ class Settings:
 
         return value.strip().lower() in {"1", "true", "yes", "on"}
 
+    def _parse_int_env(self, name: str, default: int) -> int:
+        value = os.getenv(name)
+
+        if not value:
+            return default
+
+        return int(value)
     def _parse_optional_int_env(self, name: str) -> int | None:
         value = os.getenv(name)
 
