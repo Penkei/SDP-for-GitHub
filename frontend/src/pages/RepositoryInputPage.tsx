@@ -26,24 +26,6 @@ type ActiveGuide = "repo-url" | "pat" | null;
 
 //This flag keeps public deployments on request based cloning
 const ENABLE_LOCAL_CACHE_MODE = import.meta.env.VITE_ENABLE_LOCAL_CACHE_MODE !== "false";
-const MAX_SOURCE_FILES_PER_RUN = 500;
-const ESTIMATED_TOTAL_SECONDS = 300;
-
-const formatEstimatedTime = (percent: number) => {
-  if (percent >= 100) {
-    return "less than 1 minute";
-  }
-
-  const remainingPercent = Math.max(0, 100 - percent);
-  const remainingSeconds = Math.max(
-    30,
-    Math.ceil((remainingPercent / 100) * ESTIMATED_TOTAL_SECONDS)
-  );
-  const minutes = Math.max(1, Math.ceil(remainingSeconds / 60));
-
-  return `${minutes} minute${minutes === 1 ? "" : "s"}`;
-};
-
 const thresholdOptions: Array<{
   mode: ThresholdMode;
   label: string;
@@ -760,6 +742,14 @@ function RepositoryInputPage() {
             <p className="progress-estimate">
               Estimated time: {formatEstimatedTime(predictionProgress.percent)}. This public demo scans up to {MAX_SOURCE_FILES_PER_RUN} supported source files per prediction.
             </p>
+            <button
+              type="button"
+              className="cancel-prediction-button"
+              onClick={handleCancelPrediction}
+              disabled={!currentPredictionJobId}
+            >
+              Cancel Prediction
+            </button>
             <ol className="progress-steps">
               <li className={predictionProgress.percent >= 5 ? "active" : ""}>
                 Starting
@@ -929,6 +919,7 @@ function RepositoryInputPage() {
 }
 
 export default RepositoryInputPage;
+
 
 
 
