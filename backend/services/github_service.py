@@ -8,6 +8,7 @@ import hashlib
 import tempfile
 import gc
 import json
+import subprocess
 from threading import RLock
 from urllib.parse import quote, urlparse, urlunparse
 from urllib.request import Request, urlopen
@@ -92,6 +93,7 @@ class GitHubService:
 
         message = re.sub(r"POST git-upload-pack[^\n\r]*", "", message)
         message = re.sub(r"Updating files:\s*\d+%[^\n\r]*", "", message)
+        message = re.sub(r"Authorization:\s*Bearer\s+[^\s'\"]+", "Authorization: Bearer ***", message)
         message = re.sub(r"\s+", " ", message).strip()
 
         if "unable to create file" in message and "Filename too long" in message:
@@ -117,6 +119,93 @@ class GitHubService:
             )
 
         return Exception(message)
+
+    def _run_git_command(
+        self,
+        args: list[str],
+        repo_url: str,
+        github_token: str = None,
+        cwd: str = None
+    ):
+        command = ["git", *args]
+
+        try:
+            return subprocess.run(
+                command,
+                cwd=cwd,
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=settings.git_command_timeout_seconds
+            )
+        except subprocess.TimeoutExpired as error:
+            raise self._sanitize_error(
+                Exception(
+                    "Git operation timed out. The repository may be too large "
+                    "or the hosting server may be slow. Try again later or use a smaller commit."
+                ),
+                repo_url,
+                github_token
+            )
+        except subprocess.CalledProcessError as error:
+            output = "\n".join(
+                part for part in [error.stdout, error.stderr]
+                if part
+            )
+            raise self._sanitize_error(Exception(output or str(error)), repo_url, github_token)
+
+    def _authenticated_git_args(self, github_token: str = None) -> list[str]:
+        if not github_token:
+            return []
+
+        return [
+            "-c",
+            f"http.extraHeader=Authorization: Bearer {github_token}"
+        ]
+
+    def _clone_selected_commit_shallow(
+        self,
+        repo_url: str,
+        repo_path: str,
+        commit_sha: str,
+        github_token: str = None
+    ) -> bool:
+        depth = max(2, int(settings.git_shallow_history_depth))
+        auth_args = self._authenticated_git_args(github_token)
+
+        os.makedirs(repo_path, exist_ok=True)
+
+        self._run_git_command(
+            ["-C", repo_path, "-c", "core.longpaths=true", "init"],
+            repo_url,
+            github_token
+        )
+        self._run_git_command(
+            ["-C", repo_path, "remote", "add", "origin", repo_url],
+            repo_url,
+            github_token
+        )
+        self._run_git_command(
+            [
+                "-C",
+                repo_path,
+                *auth_args,
+                "fetch",
+                "--no-tags",
+                f"--depth={depth}",
+                "origin",
+                commit_sha
+            ],
+            repo_url,
+            github_token
+        )
+        self._run_git_command(
+            ["-C", repo_path, "-c", "core.longpaths=true", "checkout", "--force", "FETCH_HEAD"],
+            repo_url,
+            github_token
+        )
+
+        return True
 
     def _github_api_get(self, repo_url: str, api_path: str, github_token: str = None):
         request_url = f"https://api.github.com{api_path}"
@@ -237,17 +326,36 @@ class GitHubService:
         )
 
         if use_personal_access_token:
-            print(f"Cloning repository with PAT into temporary worktree: {repo_url}")
-            clone_url = self._build_authenticated_url(repo_url, github_token)
+            print(f"Fetching selected commit into temporary worktree: {repo_url}")
             try:
-                repo = Repo.clone_from(
-                    clone_url,
+                self._clone_selected_commit_shallow(
+                    repo_url,
                     repo_path,
-                    multi_options=["-c", "core.longpaths=true"],
-                    allow_unsafe_options=True
+                    commit_sha,
+                    github_token=github_token
                 )
+                return repo_path
             except Exception as error:
-                raise self._sanitize_error(error, repo_url, github_token)
+                if "timed out" in str(error).lower():
+                    raise self._sanitize_error(error, repo_url, github_token)
+
+                print(
+                    "Warning: shallow commit fetch failed. "
+                    "Falling back to normal temporary clone."
+                )
+                self.cleanup_repo(repo_path)
+
+                clone_url = self._build_authenticated_url(repo_url, github_token)
+
+                try:
+                    repo = Repo.clone_from(
+                        clone_url,
+                        repo_path,
+                        multi_options=["-c", "core.longpaths=true"],
+                        allow_unsafe_options=True
+                    )
+                except Exception as fallback_error:
+                    raise self._sanitize_error(fallback_error, repo_url, github_token)
         else:
             cache_path = self._ensure_cached_repo(repo_url)
             print(f"Cloning repository from local cache: {repo_url}")

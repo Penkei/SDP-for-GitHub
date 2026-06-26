@@ -33,6 +33,14 @@ class Settings:
             "MAX_PREDICTION_WORKERS",
             2
         )
+        self.git_shallow_history_depth = self._parse_int_env(
+            "GIT_SHALLOW_HISTORY_DEPTH",
+            80
+        )
+        self.git_command_timeout_seconds = self._parse_int_env(
+            "GIT_COMMAND_TIMEOUT_SECONDS",
+            420
+        )
 
     def _parse_csv_env(self, name: str, default: list[str]) -> list[str]:
         value = os.getenv(name)

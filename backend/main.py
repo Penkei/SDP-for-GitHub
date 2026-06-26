@@ -89,6 +89,9 @@ def health_check():
         "local_cache_mode_enabled": settings.allow_local_cache_mode,
         "history_delete_enabled": settings.allow_history_delete,
         "max_source_files_per_run": settings.max_source_files_per_run,
+        "git_shallow_history_depth": settings.git_shallow_history_depth,
+        "git_command_timeout_seconds": settings.git_command_timeout_seconds,
+        "prediction_jobs": prediction_jobs.get_status_summary(),
     }
 
 
